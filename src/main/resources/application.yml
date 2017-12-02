@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gm-report
+  http:
+    multipart:
+      max-file-size: 5Mb
+      max-request-size: 5Mb
+    encoding:
+      enabled: true
+      charset: UTF-8
+  jackson:
+      time-zone: GMT+8
+      date-format: yyyy-MM-dd HH:mm:ss
+server:
+  port: 8080
+
+management:
+  add-application-context-header: false #防止加 x-application-context头
+#car项目自有属性配置
+DINGDING_CAR_OA_HTTP_URL: https://oapi.dingtalk.com/robot/send
+CAR_OA_ACCESS_TOKEN: f7c874c95000b1116a5089b76c917a62d0b93af83365c72b76479e5fb3d22061
+root-path: d:\pic
+linux-path: /pic
