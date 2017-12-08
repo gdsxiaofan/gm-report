@@ -1,2 +1,4 @@
 /.idea/
-/gm-report.iml
+*.iml
+gm-web/web-app/node_modules/
+gm-web/web-oa/node_modules/
