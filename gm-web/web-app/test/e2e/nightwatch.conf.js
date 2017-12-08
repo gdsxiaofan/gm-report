@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
 require('babel-register')
 var config = require('../../config')
 

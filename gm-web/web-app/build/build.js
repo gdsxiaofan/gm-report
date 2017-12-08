@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
 require('./check-versions')()
 
 process.env.NODE_ENV = 'production'

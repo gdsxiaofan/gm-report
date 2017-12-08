@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
 import {fetch,qs} from '../lib/utils/fetch'
 
 let base = '';

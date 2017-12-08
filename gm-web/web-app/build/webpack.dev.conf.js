@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
 var utils = require('./utils')
 var webpack = require('webpack')
 var config = require('../config')

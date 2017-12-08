@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
 import VueRouter from 'vue-router'
 import iview from 'iview'
 import {

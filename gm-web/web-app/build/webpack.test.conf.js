@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
+
 // This is the webpack config used for unit tests.
 
 var utils = require('./utils')

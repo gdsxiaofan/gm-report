@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
+
 // A custom Nightwatch assertion.
 // the name of the method is the filename.
 // can be used in tests like this:

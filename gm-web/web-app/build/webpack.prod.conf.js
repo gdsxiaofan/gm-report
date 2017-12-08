@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
 var path = require('path')
 var utils = require('./utils')
 var webpack = require('webpack')

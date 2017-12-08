@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
 import axios from 'axios';
 // import store from 'src/store';
 import {Message} from 'iview';

@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
+
 // 1. start the dev server using production config
 process.env.NODE_ENV = 'testing'
 var server = require('../../build/dev-server.js')

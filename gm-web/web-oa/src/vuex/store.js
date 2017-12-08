@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as actions from './actions'

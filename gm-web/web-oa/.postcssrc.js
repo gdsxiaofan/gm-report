@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
+
 // https://github.com/michael-ciniawsky/postcss-load-config
 
 module.exports = {

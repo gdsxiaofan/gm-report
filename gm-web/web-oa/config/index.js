@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
+
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
 

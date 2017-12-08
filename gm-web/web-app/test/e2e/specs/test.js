@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+ */
+
 // For authoring Nightwatch tests, see
 // http://nightwatchjs.org/guide#usage
 
