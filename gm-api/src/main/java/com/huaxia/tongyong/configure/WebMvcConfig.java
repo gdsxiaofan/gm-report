@@ -32,7 +32,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/META-INF/car/");
+                .addResourceLocations("classpath:/META-INF/report/");
         registry.addResourceHandler("swagger-ui.html")
                  .addResourceLocations("classpath:/META-INF/resources/");
         super.addResourceHandlers(registry);

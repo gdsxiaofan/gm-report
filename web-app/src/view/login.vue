@@ -12,8 +12,23 @@
     </mt-header>
     <form :model="loginForm" class="loginForm">
 
-        <mt-field label="用户名：" placeholder="请输入用户名" v-model="loginForm.username"></mt-field>
-        <mt-field label="密码：" placeholder="请输入密码" v-model="loginForm.password"></mt-field>
+        <!--<mt-field label="用户名：" placeholder="请输入用户名" v-model="loginForm.username"></mt-field>-->
+        <!--<mt-field label="密码：" placeholder="请输入密码" v-model="loginForm.password"></mt-field>-->
+      <section>
+        <div>
+          <img src="../assets/img/5.png">
+        </div>
+      </section>
+      <section>
+        <div>
+          <input type="text" placeholder="工号/手机号" v-model="loginForm.username">
+        </div>
+      </section>
+      <section>
+        <div>
+          <input type="password" placeholder="密码" v-model="loginForm.password">
+        </div>
+      </section>
       <section>
         <mt-button style="background: #26a2ff" @click="loginSubmit">登录</mt-button>
       </section>

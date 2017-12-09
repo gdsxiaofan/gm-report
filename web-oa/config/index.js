@@ -27,14 +27,13 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8081,
+    port: 8055,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
       '/car': {
-        target: 'http://localhost:8011',
-        // target: 'http://192.168.66.81:8080',
+        target: 'http://localhost:8080',
         pathRewrite: {'/car': ''},
         changeOrigin: true
       },

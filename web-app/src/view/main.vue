@@ -12,18 +12,18 @@
             <p>首页</p>
           </router-link>
         </mt-tab-item>
-        <mt-tab-item id="classify">
-          <router-link to="/classify">
-            <p><i class="fa fa-th-large" aria-hidden="true"></i></p>
-            <p>分类</p>
-          </router-link>
-        </mt-tab-item>
-        <mt-tab-item id="cart">
-          <router-link to="/shopping">
-            <p><i class="fa fa-shopping-cart" aria-hidden="true"></i></p>
-            <p>购物车</p>
-          </router-link>
-        </mt-tab-item>
+        <!--<mt-tab-item id="classify">-->
+          <!--<router-link to="/classify">-->
+            <!--<p><i class="fa fa-th-large" aria-hidden="true"></i></p>-->
+            <!--<p>分类</p>-->
+          <!--</router-link>-->
+        <!--</mt-tab-item>-->
+        <!--<mt-tab-item id="cart">-->
+          <!--<router-link to="/shopping">-->
+            <!--<p><i class="fa fa-shopping-cart" aria-hidden="true"></i></p>-->
+            <!--<p>购物车</p>-->
+          <!--</router-link>-->
+        <!--</mt-tab-item>-->
         <mt-tab-item id="user">
           <router-link to="/personal">
             <p><i class="fa fa-user-o" aria-hidden="true"></i></p>

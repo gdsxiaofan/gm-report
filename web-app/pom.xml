@@ -80,7 +80,7 @@
     <resources>
       <resource>
         <directory>dist</directory>
-        <targetPath>META-INF/car</targetPath>
+        <targetPath>META-INF/report/app</targetPath>
         <filtering>true</filtering>
       </resource>
     </resources>

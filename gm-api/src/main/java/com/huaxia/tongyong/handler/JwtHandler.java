@@ -63,6 +63,9 @@ public class JwtHandler implements HandlerInterceptor {
                 return  cookie.getValue();
             }
         }
+        if(StringUtils.isNotBlank(request.getHeader(AUTHORIZATION))){
+            return request.getHeader(AUTHORIZATION);
+        }
         return null;
     }
 
@@ -71,6 +74,7 @@ public class JwtHandler implements HandlerInterceptor {
         Cookie cookie = new Cookie(AUTHORIZATION, jwt);
         cookie.setPath("/");
         cookie.setMaxAge(24 * 60 * 60);//过期时间为24小时
+        response.setHeader(AUTHORIZATION,jwt);
         response.addCookie(cookie);
     }
     @Override
