@@ -1,4 +1,5 @@
 /.idea/
 *.iml
-gm-web/web-app/node_modules/
-gm-web/web-oa/node_modules/
+/web-app/node_modules/
+/web-oa/node_modules/
+
