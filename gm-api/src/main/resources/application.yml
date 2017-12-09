@@ -15,7 +15,8 @@ spring:
       date-format: yyyy-MM-dd HH:mm:ss
 server:
   port: 8080
-
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
 management:
   add-application-context-header: false #防止加 x-application-context头
 #car项目自有属性配置

@@ -28,7 +28,7 @@ fetch.interceptors.request.use(config => {
   // config.url = 'dsf/d'
   // console.log(config.url)
   // if (store.getters.token) {
-  config.headers['Authorization'] = localStorage.getItem("Authorization"); // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
+  // config.headers['Authorization'] = localStorage.getItem("Authorization"); // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
   // }
   return config;
 }, error => {
@@ -40,7 +40,7 @@ fetch.interceptors.request.use(config => {
 // respone拦截器
 fetch.interceptors.response.use(
   response => {
-    localStorage.setItem("Authorization", response.headers.authorization)
+    // localStorage.setItem("Authorization", response.headers.authorization)
     return response
   }
 
