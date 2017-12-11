@@ -83,36 +83,36 @@
 </template>
 
 <script>
-  import _ from "lodash"
+  import _ from 'lodash'
   import {
     updatePwd,
     getUserInfo
-  } from "../api/api"
+  } from '../api/api'
 
   export default {
-    data() {
+    data () {
       const validatePass = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('请输入密码'));
+          callback(new Error('请输入密码'))
         } else {
           if (this.formValidate.resetPassword !== '') {
             // 对第二个密码框单独验证
-            this.$refs.formValidate.validateField('resetPassword');
+            this.$refs.formValidate.validateField('resetPassword')
           }
-          callback();
+          callback()
         }
       }
       const validatePassCheck = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('请再次输入密码'));
+          callback(new Error('请再次输入密码'))
         } else if (value !== this.formValidate.newPassword) {
-          callback(new Error('两次输入密码不一致!'));
+          callback(new Error('两次输入密码不一致!'))
         } else {
-          callback();
+          callback()
         }
       }
       return {
-        modeType: "vertical",
+        modeType: 'vertical',
         spanLeft: 5,
         spanRight: 19,
         logoIsDisplay: false,
@@ -135,42 +135,155 @@
             {required: true, validator: validatePassCheck, trigger: 'blur'}
           ],
         },
-        menu: [],
+        menu: [
+          {
+            'id': 106,
+            'name': '用户管理',
+            'href': '',
+            'icon': '',
+            'orderTop': 1,
+            'parentId': 0,
+            'deleteStatus': 1
+          }, {
+            'id': 107,
+            'name': '群组管理',
+            'href': '',
+            'icon': '',
+            'orderTop': 1,
+            'parentId': 0,
+            'deleteStatus': 1
+          }, {
+            'id': 110,
+            'name': '角色管理',
+            'href': '/role',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 106,
+            'deleteStatus': 1
+          }, {
+            'id': 111,
+            'name': '排班管理',
+            'href': '/plan',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 106,
+            'deleteStatus': 1
+          }, {
+            'id': 112,
+            'name': '用户管理',
+            'href': '/userRole',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 108,
+            'deleteStatus': 1
+          }, {
+            'id': 113,
+            'name': '巡检工单',
+            'href': '/lookOrder',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 107,
+            'deleteStatus': 1
+          }, {
+            'id': 114,
+            'name': '维修工单',
+            'href': '/fixOrder',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 107,
+            'deleteStatus': 1
+          }, {
+            'id': 115,
+            'name': '审核工单',
+            'href': '/verifyOrder',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 107,
+            'deleteStatus': 1
+          }, {
+            'id': 116,
+            'name': '配置工单',
+            'href': '/configOrder',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 107,
+            'deleteStatus': 0
+          }, {
+            'id': 117,
+            'name': '所有工单',
+            'href': '/allOrder',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 107,
+            'deleteStatus': 1
+          }, {
+            'id': 118,
+            'name': '员工信息管理',
+            'href': '/employeeInfo',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 108,
+            'deleteStatus': 0
+          }, {
+            'id': 119,
+            'name': '新增员工',
+            'href': '/employeeAdd',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 108,
+            'deleteStatus': 0
+          }, {
+            'id': 120,
+            'name': '设备信息管理',
+            'href': '/deviceInfo',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 109,
+            'deleteStatus': 1
+          }, {
+            'id': 121,
+            'name': '服务管理',
+            'href': '/service',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 109,
+            'deleteStatus': 0
+          }],
         userName: '',
         userRole: ''
       }
     },
     computed: {
-      iconSize() {
-        return this.spanLeft === 5 ? 24 : 14;
+      iconSize () {
+        return this.spanLeft === 5 ? 24 : 14
       },
-      logoSize() {
+      logoSize () {
         if (this.spanLeft !== 5) {
-          this.logoIsDisplay = true;
-          return 30;
+          this.logoIsDisplay = true
+          return 30
         } else {
-          this.logoIsDisplay = false;
-          return 0;
+          this.logoIsDisplay = false
+          return 0
         }
       },
-      menuMain() {
+      menuMain () {
         return this.menu.filter(item => {
           return item.parentId === 0
         })
       },
-      openNames() {
+      openNames () {
         return this.$route.path === '/' ? [] : this.menu.filter(item => {
           return item.href === this.$route.path
         }).map(item => {
           return item.parentId
         })
       },
-      activeNames() {
-        return (this.$route.path === '/'||this.menuMain.length===0)? 0 : this.menu.filter(item => {
+      activeNames () {
+        return (this.$route.path === '/' || this.menuMain.length === 0) ? 0 : this.menu.filter(item => {
           return item.href === this.$route.path
         })[0].id
       },
-      Breadcrumb() {
+      Breadcrumb () {
         let bread = []
         if (this.$route.path === '/') {
           return bread
@@ -178,8 +291,8 @@
         let menucache = this.menu.filter(item => {
           return item.id === this.activeNames
         })[0]
-        if(menucache)bread.push(menucache)
-        while (menucache&&menucache.parentId !== 0) {
+        if (menucache) bread.push(menucache)
+        while (menucache && menucache.parentId !== 0) {
           menucache = this.menu.filter(item => {
             return item.id === menucache.parentId
           })[0]
@@ -189,69 +302,69 @@
       }
     },
     methods: {
-      toggleClick() {
+      toggleClick () {
         if (this.spanLeft === 5) {
-          this.spanLeft = 2;
-          this.spanRight = 22;
+          this.spanLeft = 2
+          this.spanRight = 22
         } else {
-          this.spanLeft = 5;
-          this.spanRight = 19;
+          this.spanLeft = 5
+          this.spanRight = 19
         }
       },
-      modifyPassWord() {
-        this.modal1 = true;
+      modifyPassWord () {
+        this.modal1 = true
       },
-      logout() {
+      logout () {
         sessionStorage.removeItem('user')
-        this.$router.push('/login');
+        this.$router.push('/login')
       },
-      comfirmModifyPS() {
+      comfirmModifyPS () {
         this.$refs.formValidate.validate((valid) => {
           if (valid) {
-            this.loading1 = true;
+            this.loading1 = true
             updatePwd(this.formValidate.oldPassword, this.formValidate.newPassword).then(res => {
-              this.loading1 = false;
-              if(res.data.code ===1){//修改成功
-                this.modal1 = false;
-                this.$Message.success(res.data.message);
-                this.$refs.formValidate.resetFields();
-              }else {//原密码不正确
-                this.$Message.error(res.data.message);
+              this.loading1 = false
+              if (res.data.code === 1) {//修改成功
+                this.modal1 = false
+                this.$Message.success(res.data.message)
+                this.$refs.formValidate.resetFields()
+              } else {//原密码不正确
+                this.$Message.error(res.data.message)
               }
 
             }).catch(err => {
-              this.loading1 = false;
-              this.$Message.error('表单验证失败!' + err);
+              this.loading1 = false
+              this.$Message.error('表单验证失败!' + err)
             })
           } else {
-            this.$Message.error('表单验证失败!');
-            return false;
+            this.$Message.error('表单验证失败!')
+            return false
           }
         })
         // this.$Message.info('点击了确定');
       },
-      cancel(name) {
-        this.modal1 = false;
-        this.$refs[name].resetFields();
-        this.$Message.info('点击了取消');
+      cancel (name) {
+        this.modal1 = false
+        this.$refs[name].resetFields()
+        this.$Message.info('点击了取消')
       },
-      menuSelect(id) {
+      menuSelect (id) {
         let path = this.menu.filter(item => {
           return item.id === id
         })[0].href
-        this.$router.push({path});
+        this.$router.push({path})
       },
     },
-    mounted() {
-       getUserInfo().then(res=>{
-         this.userName = res.data.data.userName
-         this.userRole = res.data.data.roleName
-         this.menu = res.data.data.memuVoList
-         this.$nextTick(()=>{
-           this.$refs.menu.updateOpened()
-           this.$refs.menu.updateActiveName();
-         });
-       })
+    mounted () {
+      getUserInfo().then(res => {
+        this.userName = res.data.data.userName
+        this.userRole = res.data.data.roleName
+        // this.menu = res.data.data.memuVoList
+        // this.$nextTick(()=>{
+        //   this.$refs.menu.updateOpened()
+        //   this.$refs.menu.updateActiveName();
+        // });
+      })
 
     }
   }
