@@ -41,7 +41,7 @@
 
 
     <!-- 添加 （匹配有值的字段）-->
-    <insert id="insertSelective" parameterType="com.xiaofan.car.persistence.model.Employee">
+    <insert id="insertSelective" parameterType="com.huaxia.tongyong.model.Employee">
         INSERT INTO t_employee
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -128,7 +128,7 @@
     </insert>
 
     <!-- 修 改-->
-    <update id="updateByPrimaryKeySelective" parameterType="com.xiaofan.car.persistence.model.Employee">
+    <update id="updateByPrimaryKeySelective" parameterType="com.huaxia.tongyong.model.Employee">
         UPDATE t_employee
         <set>
             <if test="employeeName != null">
@@ -180,7 +180,7 @@
         AND employee_password = #{password} and is_active=1 and delete_Status=1
     </select>
 
-    <select id="selectUserPermissionVo" resultType="com.xiaofan.car.persistence.vo.UserPermissionVo">
+    <select id="selectUserPermissionVo" resultType="com.huaxia.tongyong.model.Employee">
         SELECT
             e.employee_name AS userName,
             e.employee_no   AS employeeNo,
@@ -192,7 +192,7 @@
         WHERE
             e.id = #{userId}
     </select>
-    <select id="selectEmployeeVoByUserParam" resultType="com.xiaofan.car.persistence.vo.EmployeeVo"
+    <!--<select id="selectEmployeeVoByUserParam" resultType="com.xiaofan.car.persistence.vo.EmployeeVo"
             parameterType="com.xiaofan.car.persistence.param.UserQueryParam">
         SELECT
         t_employee.id as id,
@@ -221,7 +221,7 @@
                 and employee_no like CONCAT('%',#{employeeNo},'%')
             </if>
         </where>
-    </select>
+    </select>-->
     <select id="selectEmployeeForUpdatePwd" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>

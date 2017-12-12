@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huaxia.tongyong.repository.ReportRepairMapper">
+
+	<!--实体映射-->
+	<resultMap id="BaseResultMap" type="com.huaxia.tongyong.model.ReportRepair">
+		<!---->
+		<id property="id" column="id" />
+		<!--日报信息表id-->
+		<result property="reportId" column="report_id" />
+		<!--维修保养设备-->
+		<result property="deviceName" column="device_name" />
+		<!--维修保养设备-->
+		<result property="repairComment" column="repair_comment" />
+		<!--更换部件-->
+		<result property="replaceParts" column="replace_parts" />
+		<!--验证措施-->
+		<result property="validateMethod" column="validate_method" />
+		<!--标定体积-->
+		<result property="calibratedVolume" column="calibrated_volume" />
+		<!--状态确认：1，未修复，2，已修复-->
+		<result property="repairStatus" column="repair_status" />
+		<!--修复后首车号-->
+		<result property="repairCarNo" column="repair_car_no" />
+		<!--创建时间-->
+		<result property="createTime" column="create_time" />
+		<!--更新时间-->
+		<result property="updateTime" column="update_time" />
+		<!--有效状态：1，有效 0，无效-->
+		<result property="deleteStatus" column="delete_status" />
+	</resultMap>
+
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+	id,	report_id,	device_name,	repair_comment,	replace_parts,	validate_method,	calibrated_volume,	repair_status,	repair_car_no,	create_time,	update_time,	delete_status
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.model.ReportRepair" parameterType="java.lang.Long">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM t_report_repair
+		 WHERE id = #{id}
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		 DELETE FROM t_report_repair
+		 WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.huaxia.tongyong.model.ReportRepair">
+		 INSERT INTO t_report_repair
+ 		(id,report_id,device_name,repair_comment,replace_parts,validate_method,calibrated_volume,repair_status,repair_car_no,create_time,update_time,delete_status) 
+		 VALUES 
+ 		(#{id},#{reportId},#{deviceName},#{repairComment},#{replaceParts},#{validateMethod},#{calibratedVolume},#{repairStatus},#{repairCarNo},#{createTime},#{updateTime},#{deleteStatus}) 
+	</insert>
+
+	<!-- 添加 （匹配有值的字段）-->
+	<insert id="insertSelective" parameterType="com.huaxia.tongyong.model.ReportRepair">
+		 INSERT INTO t_report_repair
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+				 id,
+			</if>
+			<if test="reportId != null">
+				 report_id,
+			</if>
+			<if test="deviceName != null">
+				 device_name,
+			</if>
+			<if test="repairComment != null">
+				 repair_comment,
+			</if>
+			<if test="replaceParts != null">
+				 replace_parts,
+			</if>
+			<if test="validateMethod != null">
+				 validate_method,
+			</if>
+			<if test="calibratedVolume != null">
+				 calibrated_volume,
+			</if>
+			<if test="repairStatus != null">
+				 repair_status,
+			</if>
+			<if test="repairCarNo != null">
+				 repair_car_no,
+			</if>
+			<if test="createTime != null">
+				 create_time,
+			</if>
+			<if test="updateTime != null">
+				 update_time,
+			</if>
+			<if test="deleteStatus != null">
+				 delete_status,
+			</if>
+
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id!=null">
+				 #{id},
+			</if>
+			<if test="reportId!=null">
+				 #{reportId},
+			</if>
+			<if test="deviceName!=null">
+				 #{deviceName},
+			</if>
+			<if test="repairComment!=null">
+				 #{repairComment},
+			</if>
+			<if test="replaceParts!=null">
+				 #{replaceParts},
+			</if>
+			<if test="validateMethod!=null">
+				 #{validateMethod},
+			</if>
+			<if test="calibratedVolume!=null">
+				 #{calibratedVolume},
+			</if>
+			<if test="repairStatus!=null">
+				 #{repairStatus},
+			</if>
+			<if test="repairCarNo!=null">
+				 #{repairCarNo},
+			</if>
+			<if test="createTime!=null">
+				 #{createTime},
+			</if>
+			<if test="updateTime!=null">
+				 #{updateTime},
+			</if>
+			<if test="deleteStatus!=null">
+				 #{deleteStatus},
+			</if>
+		 </trim>
+	</insert>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.huaxia.tongyong.model.ReportRepair">
+		 UPDATE t_report_repair
+ 		 <set> 
+			<if test="reportId != null">
+				 report_id = #{reportId},
+			</if>
+			<if test="deviceName != null">
+				 device_name = #{deviceName},
+			</if>
+			<if test="repairComment != null">
+				 repair_comment = #{repairComment},
+			</if>
+			<if test="replaceParts != null">
+				 replace_parts = #{replaceParts},
+			</if>
+			<if test="validateMethod != null">
+				 validate_method = #{validateMethod},
+			</if>
+			<if test="calibratedVolume != null">
+				 calibrated_volume = #{calibratedVolume},
+			</if>
+			<if test="repairStatus != null">
+				 repair_status = #{repairStatus},
+			</if>
+			<if test="repairCarNo != null">
+				 repair_car_no = #{repairCarNo},
+			</if>
+			<if test="createTime != null">
+				 create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				 update_time = #{updateTime},
+			</if>
+			<if test="deleteStatus != null">
+				 delete_status = #{deleteStatus},
+			</if>
+
+ 		 </set>
+		 WHERE id = #{id}
+	</update>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKey" parameterType="com.huaxia.tongyong.model.ReportRepair">
+		 UPDATE t_report_repair
+		 SET 
+			 report_id = #{reportId},
+			 device_name = #{deviceName},
+			 repair_comment = #{repairComment},
+			 replace_parts = #{replaceParts},
+			 validate_method = #{validateMethod},
+			 calibrated_volume = #{calibratedVolume},
+			 repair_status = #{repairStatus},
+			 repair_car_no = #{repairCarNo},
+			 create_time = #{createTime},
+			 update_time = #{updateTime},
+			 delete_status = #{deleteStatus}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>

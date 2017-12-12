@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huaxia.tongyong.repository.UserInfoMapper">
+
+	<!--实体映射-->
+	<resultMap id="BaseResultMap" type="com.huaxia.tongyong.model.UserInfo">
+		<!---->
+		<id property="id" column="id" />
+		<!--用户姓名-->
+		<result property="name" column="name" />
+		<!---->
+		<result property="employeeNo" column="employee_no" />
+		<!--密码-->
+		<result property="password" column="password" />
+		<!--手机号码-->
+		<result property="mobileNo" column="mobile_no" />
+		<!--级别id-->
+		<result property="levelId" column="level_id" />
+		<!--班组id-->
+		<result property="groupId" column="group_id" />
+		<!--用户状态：1，启用 0，未启用-->
+		<result property="userStatus" column="user_status" />
+		<!--创建时间-->
+		<result property="createTime" column="create_time" />
+		<!--更新时间-->
+		<result property="updateTime" column="update_time" />
+		<!--有效状态：1，有效 0，无效-->
+		<result property="deleteStatus" column="delete_status" />
+	</resultMap>
+
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+	id,	name,	employee_no,	password,	mobile_no,	level_id,	group_id,	user_status,	create_time,	update_time,	delete_status
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.model.UserInfo" parameterType="java.lang.Long">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM t_user_info
+		 WHERE id = #{id}
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		 DELETE FROM t_user_info
+		 WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.huaxia.tongyong.model.UserInfo">
+		 INSERT INTO t_user_info
+ 		(id,name,employee_no,password,mobile_no,level_id,group_id,user_status,create_time,update_time,delete_status) 
+		 VALUES 
+ 		(#{id},#{name},#{employeeNo},#{password},#{mobileNo},#{levelId},#{groupId},#{userStatus},#{createTime},#{updateTime},#{deleteStatus}) 
+	</insert>
+
+	<!-- 添加 （匹配有值的字段）-->
+	<insert id="insertSelective" parameterType="com.huaxia.tongyong.model.UserInfo">
+		 INSERT INTO t_user_info
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+				 id,
+			</if>
+			<if test="name != null">
+				 name,
+			</if>
+			<if test="employeeNo != null">
+				 employee_no,
+			</if>
+			<if test="password != null">
+				 password,
+			</if>
+			<if test="mobileNo != null">
+				 mobile_no,
+			</if>
+			<if test="levelId != null">
+				 level_id,
+			</if>
+			<if test="groupId != null">
+				 group_id,
+			</if>
+			<if test="userStatus != null">
+				 user_status,
+			</if>
+			<if test="createTime != null">
+				 create_time,
+			</if>
+			<if test="updateTime != null">
+				 update_time,
+			</if>
+			<if test="deleteStatus != null">
+				 delete_status,
+			</if>
+
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id!=null">
+				 #{id},
+			</if>
+			<if test="name!=null">
+				 #{name},
+			</if>
+			<if test="employeeNo!=null">
+				 #{employeeNo},
+			</if>
+			<if test="password!=null">
+				 #{password},
+			</if>
+			<if test="mobileNo!=null">
+				 #{mobileNo},
+			</if>
+			<if test="levelId!=null">
+				 #{levelId},
+			</if>
+			<if test="groupId!=null">
+				 #{groupId},
+			</if>
+			<if test="userStatus!=null">
+				 #{userStatus},
+			</if>
+			<if test="createTime!=null">
+				 #{createTime},
+			</if>
+			<if test="updateTime!=null">
+				 #{updateTime},
+			</if>
+			<if test="deleteStatus!=null">
+				 #{deleteStatus},
+			</if>
+		 </trim>
+	</insert>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.huaxia.tongyong.model.UserInfo">
+		 UPDATE t_user_info
+ 		 <set> 
+			<if test="name != null">
+				 name = #{name},
+			</if>
+			<if test="employeeNo != null">
+				 employee_no = #{employeeNo},
+			</if>
+			<if test="password != null">
+				 password = #{password},
+			</if>
+			<if test="mobileNo != null">
+				 mobile_no = #{mobileNo},
+			</if>
+			<if test="levelId != null">
+				 level_id = #{levelId},
+			</if>
+			<if test="groupId != null">
+				 group_id = #{groupId},
+			</if>
+			<if test="userStatus != null">
+				 user_status = #{userStatus},
+			</if>
+			<if test="createTime != null">
+				 create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				 update_time = #{updateTime},
+			</if>
+			<if test="deleteStatus != null">
+				 delete_status = #{deleteStatus},
+			</if>
+
+ 		 </set>
+		 WHERE id = #{id}
+	</update>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKey" parameterType="com.huaxia.tongyong.model.UserInfo">
+		 UPDATE t_user_info
+		 SET 
+			 name = #{name},
+			 employee_no = #{employeeNo},
+			 password = #{password},
+			 mobile_no = #{mobileNo},
+			 level_id = #{levelId},
+			 group_id = #{groupId},
+			 user_status = #{userStatus},
+			 create_time = #{createTime},
+			 update_time = #{updateTime},
+			 delete_status = #{deleteStatus}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>

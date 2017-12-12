@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huaxia.tongyong.repository.ReportTransferLogMapper">
+
+	<!--实体映射-->
+	<resultMap id="BaseResultMap" type="com.huaxia.tongyong.model.ReportTransferLog">
+		<!---->
+		<id property="id" column="id" />
+		<!--日报信息id-->
+		<result property="reportId" column="report_id" />
+		<!--移交前负责人id-->
+		<result property="beforeUserId" column="before_user_id" />
+		<!--移交前人姓名-->
+		<result property="beforeUserName" column="before_user_name" />
+		<!--移交后人id-->
+		<result property="afterUserId" column="after_user_id" />
+		<!--移交后人姓名-->
+		<result property="afterUserName" column="after_user_name" />
+		<!--创建时间-->
+		<result property="createTime" column="create_time" />
+	</resultMap>
+
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+	id,	report_id,	before_user_id,	before_user_name,	after_user_id,	after_user_name,	create_time
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.model.ReportTransferLog" parameterType="java.lang.Long">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM t_report_transfer_log
+		 WHERE id = #{id}
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		 DELETE FROM t_report_transfer_log
+		 WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.huaxia.tongyong.model.ReportTransferLog">
+		 INSERT INTO t_report_transfer_log
+ 		(id,report_id,before_user_id,before_user_name,after_user_id,after_user_name,create_time) 
+		 VALUES 
+ 		(#{id},#{reportId},#{beforeUserId},#{beforeUserName},#{afterUserId},#{afterUserName},#{createTime}) 
+	</insert>
+
+	<!-- 添加 （匹配有值的字段）-->
+	<insert id="insertSelective" parameterType="com.huaxia.tongyong.model.ReportTransferLog">
+		 INSERT INTO t_report_transfer_log
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+				 id,
+			</if>
+			<if test="reportId != null">
+				 report_id,
+			</if>
+			<if test="beforeUserId != null">
+				 before_user_id,
+			</if>
+			<if test="beforeUserName != null">
+				 before_user_name,
+			</if>
+			<if test="afterUserId != null">
+				 after_user_id,
+			</if>
+			<if test="afterUserName != null">
+				 after_user_name,
+			</if>
+			<if test="createTime != null">
+				 create_time,
+			</if>
+
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id!=null">
+				 #{id},
+			</if>
+			<if test="reportId!=null">
+				 #{reportId},
+			</if>
+			<if test="beforeUserId!=null">
+				 #{beforeUserId},
+			</if>
+			<if test="beforeUserName!=null">
+				 #{beforeUserName},
+			</if>
+			<if test="afterUserId!=null">
+				 #{afterUserId},
+			</if>
+			<if test="afterUserName!=null">
+				 #{afterUserName},
+			</if>
+			<if test="createTime!=null">
+				 #{createTime},
+			</if>
+		 </trim>
+	</insert>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.huaxia.tongyong.model.ReportTransferLog">
+		 UPDATE t_report_transfer_log
+ 		 <set> 
+			<if test="reportId != null">
+				 report_id = #{reportId},
+			</if>
+			<if test="beforeUserId != null">
+				 before_user_id = #{beforeUserId},
+			</if>
+			<if test="beforeUserName != null">
+				 before_user_name = #{beforeUserName},
+			</if>
+			<if test="afterUserId != null">
+				 after_user_id = #{afterUserId},
+			</if>
+			<if test="afterUserName != null">
+				 after_user_name = #{afterUserName},
+			</if>
+			<if test="createTime != null">
+				 create_time = #{createTime},
+			</if>
+
+ 		 </set>
+		 WHERE id = #{id}
+	</update>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKey" parameterType="com.huaxia.tongyong.model.ReportTransferLog">
+		 UPDATE t_report_transfer_log
+		 SET 
+			 report_id = #{reportId},
+			 before_user_id = #{beforeUserId},
+			 before_user_name = #{beforeUserName},
+			 after_user_id = #{afterUserId},
+			 after_user_name = #{afterUserName},
+			 create_time = #{createTime}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>

@@ -24,7 +24,7 @@ public class Swagger2Configuration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.huaxia.tongong.api"))
+                .apis(RequestHandlerSelectors.basePackage("com.huaxia.tongyong.api"))
                 .paths(PathSelectors.any())
                 .build();
     }
