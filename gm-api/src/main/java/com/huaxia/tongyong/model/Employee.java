@@ -8,6 +8,7 @@ import lombok.Data;
  * 
  **/
 @Data
+@Deprecated
 public class Employee {
 
 	/**自增主键**/

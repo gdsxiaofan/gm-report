@@ -10,6 +10,16 @@ import lombok.Data;
  */
 @Data
 public class FaultParam {
+
+    /**
+     * 关联的日报id
+     */
+    Long reportId;
+
+    /**
+     * 主键id
+     */
+    Long id;
     /**
      * 设备名称
      */
@@ -34,4 +44,10 @@ public class FaultParam {
      * 处理人
      */
     String dealPersonId;
+
+    /**
+     * @see com.huaxia.tongyong.enums.ReportStatusEnum
+     * 日报的状态
+     */
+    int reportStatus;
 }
