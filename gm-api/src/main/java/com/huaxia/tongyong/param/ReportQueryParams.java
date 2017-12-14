@@ -15,4 +15,10 @@ public class ReportQueryParams extends BaseQueryParams{
      * @see com.huaxia.tongyong.enums.ReportTypeEnum
      */
     private int reportType;
+
+    /**
+     * 日报状态
+     * 1.已保存 2，已提交
+     */
+    private int reportStatus;
 }

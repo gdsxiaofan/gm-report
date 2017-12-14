@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/v1/report")
 @Api(value="ReportController",description = "日报相关接口定义")
-public class ReportController {
+public class ReportApi {
 
     /**
      * 获取日报列表信息

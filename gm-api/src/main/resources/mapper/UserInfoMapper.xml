@@ -42,6 +42,21 @@
 		 FROM t_user_info
 		 WHERE id = #{id}
 	</select>
+	<select id="selectUserInfoForLogin" resultType="com.huaxia.tongyong.model.UserInfo">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_user_info
+		where delete_status =1
+		<if test="employeeNo!=null and employeeNo !=''">
+			AND employee_no = #{employeeNo}
+		</if>
+		<if test="password !=null and password!=''">
+			AND password = #{password}
+		</if>
+	</select>
+	<select id="selectUserInfoByNoAndName" resultType="com.huaxia.tongyong.model.UserInfo">
+
+	</select>
 
 	<!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -134,7 +149,7 @@
 	</insert>
 
 	<!-- 修 改-->
-	<update id="updateByPrimaryKeySelective" parameterType="com.huaxia.tongyong.model.UserInfo">
+	<update id="updateUser" parameterType="com.huaxia.tongyong.model.UserInfo">
 		 UPDATE t_user_info
  		 <set> 
 			<if test="name != null">

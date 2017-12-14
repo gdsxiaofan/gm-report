@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/user")
 @Slf4j
-public class UserController {
+public class UserApi {
 
     //1.获取所有的有效班组信息
     //2.根据班组id获取所有有效的用户信息

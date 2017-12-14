@@ -1,5 +1,7 @@
 package com.huaxia.tongyong.service.impl;
 
+import com.huaxia.tongyong.model.UserInfo;
+import com.huaxia.tongyong.repository.UserInfoMapper;
 import com.huaxia.tongyong.service.LoginBiz;
 import com.huaxia.tongyong.dao.EmployeeMapper;
 import com.huaxia.tongyong.model.Employee;
@@ -22,10 +24,10 @@ import org.springframework.util.Assert;
 public class LoginBizImpl implements LoginBiz{
 
     @Autowired
-    EmployeeMapper employeeMapper;
+    UserInfoMapper userInfoMapper;
 
     @Override
-    public Employee verificationForLogin(String employeeNo, String password) {
+    public UserInfo verificationForLogin(String employeeNo, String password) {
         // 1.校验参宿
         Assert.isTrue(StringUtils.isNotBlank(employeeNo),"工号不能为空！");
         Assert.isTrue(StringUtils.isNotBlank(password),"密码不能为空！");
@@ -34,8 +36,8 @@ public class LoginBizImpl implements LoginBiz{
         password = MD5Util.encode(password);
 
         // 3.查询对应数据
-        Employee employee = employeeMapper.selectEmployeeForLogin(employeeNo,password);
-
-        return employee;
+//        Employee employee = employeeMapper.selectEmployeeForLogin(employeeNo,password);
+        UserInfo userInfo = userInfoMapper.selectUserInfoForLogin(employeeNo,password);
+        return userInfo;
     }
 }

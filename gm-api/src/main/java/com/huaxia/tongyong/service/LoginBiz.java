@@ -1,6 +1,7 @@
 package com.huaxia.tongyong.service;
 
 import com.huaxia.tongyong.model.Employee;
+import com.huaxia.tongyong.model.UserInfo;
 
 /**
  * 登录相关的业务逻辑
@@ -17,6 +18,8 @@ public interface LoginBiz {
      * @param password
      * @return
      */
-    Employee verificationForLogin(String employeeNo, String password);
+//    Employee verificationForLogin(String employeeNo, String password);
+
+    UserInfo verificationForLogin(String employeeNo, String password);
 
 }

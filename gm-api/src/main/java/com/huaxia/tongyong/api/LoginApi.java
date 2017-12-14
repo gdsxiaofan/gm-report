@@ -2,6 +2,7 @@ package com.huaxia.tongyong.api;
 
 import com.huaxia.tongyong.handler.JwtHandler;
 import com.huaxia.tongyong.model.Employee;
+import com.huaxia.tongyong.model.UserInfo;
 import com.huaxia.tongyong.service.LoginBiz;
 import com.huaxia.tongyong.vo.JsonResult;
 import lombok.extern.slf4j.Slf4j;
@@ -20,23 +21,22 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("login")
 @Slf4j
-public class LoginController {
+public class LoginApi {
 
     @Autowired
     private LoginBiz loginBiz;
     /**
      * 登录
-     *
      * @return
      */
     @RequestMapping(value = "",method = RequestMethod.POST)
     public JsonResult login(HttpServletResponse response,
                             String username,
                             String password) {
-        Employee employee=loginBiz.verificationForLogin(username,password);
-        if(employee!=null){
+        UserInfo userInfo=loginBiz.verificationForLogin(username,password);
+        if(userInfo!=null){
 //            String jwt = JwtUtil.getJWTString(employee.getId());
-            JwtHandler.setCookieJWT(employee.getId(),response);
+            JwtHandler.setCookieJWT(userInfo.getId().intValue(),response);
 //            response.setHeader(Constant.AUTHORIZATION,jwt);
             return new JsonResult(1, "登陆成功");
         }

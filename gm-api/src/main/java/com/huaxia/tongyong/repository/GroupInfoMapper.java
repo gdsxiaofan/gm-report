@@ -1,6 +1,10 @@
 package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.GroupInfo;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -8,7 +12,30 @@ import com.huaxia.tongyong.model.GroupInfo;
  * GroupInfoMapper数据库操作接口类
  * 
  **/
-
+@Repository
 public interface GroupInfoMapper{
+
+    /**
+     * 保存班组信息
+     * @param groupInfo
+     * @return
+     */
+    public Integer insertSelective(GroupInfo groupInfo);
+
+    /**
+     * 查询班组信息
+     * @param groupName
+     * @return
+     */
+    public List<GroupInfo> selectGroupInfo(
+            @Param("groupName") String groupName
+    );
+
+    /**
+     * 更新对应的分组信息
+     * @param groupInfo
+     * @return
+     */
+    public Integer updateByPrimaryKeySelective(GroupInfo groupInfo);
 
 }
