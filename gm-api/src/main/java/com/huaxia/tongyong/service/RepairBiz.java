@@ -6,9 +6,9 @@ import com.huaxia.tongyong.vo.ReportRepairVo;
  * @Description:
  * @author: gongdaoshun
  * @Date: 2017/12/14 23:19
- * @className:
+ * @className: RepairBiz
  */
-public interface RepairApi {
+public interface RepairBiz {
 
     /**
      * 根据日报id获取当前的故障日报信息
