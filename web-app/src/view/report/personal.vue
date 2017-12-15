@@ -5,7 +5,7 @@
 		</mt-header>
 		<div class="personalInfo">
 			<div class="Img">
-				<img src="../assets/img/logo.png">
+				<img src="../../assets/img/logo.png">
 			</div>
 			<div class="username">
 				<p>{{ loginForm.username }}</p>
@@ -90,11 +90,10 @@
 		<NavBar></NavBar>
 	</div>
 </template>
-<script> 
+<script>
 	// 底部导航
-	import NavBar from '@/view/navBar'
-	import store from './../store'
-	import Login from '@/view/login'
+	import NavBar from './navBar'
+	import store from '../../store/index'
 	export default{
 		data(){
 			return{
@@ -105,14 +104,9 @@
 			NavBar
 		},
 		computed:{
-			loginStatus(){
-				return this.$store.state.loginStatus;
-			}
 		},
 		mounted:function(){
-			if(!this.loginStatus){
-				this.$router.push({path:'/login',component:Login})
-			}
+
 		},
 		methods:{
 			goBack:function(){

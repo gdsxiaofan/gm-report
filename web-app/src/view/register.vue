@@ -54,7 +54,7 @@
 </template>
 <script>
 	import { MessageBox } from 'mint-ui';
-	import {api} from '../global/api';
+	// import {api} from '../global/api';
 	export default{
 		data(){
 			return {
@@ -76,12 +76,12 @@
 			goBack:function(){
 				this.$router.go(-1);
 			},
-			getData:function(){
-				this.$http.get(api.login).then(function(response){
-					console.log("response的值",response);
-					this.form=response.data;
-				});
-			},
+			// getData:function(){
+			// 	this.$http.get(api.login).then(function(response){
+			// 		console.log("response的值",response);
+			// 		this.form=response.data;
+			// 	});
+			// },
 			registerSubmit:function(){
 				var value=true;
 				// 判断用户名是否为空或已存在

@@ -4,7 +4,7 @@
 import axios from 'axios';
 // import store from 'src/store';
 import { MessageBox } from 'mint-ui'
-import router from '../../routes'
+import router from '../router/index'
 //发送表单请求需要序列化
 import qs from 'qs'
 // 创建axios实例

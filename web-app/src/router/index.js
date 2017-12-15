@@ -3,39 +3,47 @@
  */
 import Vue from 'vue'
 import Router from 'vue-router'
-
-// 底部导航
-import NavBar from '@/view/navBar'
-// 首页
-import Home from '../view/home'
-// 首页
-import Main from '../view/main'
-// 分类
-import Classify from '@/view/classify'
-// 用户注册
-import Register from '@/view/register'
-// 用户登录
-import Login from '@/view/login'
-// 购物车
-import Shopping from '@/view/shopping'
-// 个人中心
-import Personal from '@/view/personal'
-// 商品详细页
-import DragonDetail from '@/view/dragonDetail'
-
-
 Vue.use(Router)
+// 功能列
+const Main = resolve => require(['../view/report/main'], resolve)
+// 日报信息
+const reportInfo = resolve => require(['../view/report/reportInfo'], resolve)
 
-export default new Router({
+// 用户登录
+const Login = resolve => require(['../view/report/login'], resolve)
+
+// 个人中心
+const Personal = resolve => require(['../view/report/personal'], resolve)
+
+
+
+
+const router=new Router({
   routes: [
-    		{ path:'/home',component:Home },
-    		{ path:'/main',component:Main },
-        { path:'/dragonDetail',component:DragonDetail },
-    		{ path:'/classify',component:Classify },
-        { path:'/shopping',component:Shopping },
-        { path:'/personal',component:Personal },
-    		{ path:'/register',component:Register },
-        { path:'/login',component:Login },
-   			{ path:'/', redirect:'home' }
+    {path: '/main', component: Main},
+    {path: '/reportInfo', component: reportInfo},
+    {path: '/personal', component: Personal},
+    {path: '/login', component: Login},
+    {path: '/', redirect: 'main'}
   ]
 })
+
+
+
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') {
+    localStorage.removeItem('Authorization');
+  }
+  let jwt = localStorage.getItem("Authorization");
+  if (!jwt && to.path !== '/login') {
+    next({ path: '/login',query:{ redirect: to.fullPath} })
+    window.scrollTo(0, 0);
+  } else {
+    next()
+  }
+})
+router.afterEach(() => {
+  window.scrollTo(0, 0);
+});
+export default  router

@@ -35,9 +35,7 @@ public class LoginController {
                             String password) {
         Employee employee=loginBiz.verificationForLogin(username,password);
         if(employee!=null){
-//            String jwt = JwtUtil.getJWTString(employee.getId());
             JwtHandler.setCookieJWT(employee.getId(),response);
-//            response.setHeader(Constant.AUTHORIZATION,jwt);
             return new JsonResult(1, "登陆成功");
         }
         return new JsonResult(0,"用户名或密码不匹配");
