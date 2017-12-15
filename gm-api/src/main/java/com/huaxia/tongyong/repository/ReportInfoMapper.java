@@ -1,6 +1,7 @@
 package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.ReportInfo;
+import org.springframework.stereotype.Repository;
 
 
 /**
@@ -8,7 +9,7 @@ import com.huaxia.tongyong.model.ReportInfo;
  * ReportInfoMapper数据库操作接口类
  * 
  **/
-
+@Repository
 public interface ReportInfoMapper{
 
 }

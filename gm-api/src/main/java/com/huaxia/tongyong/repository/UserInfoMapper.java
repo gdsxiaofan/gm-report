@@ -1,6 +1,11 @@
 package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.UserInfo;
+import jdk.jfr.Percentage;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -8,7 +13,44 @@ import com.huaxia.tongyong.model.UserInfo;
  * UserInfoMapper数据库操作接口类
  * 
  **/
-
+@Repository
 public interface UserInfoMapper{
+
+    /**
+     * 用于用户登陆时，查询密码所用
+     * @param employeeNo
+     * @param password
+     * @return
+     */
+    public UserInfo selectUserInfoForLogin(
+            @Param("employeeNo")String employeeNo,
+            @Param("password")String password
+    );
+
+    /**
+     * 新增用户信息
+     * @param userInfo
+     * @return
+     */
+    public Integer insertSelective(UserInfo userInfo);
+
+
+    /**
+     * 更新用户信息
+     * @param userInfo
+     * @return
+     */
+    public Integer updateUser(UserInfo userInfo);
+
+    /**
+     * 查询用户列表信息
+     * @param employeeNo
+     * @param userName
+     * @return
+     */
+    public List<UserInfo> selectUserInfoByNoAndName(
+            @Param("employeeNo")String employeeNo,
+            @Param("userName")String userName
+    );
 
 }

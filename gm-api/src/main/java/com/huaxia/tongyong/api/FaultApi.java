@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/v1/fault")
 @Slf4j
 @Api(value = "FaultController", description = "故障日报相关的api")
-public class FaultController {
+public class FaultApi {
 
     /**
      * 新增日报记录

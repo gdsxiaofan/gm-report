@@ -1,7 +1,9 @@
 package com.huaxia.tongyong.api;
 
+import com.huaxia.tongyong.model.ReportRepair;
 import com.huaxia.tongyong.param.RepairParam;
 import com.huaxia.tongyong.vo.JsonResult;
+import com.huaxia.tongyong.vo.ReportRepairVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -13,12 +15,12 @@ import javax.servlet.http.HttpServletResponse;
  * @Description:
  * @author: gongdaoshun
  * @Date: 2017/12/13 23:21
- * @className: RepairController
+ * @className: RepairApi
  */
-@Api(value = "RepairController" ,description = "修复验证的接口定义")
+@Api(value = "RepairApi" ,description = "修复验证的接口定义")
 @RestController("/v1/repair")
 @Slf4j
-public class RepairController {
+public class RepairApi {
 
     @ApiOperation("新增修复验证日报信息")
     @RequestMapping(value = "/add",method = RequestMethod.POST)
@@ -29,7 +31,7 @@ public class RepairController {
 
     @ApiOperation("获取修复验证的日报信息")
     @RequestMapping(value = "/get",method = RequestMethod.GET)
-    public JsonResult getRepair(
+    public JsonResult<ReportRepairVo> getRepair(
             @RequestParam("reportId")Long reportId
     ){
         return null;
