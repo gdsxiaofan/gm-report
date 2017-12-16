@@ -2,7 +2,6 @@ package com.huaxia.tongyong.service;
 
 import com.huaxia.tongyong.param.FaultParam;
 import com.huaxia.tongyong.vo.ReportFaultVo;
-import jdk.javadoc.internal.doclets.toolkit.util.JavaScriptScanner;
 
 import java.util.List;
 

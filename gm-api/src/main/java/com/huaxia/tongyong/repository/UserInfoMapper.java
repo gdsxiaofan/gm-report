@@ -1,7 +1,6 @@
 package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.UserInfo;
-import jdk.jfr.Percentage;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
