@@ -40,8 +40,22 @@
 		 FROM t_report_info
 		 WHERE id = #{id}
 	</select>
+    <select id="getReportInfoVoList" resultType="com.huaxia.tongyong.vo.ReportInfoVo">
+		SELECT
+			id reportId,
+			report_name reportName,
+			report_type reportType,
+			DATE_FORMAT(create_time,'%Y-%m-%d %t') createTime
+		FROM
+			t_report_info
+		WHERE
+			delete_status = 1
+			<if test="reportStatus !=null">
+				report_status = #{reportStatus}
+			</if>
+	</select>
 
-	<!--删除：根据主键ID删除-->
+    <!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		 DELETE FROM t_report_info
 		 WHERE id = #{id}
@@ -56,7 +70,7 @@
 	</insert>
 
 	<!-- 添加 （匹配有值的字段）-->
-	<insert id="insertSelective" parameterType="com.huaxia.tongyong.model.ReportInfo">
+	<insert id="insertSelective" parameterType="com.huaxia.tongyong.model.ReportInfo" useGeneratedKeys="true" keyProperty="id">
 		 INSERT INTO t_report_info
 		 <trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="id != null">

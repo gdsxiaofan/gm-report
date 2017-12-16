@@ -1,6 +1,8 @@
 package com.huaxia.tongyong.vo;
 
+import com.huaxia.tongyong.enums.ReportTypeEnum;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @Description: 日报数据列表数据
@@ -29,5 +31,16 @@ public class ReportInfoVo {
     /**
      * 日报类型code
      */
-    String reportTypeCode;
+    Integer reportTypeCode;
+
+    private void setReportTypeCode(Integer reportTypeCode){
+        this.reportTypeCode = reportTypeCode;
+        this.reportTypeName = ReportTypeEnum.valuesOf(reportTypeCode).getName();
+    }
+
+    private void setReportTypeName(String reportTypeName){
+        if(StringUtils.isBlank(this.reportTypeName)){
+            this.reportTypeName = reportTypeName;
+        }
+    }
 }

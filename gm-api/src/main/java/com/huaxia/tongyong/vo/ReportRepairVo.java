@@ -1,6 +1,8 @@
 package com.huaxia.tongyong.vo;
 
+import com.huaxia.tongyong.enums.ReportRepairStatusEnum;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @Description: 故障日报的信息
@@ -42,4 +44,16 @@ public class ReportRepairVo {
 
     /**修复后首车号**/
     private String repairCarNo;
+
+    public void setRepairStatus(Integer repairStatus){
+        this.repairStatus = repairStatus;
+        this.repairStatusName = ReportRepairStatusEnum.valuesOf(repairStatus).getName();
+    }
+
+    public void setRepairStatusName(String repairStatusName){
+        if(StringUtils.isBlank(this.repairStatusName)){
+            this.repairStatusName = repairStatusName;
+        }
+    }
+
 }

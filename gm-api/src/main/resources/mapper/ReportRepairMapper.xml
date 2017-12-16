@@ -44,8 +44,26 @@
 		 FROM t_report_repair
 		 WHERE id = #{id}
 	</select>
+    <select id="selectReportRepairVoByReportIdOrId" resultType="com.huaxia.tongyong.vo.ReportRepairVo">
+		SELECT
+			id,
+			report_id reportId,
+			device_name deviceName,
+			repair_comment repairComment,
+			replace_parts replaceParts,
+			validate_method validateMethod,
+			calibrated_volume calibratedVolume,
+			repair_status repairStatus,
+			repair_car_no repairCarNo
+		FROM
+			t_report_repair
+		WHERE
+			delete_status = 1
+		AND id = #{id}
+		AND report_id = #{reportId}
+	</select>
 
-	<!--删除：根据主键ID删除-->
+    <!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		 DELETE FROM t_report_repair
 		 WHERE id = #{id}
