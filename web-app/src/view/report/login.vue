@@ -75,7 +75,8 @@
             this.loginForm.username = ''
             this.loginForm.password = ''
           } else {
-            this.$router.push({path: '/'})
+            let redirect = this.$route.query.redirect
+            this.$router.push({path: redirect ? redirect : '/'})
             // this.loginStatus=true;
             // store.dispatch('setloginStatus', true)
             // console.log("login页面的loginStatus值",this.loginStatus);

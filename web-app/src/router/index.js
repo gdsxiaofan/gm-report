@@ -6,9 +6,10 @@ import Router from 'vue-router'
 Vue.use(Router)
 // 功能列
 const Main = resolve => require(['../view/report/main'], resolve)
-// 日报信息
+// 日报list信息
+const reportList = resolve => require(['../view/report/reportList'], resolve)
+// 日报info
 const reportInfo = resolve => require(['../view/report/reportInfo'], resolve)
-
 // 用户登录
 const Login = resolve => require(['../view/report/login'], resolve)
 
@@ -21,6 +22,7 @@ const Personal = resolve => require(['../view/report/personal'], resolve)
 const router=new Router({
   routes: [
     {path: '/main', component: Main},
+    {path: '/reportList', component: reportList},
     {path: '/reportInfo', component: reportInfo},
     {path: '/personal', component: Personal},
     {path: '/login', component: Login},
