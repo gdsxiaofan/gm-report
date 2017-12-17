@@ -1,6 +1,7 @@
 package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.UserInfo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,6 @@ import java.util.List;
  * UserInfoMapper数据库操作接口类
  * 
  **/
-@Repository
 public interface UserInfoMapper{
 
     /**
