@@ -151,4 +151,7 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <finalName>gm-api</finalName>
+    </build>
 </project>
