@@ -13,6 +13,7 @@ import java.util.List;
  * UserInfoMapper数据库操作接口类
  * 
  **/
+@Mapper
 public interface UserInfoMapper{
 
     /**

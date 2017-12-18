@@ -3,8 +3,6 @@ package com.huaxia.tongyong.service.impl;
 import com.huaxia.tongyong.model.UserInfo;
 import com.huaxia.tongyong.repository.UserInfoMapper;
 import com.huaxia.tongyong.service.LoginBiz;
-import com.huaxia.tongyong.dao.EmployeeMapper;
-import com.huaxia.tongyong.model.Employee;
 import com.huaxia.tongyong.util.MD5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

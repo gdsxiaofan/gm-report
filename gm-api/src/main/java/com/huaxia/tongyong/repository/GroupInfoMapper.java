@@ -1,6 +1,7 @@
 package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.GroupInfo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * GroupInfoMapper数据库操作接口类
  * 
  **/
-@Repository
+@Mapper
 public interface GroupInfoMapper{
 
     /**

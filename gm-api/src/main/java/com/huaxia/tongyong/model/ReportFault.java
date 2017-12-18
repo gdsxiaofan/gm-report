@@ -28,6 +28,8 @@ public class ReportFault{
 	/**区域，关联字典表id**/
 	private Integer areaId;
 
+	private String areaName;
+
 	/**停线时间**/
 	private String stopTime;
 

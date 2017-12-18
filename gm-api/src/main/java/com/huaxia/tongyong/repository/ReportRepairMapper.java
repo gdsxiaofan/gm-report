@@ -2,6 +2,7 @@ package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.ReportRepair;
 import com.huaxia.tongyong.vo.ReportRepairVo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * ReportRepairMapper数据库操作接口类
  * 
  **/
-@Repository
+@Mapper
 public interface ReportRepairMapper{
 
 

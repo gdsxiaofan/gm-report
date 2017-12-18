@@ -2,6 +2,7 @@ package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.ReportInfo;
 import com.huaxia.tongyong.vo.ReportInfoVo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.boot.actuate.endpoint.AutoConfigurationReportEndpoint;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import java.util.List;
  * ReportInfoMapper数据库操作接口类
  * 
  **/
-@Repository
+@Mapper
 public interface ReportInfoMapper{
 
     /**

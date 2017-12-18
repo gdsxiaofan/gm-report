@@ -13,6 +13,8 @@ public class ReportInfo{
 	/****/
 	private Long id;
 
+	private String reportName;
+
 	/**日报类型：1，故障 2，修复验证**/
 	private Integer reportType;
 

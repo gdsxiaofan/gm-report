@@ -25,12 +25,13 @@
 		<result property="updateTime" column="update_time" />
 		<!--有效状态：1，有效 0 无效-->
 		<result property="deleteStatus" column="delete_status" />
+		<result property="reportName" column="report_name" />
 	</resultMap>
 
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-	id,	report_type,	report_status,	create_user_name,	create_user_id,	charge_user_name,	charge_user_id,	create_time,	update_time,	delete_status
+	id,	report_type,	report_status,	create_user_name,	create_user_id,	charge_user_name,	charge_user_id,	create_time,	update_time,	delete_status,report_name
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
@@ -103,7 +104,9 @@
 			<if test="deleteStatus != null">
 				 delete_status,
 			</if>
-
+			<if test="reportName !=null">
+				report_name,
+			</if>
 		 </trim>
 		 <trim prefix="values (" suffix=")" suffixOverrides="," >
 			<if test="id!=null">
@@ -135,6 +138,9 @@
 			</if>
 			<if test="deleteStatus!=null">
 				 #{deleteStatus},
+			</if>
+			<if test="reportName !=null">
+				#{reportName},
 			</if>
 		 </trim>
 	</insert>
@@ -170,7 +176,9 @@
 			<if test="deleteStatus != null">
 				 delete_status = #{deleteStatus},
 			</if>
-
+			<if test="reportName !=null">
+				report_name = #{reportName},
+			</if>
  		 </set>
 		 WHERE id = #{id}
 	</update>

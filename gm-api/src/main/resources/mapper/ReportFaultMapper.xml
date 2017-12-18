@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.huaxia.tongyong.repository.ReportFaultMapper">
 
 	<!--实体映射-->
@@ -17,6 +17,8 @@
 		<result property="dealMethod" column="deal_method" />
 		<!--区域，关联字典表id-->
 		<result property="areaId" column="area_id" />
+		<!--区域名称-->
+		<result property="areaName" column="area_name" />
 		<!--停线时间-->
 		<result property="stopTime" column="stop_time" />
 		<!--创建时间-->
@@ -30,151 +32,161 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-	id,	report_id,	device_name,	device_fault,	deal_method,	area_id,	stop_time,	create_time,	update_time,	delete_status
+		id,	report_id,	device_name,	device_fault,	deal_method,	area_id,	area_name,	stop_time,	create_time,	update_time,	delete_status
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
 	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.model.ReportFault" parameterType="java.lang.Long">
-		 SELECT
-		 <include refid="Base_Column_List" />
-		 FROM t_report_fault
-		 WHERE id = #{id}
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_report_fault
+		WHERE id = #{id}
 	</select>
 
 	<!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		 DELETE FROM t_report_fault
-		 WHERE id = #{id}
+		DELETE FROM t_report_fault
+		WHERE id = #{id}
 	</delete>
 
 	<!-- 添加 -->
 	<insert id="insert" parameterType="com.huaxia.tongyong.model.ReportFault">
-		 INSERT INTO t_report_fault
- 		(id,report_id,device_name,device_fault,deal_method,area_id,stop_time,create_time,update_time,delete_status) 
-		 VALUES 
- 		(#{id},#{reportId},#{deviceName},#{deviceFault},#{dealMethod},#{areaId},#{stopTime},#{createTime},#{updateTime},#{deleteStatus}) 
+		INSERT INTO t_report_fault
+		(id,report_id,device_name,device_fault,deal_method,area_id,area_name,stop_time,create_time,update_time,delete_status)
+		VALUES
+		(#{id},#{reportId},#{deviceName},#{deviceFault},#{dealMethod},#{areaId},#{areaName},#{stopTime},#{createTime},#{updateTime},#{deleteStatus})
 	</insert>
 
 	<!-- 添加 （匹配有值的字段）-->
 	<insert id="insertSelective" parameterType="com.huaxia.tongyong.model.ReportFault">
-		 INSERT INTO t_report_fault
-		 <trim prefix="(" suffix=")" suffixOverrides="," >
+		INSERT INTO t_report_fault
+		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="id != null">
-				 id,
+				id,
 			</if>
 			<if test="reportId != null">
-				 report_id,
+				report_id,
 			</if>
 			<if test="deviceName != null">
-				 device_name,
+				device_name,
 			</if>
 			<if test="deviceFault != null">
-				 device_fault,
+				device_fault,
 			</if>
 			<if test="dealMethod != null">
-				 deal_method,
+				deal_method,
 			</if>
 			<if test="areaId != null">
-				 area_id,
+				area_id,
+			</if>
+			<if test="areaName != null">
+				area_name,
 			</if>
 			<if test="stopTime != null">
-				 stop_time,
+				stop_time,
 			</if>
 			<if test="createTime != null">
-				 create_time,
+				create_time,
 			</if>
 			<if test="updateTime != null">
-				 update_time,
+				update_time,
 			</if>
 			<if test="deleteStatus != null">
-				 delete_status,
+				delete_status,
 			</if>
 
-		 </trim>
-		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
 			<if test="id!=null">
-				 #{id},
+				#{id},
 			</if>
 			<if test="reportId!=null">
-				 #{reportId},
+				#{reportId},
 			</if>
 			<if test="deviceName!=null">
-				 #{deviceName},
+				#{deviceName},
 			</if>
 			<if test="deviceFault!=null">
-				 #{deviceFault},
+				#{deviceFault},
 			</if>
 			<if test="dealMethod!=null">
-				 #{dealMethod},
+				#{dealMethod},
 			</if>
 			<if test="areaId!=null">
-				 #{areaId},
+				#{areaId},
+			</if>
+			<if test="areaName!=null">
+				#{areaName},
 			</if>
 			<if test="stopTime!=null">
-				 #{stopTime},
+				#{stopTime},
 			</if>
 			<if test="createTime!=null">
-				 #{createTime},
+				#{createTime},
 			</if>
 			<if test="updateTime!=null">
-				 #{updateTime},
+				#{updateTime},
 			</if>
 			<if test="deleteStatus!=null">
-				 #{deleteStatus},
+				#{deleteStatus},
 			</if>
-		 </trim>
+		</trim>
 	</insert>
 
 	<!-- 修 改-->
 	<update id="updateByPrimaryKeySelective" parameterType="com.huaxia.tongyong.model.ReportFault">
-		 UPDATE t_report_fault
- 		 <set> 
+		UPDATE t_report_fault
+		<set>
 			<if test="reportId != null">
-				 report_id = #{reportId},
+				report_id = #{reportId},
 			</if>
 			<if test="deviceName != null">
-				 device_name = #{deviceName},
+				device_name = #{deviceName},
 			</if>
 			<if test="deviceFault != null">
-				 device_fault = #{deviceFault},
+				device_fault = #{deviceFault},
 			</if>
 			<if test="dealMethod != null">
-				 deal_method = #{dealMethod},
+				deal_method = #{dealMethod},
 			</if>
 			<if test="areaId != null">
-				 area_id = #{areaId},
+				area_id = #{areaId},
+			</if>
+			<if test="areaName != null">
+				area_name = #{areaName},
 			</if>
 			<if test="stopTime != null">
-				 stop_time = #{stopTime},
+				stop_time = #{stopTime},
 			</if>
 			<if test="createTime != null">
-				 create_time = #{createTime},
+				create_time = #{createTime},
 			</if>
 			<if test="updateTime != null">
-				 update_time = #{updateTime},
+				update_time = #{updateTime},
 			</if>
 			<if test="deleteStatus != null">
-				 delete_status = #{deleteStatus},
+				delete_status = #{deleteStatus},
 			</if>
 
- 		 </set>
-		 WHERE id = #{id}
+		</set>
+		WHERE id = #{id}
 	</update>
 
 	<!-- 修 改-->
 	<update id="updateByPrimaryKey" parameterType="com.huaxia.tongyong.model.ReportFault">
-		 UPDATE t_report_fault
-		 SET 
-			 report_id = #{reportId},
-			 device_name = #{deviceName},
-			 device_fault = #{deviceFault},
-			 deal_method = #{dealMethod},
-			 area_id = #{areaId},
-			 stop_time = #{stopTime},
-			 create_time = #{createTime},
-			 update_time = #{updateTime},
-			 delete_status = #{deleteStatus}
-		 WHERE id = #{id}
+		UPDATE t_report_fault
+		SET
+		report_id = #{reportId},
+		device_name = #{deviceName},
+		device_fault = #{deviceFault},
+		deal_method = #{dealMethod},
+		area_id = #{areaId},
+		area_name = #{areaName},
+		stop_time = #{stopTime},
+		create_time = #{createTime},
+		update_time = #{updateTime},
+		delete_status = #{deleteStatus}
+		WHERE id = #{id}
 	</update>
 
 </mapper>
