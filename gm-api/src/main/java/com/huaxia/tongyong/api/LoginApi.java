@@ -20,8 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Description:
  * @Date:Create in 10:33 2017/8/25
  */
-@RestController
-@RequestMapping("login")
+@RestController("/login")
 @Slf4j
 public class LoginApi {
 

@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @className: ReportController
  */
 @Data
-@RestController
-@RequestMapping("/v1/report")
+@RestController("/v1/report")
 @Api(value="ReportController",description = "日报相关接口定义")
 public class ReportApi {
 

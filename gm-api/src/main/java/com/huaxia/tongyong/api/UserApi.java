@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0.0
  */
 @Api(value = "UserController", description = "用户相关api")
-@RestController
-@RequestMapping("/v1/user")
+@RestController("/v1/user")
 @Slf4j
 public class UserApi {
 

@@ -18,8 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2017/12/10 22:35
  * @className: FaultController
  */
-@RestController
-@RequestMapping("/v1/fault")
+@RestController("/v1/fault")
 @Slf4j
 @Api(value = "FaultController", description = "故障日报相关的api")
 public class FaultApi {
