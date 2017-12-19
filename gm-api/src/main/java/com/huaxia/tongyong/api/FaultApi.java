@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2017/12/10 22:35
  * @className: FaultController
  */
-@RestController("/v1/fault")
+@RestController
+@RequestMapping("/v1/fault")
 @Slf4j
 @Api(value = "FaultController", description = "故障日报相关的api")
 public class FaultApi {

@@ -21,6 +21,8 @@ public class ReportRepairVo {
     /**维修保养设备**/
     private String deviceName;
 
+    private Integer deviceId;
+
     /**维修保养设备**/
     private String repairComment;
 

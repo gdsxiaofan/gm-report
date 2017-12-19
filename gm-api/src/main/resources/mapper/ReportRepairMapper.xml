@@ -29,12 +29,13 @@
 		<result property="updateTime" column="update_time" />
 		<!--有效状态：1，有效 0，无效-->
 		<result property="deleteStatus" column="delete_status" />
+		<result property="deviceId" column="device_id" />
 	</resultMap>
 
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-	id,	report_id,	device_name,	repair_comment,	replace_parts,	validate_method,	calibrated_volume,	repair_status,	repair_car_no,	create_time,	update_time,	delete_status
+	id,	report_id,	device_name,	repair_comment,	replace_parts,	validate_method,	calibrated_volume,	repair_status,	repair_car_no,	create_time,	update_time,	delete_status,device_id
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
@@ -49,6 +50,7 @@
 			id,
 			report_id reportId,
 			device_name deviceName,
+			device_id deviceId,
 			repair_comment repairComment,
 			replace_parts replaceParts,
 			validate_method validateMethod,
@@ -62,8 +64,38 @@
 		AND id = #{id}
 		AND report_id = #{reportId}
 	</select>
+	<select id="selectReportRepairVoForExcel" resultType="com.huaxia.tongyong.vo.ReportRepairVo">
+		SELECT
+		rr.id,
+		report_id reportId,
+		device_id deviceId,
+		device_name deviceName,
+		repair_comment repairComment,
+		replace_parts replaceParts,
+		validate_method validateMethod,
+		calibrated_volume calibratedVolume,
+		repair_status repairStatus,
+		repair_car_no repairCarNo
+		FROM
+		t_report_repair rr
+		JOIN t_report_info ri ON rr.report_id = ri.id
+		WHERE
+		ri.delete_status = 1
+		<if test="reportStatus!=null">
+			AND ri.report_status=#{reportStatus}
+		</if>
+	  	<if test="deviceId!=null">
+			AND rr.device_id = #{deviceId}
+		</if>
+		<if test="startTime!=null">
+			AND ri.create_time &gt; #{startTime}
+		</if>
+		<if test="endTime!=null">
+			AND ri.create_time &lt; #{endTime}
+		</if>
+	</select>
 
-    <!--删除：根据主键ID删除-->
+	<!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		 DELETE FROM t_report_repair
 		 WHERE id = #{id}
@@ -89,6 +121,9 @@
 			</if>
 			<if test="deviceName != null">
 				 device_name,
+			</if>
+			<if test="deviceId !=null">
+				device_id
 			</if>
 			<if test="repairComment != null">
 				 repair_comment,
@@ -129,6 +164,9 @@
 			<if test="deviceName!=null">
 				 #{deviceName},
 			</if>
+			 <if test="deviceId!=null">
+				 #{deviceId},
+			 </if>
 			<if test="repairComment!=null">
 				 #{repairComment},
 			</if>
@@ -169,6 +207,9 @@
 			<if test="deviceName != null">
 				 device_name = #{deviceName},
 			</if>
+			 <if test="deviceId !=null">
+				 device_id = #{deviceId},
+			 </if>
 			<if test="repairComment != null">
 				 repair_comment = #{repairComment},
 			</if>

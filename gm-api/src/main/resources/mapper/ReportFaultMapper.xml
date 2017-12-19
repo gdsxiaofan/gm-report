@@ -42,6 +42,27 @@
 		FROM t_report_fault
 		WHERE id = #{id}
 	</select>
+	<select id="selectReportFaultVo" resultType="com.huaxia.tongyong.vo.ReportFaultVo">
+		SELECT
+			id AS id,
+			report_id reportId,
+			device_name deviceName,
+			device_fault deviceFault,
+			deal_method dealMethod,
+			area_id areaId,
+			area_name areaName,
+			DATE_FORMAT(stop_time, '%Y-%m-%d %t') sotpTime
+		FROM
+			t_report_fault
+		<where>
+			<if test="id !=null" >
+				AND id = #{id}
+			</if>
+			<if test="reportId !=null">
+				report_id = #{reportId}
+			</if>
+		</where>
+	</select>
 
 	<!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -58,7 +79,7 @@
 	</insert>
 
 	<!-- 添加 （匹配有值的字段）-->
-	<insert id="insertSelective" parameterType="com.huaxia.tongyong.model.ReportFault">
+	<insert id="insertSelective" parameterType="com.huaxia.tongyong.model.ReportFault" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO t_report_fault
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="id != null">

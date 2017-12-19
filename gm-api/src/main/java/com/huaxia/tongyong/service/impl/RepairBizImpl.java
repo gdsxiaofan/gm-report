@@ -87,14 +87,14 @@ public class RepairBizImpl implements RepairBiz {
      * 根据参数获取故障日报信息
      *
      * @param reportStatus
-     * @param areaId
+     * @param deviceId
      * @param startTime
      * @param endTime
      * @return
      */
     @Override
-    public List<ReportRepairVo> selectReportRepairVoList(Integer reportStatus, Long areaId, String startTime, String endTime) {
-        return null;
+    public List<ReportRepairVo> selectReportRepairVoList(Integer reportStatus, Integer deviceId, String startTime, String endTime) {
+        return reportRepairMapper.selectReportRepairVoForExcel(reportStatus,deviceId,startTime,endTime);
     }
 
     /**

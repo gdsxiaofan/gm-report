@@ -19,6 +19,11 @@ public class RepairParam {
     /**维修保养设备**/
     private String deviceName;
 
+    /**
+     * 设备id
+     */
+    private Integer deviceId;
+
     /**维修保养设备**/
     private String repairComment;
 

@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.List;
+
 
 /**
  * 
@@ -40,4 +43,18 @@ public interface ReportRepairMapper{
      * @return
      */
     public Integer updateByPrimaryKeySelective(ReportRepair reportRepair);
+
+    /**
+     * 根据日报状态，区域id,开始时间，结束时间查询相关的日报信息
+     * @param reportStatus
+     * @param deviceId
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public List<ReportRepairVo> selectReportRepairVoForExcel(
+            @Param("reportStatus")Integer reportStatus,
+            @Param("deviceId") Integer deviceId,
+            @Param("startTime") String startTime,
+            @Param("endTime") String endTime);
 }

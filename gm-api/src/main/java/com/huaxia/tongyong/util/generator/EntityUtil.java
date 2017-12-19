@@ -662,11 +662,12 @@ public class EntityUtil {
             List<String> tables = new ArrayList<String>();
 
 //            tables.add("t_group_info");
-            tables.add("t_report_fault");
+//            tables.add("t_report_fault");
 //            tables.add("t_report_info");
 //            tables.add("t_report_repair");
 //            tables.add("t_report_transfer_log");
 //            tables.add("t_user_info");
+            tables.add("t_dictionary_info");
             new EntityUtil().generate(tables);
             // 自动打开生成文件的目录
             Runtime.getRuntime().exec("cmd /c start explorer E:\\");

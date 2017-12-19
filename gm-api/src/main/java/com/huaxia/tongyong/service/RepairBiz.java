@@ -37,14 +37,14 @@ public interface RepairBiz {
     /**
      * 获取故障日报信息里列表
      * @param reportStatus
-     * @param areaId
+     * @param deviceId
      * @param startTime
      * @param endTime
      * @return
      */
     public List<ReportRepairVo> selectReportRepairVoList(
             Integer reportStatus,
-            Long areaId,
+            Integer deviceId,
             String startTime,
             String endTime
     );

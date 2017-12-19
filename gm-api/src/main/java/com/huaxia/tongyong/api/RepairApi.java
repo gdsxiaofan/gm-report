@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * @className: RepairApi
  */
 @Api(value = "RepairApi" ,description = "修复验证的接口定义")
-@RestController("/v1/repair")
+@RestController
+@RequestMapping("/v1/repair")
 @Slf4j
 public class RepairApi {
 
