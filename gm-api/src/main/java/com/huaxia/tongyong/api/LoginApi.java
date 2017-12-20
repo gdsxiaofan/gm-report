@@ -1,7 +1,6 @@
 package com.huaxia.tongyong.api;
 
 import com.huaxia.tongyong.handler.JwtHandler;
-import com.huaxia.tongyong.model.Employee;
 import com.huaxia.tongyong.model.UserInfo;
 import com.huaxia.tongyong.service.LoginBiz;
 import com.huaxia.tongyong.util.json.JSONHelper;
@@ -20,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  * @Description:
  * @Date:Create in 10:33 2017/8/25
  */
-@RestController("/login")
+@RestController
+@RequestMapping("/login")
 @Slf4j
 public class LoginApi {
 
