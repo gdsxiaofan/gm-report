@@ -44,4 +44,13 @@ public interface ReportFaultMapper{
      * @return
      */
     public Integer updateByPrimaryKeySelective(ReportFault reportFault);
+
+    /**
+     * 删除对应的日报信息
+     * @param reportId
+     * @return
+     */
+    public Integer updateForDelete(
+            @Param("reportId")Long reportId
+    );
 }

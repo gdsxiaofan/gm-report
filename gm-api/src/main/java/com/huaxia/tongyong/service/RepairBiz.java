@@ -48,4 +48,12 @@ public interface RepairBiz {
             String startTime,
             String endTime
     );
+
+    /**
+     * 删除对应的日报信息
+     * @param reportId
+     */
+    public void deleteRepair(
+            Long reportId
+    );
 }

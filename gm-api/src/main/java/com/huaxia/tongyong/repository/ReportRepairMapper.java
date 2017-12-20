@@ -57,4 +57,13 @@ public interface ReportRepairMapper{
             @Param("deviceId") Integer deviceId,
             @Param("startTime") String startTime,
             @Param("endTime") String endTime);
+
+    /**
+     * 删除对应的日报信息
+     * @param reportId
+     * @return
+     */
+    public Integer updateForDelte(
+            @Param("reportId")Long reportId
+    );
 }

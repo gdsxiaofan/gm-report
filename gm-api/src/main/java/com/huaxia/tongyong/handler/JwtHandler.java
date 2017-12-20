@@ -4,8 +4,16 @@
 package com.huaxia.tongyong.handler;
 
 
+import com.huaxia.tongyong.model.Employee;
+import com.huaxia.tongyong.model.UserInfo;
+import com.huaxia.tongyong.repository.UserInfoMapper;
+import com.huaxia.tongyong.util.json.JSONHelper;
 import com.huaxia.tongyong.util.jwt.JwtUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,13 +28,14 @@ import java.util.stream.Stream;
  * @Description: jwt登录token认证
  * @Date:Create in 17:25 2017/8/25
  */
-//@Component
+@Component
 public class JwtHandler implements HandlerInterceptor {
     public static final String AUTHORIZATION="Authorization";
 
 
-    //    @Autowired
-//    private EmployeeMapper employeeMapper;
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         String jwt = getCookieJWT(request);
@@ -41,8 +50,8 @@ public class JwtHandler implements HandlerInterceptor {
             return false;
         }
         //查询对应的用户信息
-//        Employee employee = employeeMapper.selectById(id);
-//        MDC.put("user", JSONHelper.obj2JSONString(employee));
+        UserInfo userInfo = userInfoMapper.selectByPrimaryKey(Long.valueOf(id));
+        MDC.put("user", JSONHelper.obj2JSONString(userInfo));
         setCookieJWT(id, response);
         return true;
 

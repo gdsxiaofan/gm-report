@@ -19,6 +19,8 @@ public class ReportFaultVo {
     /**设备名称**/
     private String deviceName;
 
+    private Integer deviceId;
+
     /**设备故障**/
     private String deviceFault;
 
@@ -28,7 +30,7 @@ public class ReportFaultVo {
     /**区域，关联字典表id**/
     private Integer areaId;
 
-    private Integer areaName;
+    private String areaName;
 
     /**停线时间**/
     private String stopTime;

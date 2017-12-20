@@ -259,5 +259,11 @@
 			 delete_status = #{deleteStatus}
 		 WHERE id = #{id}
 	</update>
+    <update id="updateForDelte">
+		update t_report_repair
+		set delete_status=0
+		and report_id =#{reportId}
+		and delte_status =1
+	</update>
 
 </mapper>

@@ -10,6 +10,7 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -32,8 +33,8 @@ public class LoginApi {
      */
     @RequestMapping(value = "",method = RequestMethod.POST)
     public JsonResult login(HttpServletResponse response,
-                            String username,
-                            String password) {
+                            @RequestParam("userName") String username,
+                            @RequestParam("password")String password) {
         UserInfo userInfo=loginBiz.verificationForLogin(username,password);
         if(userInfo!=null){
 //            String jwt = JwtUtil.getJWTString(employee.getId());
@@ -41,7 +42,6 @@ public class LoginApi {
 //            response.setHeader(Constant.AUTHORIZATION,jwt);
             return new JsonResult(1, "登陆成功");
         }
-
         MDC.put("user", JSONHelper.obj2JSONString(userInfo));
         return new JsonResult(0,"用户名或密码不匹配");
     }

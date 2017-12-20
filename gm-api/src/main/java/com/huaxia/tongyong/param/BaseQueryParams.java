@@ -13,9 +13,9 @@ public class BaseQueryParams {
     /**
      * 一页展示的数据
      */
-    int pageSize=10;
+    private int pageSize=10;
     /**
      * 页数
      */
-    int pageNum=1;
+    private int pageNum=1;
 }

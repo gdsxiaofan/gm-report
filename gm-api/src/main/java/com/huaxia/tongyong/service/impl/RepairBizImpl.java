@@ -76,6 +76,17 @@ public class RepairBizImpl implements RepairBiz {
     public void updateReportRepair(RepairParam repairParam) {
         //1.组装日报主体信息
         ReportInfo reportInfo = transferToReportInfo(repairParam);
+
+        String userInfoStr = MDC.get("user");
+        if(StringUtils.isBlank(userInfoStr)){
+            throw new RuntimeException("当前用户未登录，请登录后在操作");
+        }
+        reportInfo.setCreateTime(new Date());
+        UserInfo userInfo = JSONHelper.jsonToObject(userInfoStr, UserInfo.class);
+        reportInfo.setCreateUserId(userInfo.getId());
+        reportInfo.setCreateUserName(userInfo.getName());
+        reportInfo.setChargeUserId(userInfo.getId());
+        reportInfo.setCreateUserName(userInfo.getName());
         reportInfoMapper.updateByPrimaryKeySelective(reportInfo);
         //2.组装故障日报信息
         ReportRepair reportRepair = dozerBeanMapper.map(repairParam,ReportRepair.class);
@@ -97,6 +108,12 @@ public class RepairBizImpl implements RepairBiz {
         return reportRepairMapper.selectReportRepairVoForExcel(reportStatus,deviceId,startTime,endTime);
     }
 
+    @Override
+    public void deleteRepair(Long reportId) {
+        reportInfoMapper.updateForDelete(reportId);
+        reportRepairMapper.updateForDelte(reportId);
+    }
+
     /**
      * 转换故障日报信息
      *
@@ -107,19 +124,9 @@ public class RepairBizImpl implements RepairBiz {
         ReportInfo reportInfo = new ReportInfo();
         reportInfo.setId(repairParam.getReportId());
         reportInfo.setReportType(ReportTypeEnum.FAULT.getCode());
-        reportInfo.setCreateTime(new Date());
+
         reportInfo.setReportStatus(repairParam.getReportStatus());
 
-
-        String userInfoStr = MDC.get("user");
-        if(StringUtils.isBlank(userInfoStr)){
-            throw new RuntimeException("当前用户未登录，请登录后在操作");
-        }
-        UserInfo userInfo = JSONHelper.jsonToObject(userInfoStr, UserInfo.class);
-        reportInfo.setCreateUserId(userInfo.getId());
-        reportInfo.setCreateUserName(userInfo.getName());
-        reportInfo.setChargeUserId(userInfo.getId());
-        reportInfo.setCreateUserName(userInfo.getName());
         return reportInfo;
     }
 

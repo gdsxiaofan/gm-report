@@ -1,6 +1,8 @@
 package com.huaxia.tongyong.api;
 
+import com.huaxia.tongyong.model.ReportFault;
 import com.huaxia.tongyong.param.FaultParam;
+import com.huaxia.tongyong.service.FaultBiz;
 import com.huaxia.tongyong.vo.JsonResult;
 import com.huaxia.tongyong.vo.ReportFaultVo;
 import io.swagger.annotations.Api;
@@ -25,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 @Api(value = "FaultController", description = "故障日报相关的api")
 public class FaultApi {
 
+    @Autowired
+    private FaultBiz faultBiz;
     /**
      * 新增日报记录
      * @param faultParam
@@ -33,7 +37,13 @@ public class FaultApi {
     @ApiOperation(value="新增故障日报记录")
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public JsonResult addFault(@ApiParam @RequestBody FaultParam faultParam){
-        return null;
+
+        Integer count =faultBiz.saveReportFault(faultParam);
+
+        if(count!=1){
+            return  new JsonResult(0,"保存故障日报信息失败",null);
+        }
+        return new JsonResult();
     }
 
     /**
@@ -46,7 +56,14 @@ public class FaultApi {
     public JsonResult<ReportFaultVo> getFault(
             @RequestParam("reportId")Long reportId
     ){
-        return null;
+        JsonResult<ReportFaultVo> jsonResult = new JsonResult<>();
+        ReportFaultVo reportFaultVo = faultBiz.getReportFaultVo(reportId,null);
+        jsonResult.setData(reportFaultVo);
+        if(reportFaultVo==null){
+            jsonResult.setCode(0);
+            jsonResult.setMessage("未查询到故障日报信息");
+        }
+        return jsonResult;
     }
 
     /**
@@ -57,20 +74,31 @@ public class FaultApi {
     @ApiOperation(value="更新故障日报的信息")
     @RequestMapping(value ="/update",method = RequestMethod.POST)
     public JsonResult updateFault(@ApiParam @RequestBody FaultParam faultParam){
-        return null;
+
+        Integer count =faultBiz.updateReportFault(faultParam);
+
+        if(count!=1){
+            return  new JsonResult(0,"更新故障日报信息失败",null);
+        }
+        return new JsonResult();
     }
 
     /**
      * 删除故障日报信息
-     * @param id
+     * @param reportId
      * @return
      */
     @ApiOperation(value="删除故障日报的信息")
     @RequestMapping(value="/delete",method = RequestMethod.DELETE)
     public JsonResult deleteFault(
-            @RequestParam("id") Long id
+            @ApiParam("reportId,故障日报对应的日报主体id") @RequestParam("reportId") Long reportId
     ){
-        return null;
+        Integer count =faultBiz.deleteReportFault(reportId);
+
+        if(count!=1){
+            return  new JsonResult(0,"删除故障日报信息失败",null);
+        }
+        return new JsonResult();
     }
 
 

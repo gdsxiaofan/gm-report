@@ -19,6 +19,8 @@ public class ReportFault{
 	/**设备名称**/
 	private String deviceName;
 
+	private Integer deviceId;
+
 	/**设备故障**/
 	private String deviceFault;
 

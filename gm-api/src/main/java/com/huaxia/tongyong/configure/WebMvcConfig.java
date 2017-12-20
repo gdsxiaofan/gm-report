@@ -4,6 +4,7 @@
 package com.huaxia.tongyong.configure;
 
 import com.huaxia.tongyong.handler.JwtHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -12,10 +13,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter{
 
+    @Autowired
+    private JwtHandler jwtHandler;
+
     //配置jwt拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new JwtHandler())
+        registry.addInterceptor(jwtHandler)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/error",
                         "/login",

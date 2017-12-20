@@ -11,6 +11,7 @@
 		<result property="reportId" column="report_id" />
 		<!--设备名称-->
 		<result property="deviceName" column="device_name" />
+		<result property="deviceId" column="device_id" />
 		<!--设备故障-->
 		<result property="deviceFault" column="device_fault" />
 		<!--处理方法-->
@@ -32,7 +33,7 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-		id,	report_id,	device_name,	device_fault,	deal_method,	area_id,	area_name,	stop_time,	create_time,	update_time,	delete_status
+		id,	report_id,	device_id,device_name,	device_fault,	deal_method,	area_id,	area_name,	stop_time,	create_time,	update_time,	delete_status
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
@@ -45,13 +46,14 @@
 	<select id="selectReportFaultVo" resultType="com.huaxia.tongyong.vo.ReportFaultVo">
 		SELECT
 			id AS id,
+			device_id deviceId,
 			report_id reportId,
 			device_name deviceName,
 			device_fault deviceFault,
 			deal_method dealMethod,
 			area_id areaId,
 			area_name areaName,
-			DATE_FORMAT(stop_time, '%Y-%m-%d %t') sotpTime
+			stop_time stopTime
 		FROM
 			t_report_fault
 		<where>
@@ -91,6 +93,9 @@
 			<if test="deviceName != null">
 				device_name,
 			</if>
+			<if test="deviceId != null">
+				device_id,
+			</if>
 			<if test="deviceFault != null">
 				device_fault,
 			</if>
@@ -126,6 +131,9 @@
 			</if>
 			<if test="deviceName!=null">
 				#{deviceName},
+			</if>
+			<if test="deviceId!=null">
+				#{deviceId},
 			</if>
 			<if test="deviceFault!=null">
 				#{deviceFault},
@@ -163,6 +171,9 @@
 			</if>
 			<if test="deviceName != null">
 				device_name = #{deviceName},
+			</if>
+			<if test="deviceId != null">
+				device_Id = #{deviceId},
 			</if>
 			<if test="deviceFault != null">
 				device_fault = #{deviceFault},
@@ -208,6 +219,13 @@
 		update_time = #{updateTime},
 		delete_status = #{deleteStatus}
 		WHERE id = #{id}
+	</update>
+    <update id="updateForDelete">
+		UPDATE t_report_fault
+		SET
+		delete_status=0
+		where report_id = #{reportId}
+		and delete_status =1
 	</update>
 
 </mapper>

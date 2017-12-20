@@ -16,6 +16,15 @@ import java.util.List;
 @Mapper
 public interface UserInfoMapper{
 
+
+    /**
+     * 根据用户id查询用户信息
+     * @param id
+     * @return
+     */
+    public UserInfo selectByPrimaryKey(
+            @Param("id")Long id);
+
     /**
      * 用于用户登陆时，查询密码所用
      * @param employeeNo

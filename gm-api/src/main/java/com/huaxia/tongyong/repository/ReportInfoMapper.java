@@ -41,4 +41,12 @@ public interface ReportInfoMapper{
      * @return
      */
     public Integer updateByPrimaryKeySelective(ReportInfo reportInfo);
+
+    /**
+     * 删除对应的日报主体信息
+     * @param id
+     * @return
+     */
+    public Integer updateForDelete(@Param("id")
+                                   Long id);
 }

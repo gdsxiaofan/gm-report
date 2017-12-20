@@ -45,14 +45,14 @@
 		SELECT
 			id reportId,
 			report_name reportName,
-			report_type reportType,
+			report_type reportTypeCode,
 			DATE_FORMAT(create_time,'%Y-%m-%d %t') createTime
 		FROM
 			t_report_info
 		WHERE
 			delete_status = 1
 			<if test="reportStatus !=null">
-				report_status = #{reportStatus}
+				and report_status = #{reportStatus}
 			</if>
 	</select>
 
@@ -197,6 +197,12 @@
 			 update_time = #{updateTime},
 			 delete_status = #{deleteStatus}
 		 WHERE id = #{id}
+	</update>
+	<update id="updateForDelete">
+		UPDATE t_report_info
+		SET
+		  delete_status =0
+		  where id =#{id} and delete_status =1
 	</update>
 
 </mapper>

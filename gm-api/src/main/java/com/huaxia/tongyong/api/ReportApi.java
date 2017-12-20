@@ -2,12 +2,14 @@ package com.huaxia.tongyong.api;
 
 import com.github.pagehelper.PageInfo;
 import com.huaxia.tongyong.param.ReportQueryParams;
+import com.huaxia.tongyong.service.ReportBiz;
 import com.huaxia.tongyong.vo.JsonResult;
 import com.huaxia.tongyong.vo.ReportInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -24,15 +26,21 @@ import javax.servlet.http.HttpServletResponse;
 @Api(value="ReportController",description = "日报相关接口定义")
 public class ReportApi {
 
+    @Autowired
+    private ReportBiz reportBiz;
     /**
      * 获取日报列表信息
      * @param reportQueryParams
      * @return
      */
     @ApiOperation("日报列表接口")
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @RequestMapping(value = "/list",method = RequestMethod.POST)
     public JsonResult<PageInfo<ReportInfoVo>> getReportList(@RequestBody ReportQueryParams reportQueryParams){
-            return null;
+        //1.查询日报信息
+        PageInfo<ReportInfoVo> reportInfoVoPageInfo = reportBiz.selectReportInfoVoList(reportQueryParams);
+        JsonResult<PageInfo<ReportInfoVo>> jsonResult = new JsonResult<>();
+        jsonResult.setData(reportInfoVoPageInfo);
+        return jsonResult;
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.huaxia.tongyong.param;
 
 import lombok.Data;
+import org.dozer.Mapping;
 
 /**
  * @Description: 故障记录录入参数
@@ -24,6 +25,8 @@ public class FaultParam {
      * 设备名称
      */
     String deviceName;
+
+    Integer deviceId;
     /**
      * 设备故障
      */
@@ -35,7 +38,9 @@ public class FaultParam {
     /**
      * 区域
      */
-    String area;
+    String areaName;
+
+    Integer areaId;
     /**
      * 停线时间
      */

@@ -70,13 +70,13 @@
         <appender-ref ref="INFO-FILE-APPENDER" />
         <appender-ref ref="ERROR-FILE-APPENDER" />
     </root>
-	<logger name="com.xiaofan.car.dao.repository" level="${logLevel}" />
+	<logger name="com.huaxia.tongyong.repository" level="${logLevel}" />
 
 
     <logger name="com.zaxxer" level="warn"/>
     <logger name="org.mybatis" level="warn"/>
 
-    <logger name="com.xiaofan.car" level="info"/>
+    <logger name="com.huaxia.tongyong" level="info"/>
 
     <logger name="com.ppcredit.gypsophila.cloud" level="INFO"/>
 	<logger name="javax.activation" level="WARN"/>

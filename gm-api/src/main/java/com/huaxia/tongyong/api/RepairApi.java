@@ -2,11 +2,14 @@ package com.huaxia.tongyong.api;
 
 import com.huaxia.tongyong.model.ReportRepair;
 import com.huaxia.tongyong.param.RepairParam;
+import com.huaxia.tongyong.service.RepairBiz;
 import com.huaxia.tongyong.vo.JsonResult;
+import com.huaxia.tongyong.vo.ReportFaultVo;
 import com.huaxia.tongyong.vo.ReportRepairVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +26,15 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class RepairApi {
 
+    @Autowired
+    private RepairBiz repairBiz;
+
     @ApiOperation("新增修复验证日报信息")
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public JsonResult addRepair(@RequestBody RepairParam repairParam){
-        return null;
+        repairBiz.saveReportRepair(repairParam);
+
+        return new JsonResult();
     }
 
 
@@ -35,13 +43,23 @@ public class RepairApi {
     public JsonResult<ReportRepairVo> getRepair(
             @RequestParam("reportId")Long reportId
     ){
-        return null;
+        JsonResult<ReportRepairVo> jsonResult = new JsonResult<>();
+        ReportRepairVo reportFaultVo = repairBiz.getReportRepairVo(reportId);
+        jsonResult.setData(reportFaultVo);
+        if(reportFaultVo==null){
+            jsonResult.setCode(0);
+            jsonResult.setMessage("未查询到修复验证日报信息");
+        }
+        return jsonResult;
     }
 
     @ApiOperation("更新修复验证日报信息")
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     public JsonResult updateRepair(@RequestBody RepairParam repairParam){
-        return null;
+
+        repairBiz.updateReportRepair(repairParam);
+
+        return new JsonResult();
     }
 
     @ApiOperation("删除修复验证日报信息")
@@ -49,7 +67,8 @@ public class RepairApi {
     public JsonResult deleteRepair(
             @RequestParam("reportId")Long reportId
     ){
-        return null;
+        repairBiz.deleteRepair(reportId);
+        return new JsonResult();
     }
 
     @ApiOperation("根据条件下载对应的日报数据")
