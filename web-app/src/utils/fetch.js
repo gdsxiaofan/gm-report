@@ -69,7 +69,7 @@ fetch.interceptors.response.use(
       MessageBox.error("请重新登录", 3);
       return Promise.reject("请重新登录");
     }
-    Message.error('err' + error);
+    MessageBox.error('err' + error);
     return Promise.reject(error);
   }
 )
