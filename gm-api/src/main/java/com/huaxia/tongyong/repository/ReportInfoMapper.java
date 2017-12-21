@@ -49,4 +49,11 @@ public interface ReportInfoMapper{
      */
     public Integer updateForDelete(@Param("id")
                                    Long id);
+
+    /**
+     * 根据日报id查询对应的日报列表信息
+     * @param idList
+     * @return
+     */
+    public List<ReportInfo> selectReportInfoList(@Param("idList")List<String> idList);
 }

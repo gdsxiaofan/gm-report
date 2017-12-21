@@ -55,6 +55,15 @@
 				and report_status = #{reportStatus}
 			</if>
 	</select>
+    <select id="selectReportInfoList" resultType="com.huaxia.tongyong.model.ReportInfo">
+		SELECT
+		<include refid="Base_Column_List" />
+		from t_report_info
+		where id in
+		<foreach collection="idList" index="index" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
 
     <!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

@@ -13,4 +13,10 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface ReportTransferLogMapper{
 
+    /**
+     * 记录日报交接日志
+     * @param reportTransferLog
+     * @return
+     */
+    public Integer insertSelective(ReportTransferLog reportTransferLog);
 }

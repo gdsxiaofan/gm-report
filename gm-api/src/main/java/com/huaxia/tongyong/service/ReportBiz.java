@@ -18,4 +18,12 @@ public interface ReportBiz {
      * @return
      */
     public PageInfo<ReportInfoVo> selectReportInfoVoList(ReportQueryParams reportQueryParams);
+
+    /**
+     * 交接日报信息
+     * @param userId
+     * @param idStr
+     * @return
+     */
+    public boolean transferReport(Long userId,String idStr);
 }
