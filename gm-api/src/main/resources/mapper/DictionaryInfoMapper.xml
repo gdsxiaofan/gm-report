@@ -32,7 +32,7 @@
 		 FROM t_dictionary_info
 		 WHERE id = #{id}
 	</select>
-	<select id="selectDictionaryInfoByType" resultType="com.huaxia.tongyong.model.DictionaryInfo">
+	<select id="selectDictionaryInfoByType" resultMap="BaseResultMap">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM t_dictionary_info
