@@ -25,7 +25,7 @@ public class LoginBizImpl implements LoginBiz{
     UserInfoMapper userInfoMapper;
 
     @Override
-    public UserInfo verificationForLogin(String employeeNo, String password) {
+    public UserInfo verificationForLogin(String employeeNo, String password) throws IllegalArgumentException {
         // 1.校验参宿
         Assert.isTrue(StringUtils.isNotBlank(employeeNo),"工号不能为空！");
         Assert.isTrue(StringUtils.isNotBlank(password),"密码不能为空！");

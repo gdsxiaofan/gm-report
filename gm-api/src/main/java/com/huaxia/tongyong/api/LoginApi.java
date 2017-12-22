@@ -27,23 +27,30 @@ public class LoginApi {
 
     @Autowired
     private LoginBiz loginBiz;
+
     /**
      * 登录
+     *
      * @return
      */
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public JsonResult login(HttpServletResponse response,
-                            @RequestParam("userName") String username,
-                            @RequestParam("password")String password) {
-        UserInfo userInfo=loginBiz.verificationForLogin(username,password);
-        if(userInfo!=null){
+                            @RequestParam("username") String username,
+                            @RequestParam("password") String password) {
+        UserInfo userInfo = null;
+        try {
+            userInfo = loginBiz.verificationForLogin(username, password);
+        } catch (IllegalArgumentException e) {
+            return new JsonResult(0, e.getMessage());
+        }
+        if (userInfo != null) {
 //            String jwt = JwtUtil.getJWTString(employee.getId());
-            JwtHandler.setCookieJWT(userInfo.getId().intValue(),response);
+            JwtHandler.setCookieJWT(userInfo.getId().intValue(), response);
 //            response.setHeader(Constant.AUTHORIZATION,jwt);
             return new JsonResult(1, "登陆成功");
         }
         MDC.put("user", JSONHelper.obj2JSONString(userInfo));
-        return new JsonResult(0,"用户名或密码不匹配");
+        return new JsonResult(0, "用户名或密码不匹配");
     }
 
 }

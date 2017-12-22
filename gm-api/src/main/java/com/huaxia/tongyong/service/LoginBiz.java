@@ -1,6 +1,5 @@
 package com.huaxia.tongyong.service;
 
-import com.huaxia.tongyong.model.Employee;
 import com.huaxia.tongyong.model.UserInfo;
 
 /**
@@ -20,6 +19,6 @@ public interface LoginBiz {
      */
 //    Employee verificationForLogin(String employeeNo, String password);
 
-    UserInfo verificationForLogin(String employeeNo, String password);
+    UserInfo verificationForLogin(String employeeNo, String password) throws IllegalArgumentException;
 
 }
