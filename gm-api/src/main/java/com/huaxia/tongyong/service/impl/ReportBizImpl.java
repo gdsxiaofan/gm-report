@@ -12,13 +12,10 @@ import com.huaxia.tongyong.repository.UserInfoMapper;
 import com.huaxia.tongyong.service.ReportBiz;
 import com.huaxia.tongyong.vo.ReportInfoVo;
 import io.jsonwebtoken.lang.Assert;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.ws.ServiceMode;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -51,9 +48,9 @@ public class ReportBizImpl implements ReportBiz {
         List<ReportInfoVo> reportInfoVoList = reportInfoMapper.getReportInfoVoList(reportQueryParams.getReportStatus());
 
         //2.当前的查询数据为空，则直接返回null
-        if(CollectionUtils.isEmpty(reportInfoVoList)){
-            return null;
-        }
+//        if(CollectionUtils.isEmpty(reportInfoVoList)){
+//            return null;
+//        }
         PageInfo<ReportInfoVo> pageInfo = new PageInfo<>(reportInfoVoList);
         return pageInfo;
     }
