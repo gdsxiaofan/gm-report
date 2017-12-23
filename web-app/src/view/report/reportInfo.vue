@@ -1,28 +1,23 @@
 <template>
   <div class="">
-
     <mt-header  title="故障记录">
       <mt-button icon="back" slot="left" @click="$router.go(-1);">返回</mt-button>
       <mt-button size="small" slot="right" @click="">编辑</mt-button>
     </mt-header>
-    <mt-navbar v-model="selected">
-      <mt-tab-item id="1">已保存</mt-tab-item>
-      <mt-tab-item id="2">已提交</mt-tab-item>
-    </mt-navbar>
-    <mt-tab-container v-model="selected" style="margin-top: 10px">
-      <mt-tab-container-item id="1">
-        <mt-cell v-for="n in 10"  @click="$router.push({path:'reportInfo',query:{id:n}})" :key="n">
-            <div slot="title">内容{{n}}<br><span style="font-size: 0.6rem">201444</span> </div>
-          <div>asdada</div>
-        </mt-cell>
-      </mt-tab-container-item>
-      <mt-tab-container-item id="2">
-        <mt-cell v-for="n in 4"  :key="n">
-          <div slot="title">内容{{n}}<br><span style="font-size: 0.6rem">201444</span> </div>
-          <div>asdada</div>
-        </mt-cell>
-      </mt-tab-container-item>
-    </mt-tab-container>
+    <mt-popup style="width: 100%"
+      v-model="reportType"
+      popup-transition="popup-fade"
+      position="bottom">
+      <section style="width:100%; height: 100%;">
+        <div class="padding">
+          <span>取消</span>
+          <span  style="float: right;">完成</span>
+        </div>
+        <mt-picker :slots="slots" @change="onValuesChange"></mt-picker>
+      </section>
+
+    </mt-popup>
+
   </div>
 </template>
 <script>
@@ -31,11 +26,20 @@
   export default {
     data () {
       return {
-        selected: '1'
+        reportType:true,
+        slots: [
+          {
+            values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
+          }
+        ]
       }
     },
     methods: {
-
+      onValuesChange(picker, values) {
+        if (values[0] > values[1]) {
+          picker.setSlotValue(1, values[0]);
+        }
+      }
     },
     components:{
       navBar:NavBar
