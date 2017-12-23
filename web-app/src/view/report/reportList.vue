@@ -10,9 +10,9 @@
       <mt-tab-item :id="2">已提交</mt-tab-item>
     </mt-navbar>
     <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-      <mt-cell v-for="n in 10" @click.native="$router.push({path:'/reportInfo',query:{id:n}})" :key="n">
-        <div slot="title">内容{{n}}<br><span style="font-size: 0.6rem">201444</span></div>
-        <div>asdada</div>
+      <mt-cell v-for="n in list" @click.native="$router.push({path:'/reportInfo',query:{id:n.reportId}})" :key="n">
+        <div slot="title">{{n.reportName }}<br><span style="font-size: 0.6rem">{{n.createTime}}</span></div>
+        <div>{{n.reportTypeName}}</div>
       </mt-cell>
     </mt-loadmore>
   </div>
@@ -40,14 +40,14 @@
     watch: {
       reportStatus: function (val, oldVal) {
         this.queryForPage.pageNum = 1
-        this.queryForPage.reportStatus = val
         this.getlist()
       }
     },
     methods: {
       getlist () {
+        this.queryForPage.reportStatus = this.reportStatus
         getReportList(this.queryForPage).then(res => {
-          this.lists = res.data.data.list
+          this.list = res.data.data.list
           this.allLoaded = true// 若数据已全部获取完毕
         })
       },
