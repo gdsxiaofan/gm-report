@@ -1,13 +1,23 @@
 <template>
   <div id="app">
-  
+
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+  import {
+    getDictionaryInfoByType
+  } from '../src/global/api'
 export default {
-  name: 'app'
+  name: 'app',
+  created(){
+    getDictionaryInfoByType(1).then(res=>{
+      this.$store.dispatch('setDictionaryInfo', res.data.data.map(x=>{
+        return {key:x.dictionaryName,value:x.id}
+      }))
+    })
+  }
 }
 </script>
 
