@@ -16,9 +16,6 @@ public class UserInfoVo {
     /****/
     private String employeeNo;
 
-    /**密码**/
-    private String password;
-
     /**手机号码**/
     private String mobileNo;
 
@@ -27,6 +24,9 @@ public class UserInfoVo {
 
     /**班组id**/
     private Long groupId;
+
+    /**班组名称**/
+    private Long groupName;
 
     /**用户状态：1，启用 0，未启用**/
     private Integer userStatus;

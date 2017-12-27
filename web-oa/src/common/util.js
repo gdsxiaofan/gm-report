@@ -10,7 +10,7 @@ function padding(s, len) {
 };
 
 export default {
-    getQueryStringByName: function (name) {
+    getQueryStringByNam7e: function (name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
         var context = "";

@@ -3,13 +3,19 @@
  */
 package com.huaxia.tongyong.api;
 
+import com.huaxia.tongyong.param.UserParam;
+import com.huaxia.tongyong.param.UserQueryParam;
+import com.huaxia.tongyong.vo.JsonResult;
+import com.huaxia.tongyong.vo.UserInfoVo;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * TODO: 请添加描述
+ * 提供用户相关的接口
  *
  * @author gongdaoshun
  * @date 2017/12/2 0002
@@ -21,7 +27,34 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UserApi {
 
-    //1.获取所有的有效班组信息
-    //2.根据班组id获取所有有效的用户信息
-    //3.根据用户id获取当前用户的相关信息
+    /**
+     * 用户用户更新密码接口
+     * @param userParam
+     * @return
+     */
+    @RequestMapping(value = "/update/password",method = RequestMethod.POST)
+    public JsonResult updateUser(
+        @RequestBody UserParam userParam
+    ){
+        return new JsonResult();
+    }
+
+    /**
+     * 查询用户列表信息
+     * @param userQueryParam
+     * @return
+     */
+    @RequestMapping(value="/list",method = RequestMethod.GET)
+    public JsonResult<UserInfoVo> getUserList(UserQueryParam userQueryParam){
+        return null;
+    }
+
+    /**
+     * 新增用户信息
+     * @param userParam
+     * @return
+     */
+    public JsonResult addUserInfo(@RequestBody  UserParam userParam){
+        return null;
+    }
 }
