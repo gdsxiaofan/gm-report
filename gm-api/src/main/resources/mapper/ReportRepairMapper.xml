@@ -61,8 +61,12 @@
 			t_report_repair
 		WHERE
 			delete_status = 1
-		AND id = #{id}
-		AND report_id = #{reportId}
+		<if test="id !=null" >
+			AND id = #{id}
+		</if>
+		<if test="reportId !=null">
+			AND	report_id = #{reportId}
+		</if>
 	</select>
 	<select id="selectReportRepairVoForExcel" resultType="com.huaxia.tongyong.vo.ReportRepairVo">
 		SELECT
@@ -123,7 +127,7 @@
 				 device_name,
 			</if>
 			<if test="deviceId !=null">
-				device_id
+				device_id,
 			</if>
 			<if test="repairComment != null">
 				 repair_comment,

@@ -10,7 +10,7 @@
       <mt-tab-item :id="2">已提交</mt-tab-item>
     </mt-navbar>
     <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-      <mt-cell v-for="n in list" @click.native="$router.push({path:'/reportInfo',query:{id:n.reportId}})" :key="n">
+      <mt-cell v-for="n in list" @click.native="$router.push({path:'/reportInfo',query:{reportId:n.reportId,reportType:n.reportTypeCode,reportStatus:reportStatus}})" :key="n.id">
         <div slot="title">{{n.reportName }}<br><span style="font-size: 0.6rem">{{n.createTime}}</span></div>
         <div>{{n.reportTypeName}}</div>
       </mt-cell>

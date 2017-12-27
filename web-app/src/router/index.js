@@ -3,7 +3,10 @@
  */
 import Vue from 'vue'
 import Router from 'vue-router'
+
 Vue.use(Router)
+// 功能列
+const Home = resolve => require(['../view/Home'], resolve)
 // 功能列
 const Main = resolve => require(['../view/report/main'], resolve)
 // 日报list信息
@@ -16,36 +19,37 @@ const Login = resolve => require(['../view/report/login'], resolve)
 // 个人中心
 const Personal = resolve => require(['../view/report/personal'], resolve)
 
+const router = new Router({
 
-
-
-const router=new Router({
   routes: [
-    {path: '/main', component: Main},
-    {path: '/reportList', component: reportList},
-    {path: '/reportInfo', component: reportInfo},
-    {path: '/personal', component: Personal},
     {path: '/login', component: Login},
-    {path: '/', redirect: 'main'}
+    {
+      path: '/',
+      component: Home,
+      redirect: '/main',
+      children: [
+        {path: '/main', component: Main},
+        {path: '/reportList', component: reportList},
+        {path: '/reportInfo', component: reportInfo},
+        {path: '/personal', component: Personal},
+        ]
+    }
   ]
 })
 
-
-
-
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') {
-    localStorage.removeItem('Authorization');
+    localStorage.removeItem('Authorization')
   }
-  let jwt = localStorage.getItem("Authorization");
+  let jwt = localStorage.getItem('Authorization')
   if (!jwt && to.path !== '/login') {
-    next({ path: '/login',query:{ redirect: to.fullPath} })
-    window.scrollTo(0, 0);
+    next({path: '/login', query: {redirect: to.fullPath}})
+    window.scrollTo(0, 0)
   } else {
     next()
   }
 })
 router.afterEach(() => {
-  window.scrollTo(0, 0);
-});
-export default  router
+  window.scrollTo(0, 0)
+})
+export default router

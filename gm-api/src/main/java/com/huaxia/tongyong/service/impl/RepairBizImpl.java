@@ -60,6 +60,7 @@ public class RepairBizImpl implements RepairBiz {
     public void saveReportRepair(RepairParam repairParam) {
         //1.组装日报主体信息
         ReportInfo reportInfo = transferToReportInfo(repairParam);
+        reportInfo.setReportType(ReportTypeEnum.REPAIR.getCode());
         reportInfoMapper.insertSelective(reportInfo);
         //2.组装故障日报信息
         ReportRepair reportRepair = dozerBeanMapper.map(repairParam,ReportRepair.class);
@@ -76,7 +77,7 @@ public class RepairBizImpl implements RepairBiz {
     public void updateReportRepair(RepairParam repairParam) {
         //1.组装日报主体信息
         ReportInfo reportInfo = transferToReportInfo(repairParam);
-
+        reportInfo.setReportType(ReportTypeEnum.REPAIR.getCode());
         String userInfoStr = MDC.get("user");
         if(StringUtils.isBlank(userInfoStr)){
             throw new RuntimeException("当前用户未登录，请登录后在操作");
@@ -123,7 +124,6 @@ public class RepairBizImpl implements RepairBiz {
     private ReportInfo transferToReportInfo(RepairParam repairParam) {
         ReportInfo reportInfo = new ReportInfo();
         reportInfo.setId(repairParam.getReportId());
-        reportInfo.setReportType(ReportTypeEnum.FAULT.getCode());
 
         reportInfo.setReportStatus(repairParam.getReportStatus());
 
