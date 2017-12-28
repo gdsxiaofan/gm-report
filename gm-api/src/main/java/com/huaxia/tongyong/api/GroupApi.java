@@ -1,11 +1,19 @@
 package com.huaxia.tongyong.api;
 
+import com.github.pagehelper.PageInfo;
 import com.huaxia.tongyong.param.GroupParam;
+import com.huaxia.tongyong.service.GroupBiz;
+import com.huaxia.tongyong.vo.GroupInfoVo;
 import com.huaxia.tongyong.vo.JsonResult;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @Description:
@@ -15,7 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/v1/group")
-public class GroupApi {
+public class GroupApi extends BaseApi{
+
+    @Autowired
+    private GroupBiz groupBiz;
 
     /**
      * 获取班组列表信息
@@ -23,10 +34,16 @@ public class GroupApi {
      * @return
      */
     @RequestMapping(value ="/list",method  =RequestMethod.GET)
-    public JsonResult getGroupList(
+    public JsonResult<PageInfo<GroupInfoVo>> getGroupList(
             @RequestBody GroupParam groupParam
             ){
-       return null;
+        List<GroupInfoVo> groupInfoVos = groupBiz.getGroupInfoVoList(groupParam);
+        if(CollectionUtils.isEmpty(groupInfoVos)){
+            return new JsonResult<>(0,"no_data",null);
+        }
+        PageInfo<GroupInfoVo> pageInfo = new PageInfo<>(groupInfoVos);
+
+       return new JsonResult<>(1,"sucess",pageInfo);
     }
 
     /**
@@ -36,7 +53,10 @@ public class GroupApi {
      */
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public JsonResult addGroupInfo(@RequestBody GroupParam groupParam){
-        return null;
+
+        boolean flag = groupBiz.addGroupInfo(groupParam);
+
+        return getJsonResult(flag);
     }
 
     /**
@@ -46,6 +66,11 @@ public class GroupApi {
      */
     @RequestMapping(value="/update",method = RequestMethod.POST)
     public JsonResult updateGroupInfo(@RequestBody GroupParam groupParam){
-        return null;
+
+        boolean flag = groupBiz.updateGroupInfo(groupParam);
+        return getJsonResult(flag);
     }
+
+
+
 }

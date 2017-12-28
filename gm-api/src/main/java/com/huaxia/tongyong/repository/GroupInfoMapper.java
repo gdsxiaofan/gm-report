@@ -1,6 +1,7 @@
 package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.GroupInfo;
+import com.huaxia.tongyong.vo.GroupInfoVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -28,7 +29,7 @@ public interface GroupInfoMapper{
      * @param groupName
      * @return
      */
-    public List<GroupInfo> selectGroupInfo(
+    public List<GroupInfoVo> selectGroupInfoVoList(
             @Param("groupName") String groupName
     );
 
