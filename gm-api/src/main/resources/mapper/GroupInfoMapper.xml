@@ -36,11 +36,15 @@
 		 FROM t_group_info
 		 WHERE id = #{id}
 	</select>
-	<select id="selectGroupInfo" resultType="com.huaxia.tongyong.model.GroupInfo">
+	<select id="selectGroupInfoVoList" resultType="com.huaxia.tongyong.vo.GroupInfoVo">
 		SELECT
-		<include refid="Base_Column_List" />
+			id as id,
+			group_name as groupName,
+			property_one as propertyOne,
+			property_two as propertyTwo,
+			property_three as propertyThree
 		FROM t_group_info
-		where deleteStatus =1
+		where delete_status =1
 		<if test="groupName !=null and groupName !=''">
 			AND group_name =like CONCAT('%',#{groupName},'%')
 		</if>

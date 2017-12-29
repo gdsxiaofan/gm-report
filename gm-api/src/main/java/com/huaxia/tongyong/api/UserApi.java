@@ -3,16 +3,23 @@
  */
 package com.huaxia.tongyong.api;
 
+import com.github.pagehelper.PageInfo;
 import com.huaxia.tongyong.param.UserParam;
 import com.huaxia.tongyong.param.UserQueryParam;
+import com.huaxia.tongyong.service.UserBiz;
+import com.huaxia.tongyong.vo.GroupInfoVo;
 import com.huaxia.tongyong.vo.JsonResult;
 import com.huaxia.tongyong.vo.UserInfoVo;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 提供用户相关的接口
@@ -25,7 +32,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/user")
 @Slf4j
-public class UserApi {
+public class UserApi extends BaseApi{
+
+    @Autowired
+    private UserBiz userBiz;
 
     /**
      * 用户用户更新密码接口
@@ -36,7 +46,8 @@ public class UserApi {
     public JsonResult updateUser(
         @RequestBody UserParam userParam
     ){
-        return new JsonResult();
+        boolean flag = userBiz.updateUserForPassword(userParam);
+        return getJsonResult(flag);
     }
 
     /**
@@ -45,8 +56,15 @@ public class UserApi {
      * @return
      */
     @RequestMapping(value="/list",method = RequestMethod.GET)
-    public JsonResult<UserInfoVo> getUserList(UserQueryParam userQueryParam){
-        return null;
+    public JsonResult<PageInfo<UserInfoVo>> getUserList(UserQueryParam userQueryParam){
+
+        List<UserInfoVo> userInfoVoList = userBiz.getUserInfoList(userQueryParam);
+        if(CollectionUtils.isEmpty(userInfoVoList)){
+            return new JsonResult<>(0,"no_data",null);
+        }
+        PageInfo<UserInfoVo> pageInfo = new PageInfo<>(userInfoVoList);
+
+        return new JsonResult<>(1,"sucess",pageInfo);
     }
 
     /**
@@ -55,6 +73,7 @@ public class UserApi {
      * @return
      */
     public JsonResult addUserInfo(@RequestBody  UserParam userParam){
-        return null;
+        boolean flag = userBiz.addUserInfo(userParam);
+        return getJsonResult(flag);
     }
 }

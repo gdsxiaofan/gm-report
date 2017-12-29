@@ -1,12 +1,16 @@
 package com.huaxia.tongyong.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.huaxia.tongyong.model.GroupInfo;
 import com.huaxia.tongyong.param.GroupParam;
 import com.huaxia.tongyong.repository.GroupInfoMapper;
 import com.huaxia.tongyong.service.GroupBiz;
 import com.huaxia.tongyong.vo.GroupInfoVo;
+import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +25,9 @@ public class GroupBizImpl implements GroupBiz {
     @Autowired
     private GroupInfoMapper groupInfoMapper;
 
+    @Autowired
+    private DozerBeanMapper dozerBeanMapper;
+
     /**
      * 获取班组信息
      * @param groupParam
@@ -28,7 +35,9 @@ public class GroupBizImpl implements GroupBiz {
      */
     @Override
     public List<GroupInfoVo> getGroupInfoVoList(GroupParam groupParam) {
-        return null;
+        PageHelper.startPage(groupParam.getPageNum(),groupParam.getPageSize());
+        List<GroupInfoVo> groupInfoVos = groupInfoMapper.selectGroupInfoVoList(groupParam.getGroupName());
+        return groupInfoVos;
     }
 
     /**
@@ -38,7 +47,10 @@ public class GroupBizImpl implements GroupBiz {
      */
     @Override
     public boolean addGroupInfo(GroupParam groupParam) {
-        return false;
+        GroupInfo groupInfo = transferGroupInfo(groupParam);
+        groupInfo.setCreateTime(new Date());
+        Integer count = groupInfoMapper.insertSelective(groupInfo);
+        return count.intValue()==1?true:false;
     }
 
     /**
@@ -48,6 +60,20 @@ public class GroupBizImpl implements GroupBiz {
      */
     @Override
     public boolean updateGroupInfo(GroupParam groupParam) {
-        return false;
+
+        GroupInfo groupInfo = transferGroupInfo(groupParam);
+
+        Integer count = groupInfoMapper.updateByPrimaryKeySelective(groupInfo);
+        return count.intValue()==1?true:false;
+    }
+
+    /**
+     * 转换集团信息
+     * @param groupParam
+     * @return
+     */
+    private GroupInfo transferGroupInfo(GroupParam groupParam){
+        GroupInfo groupInfo = dozerBeanMapper.map(groupParam,GroupInfo.class);
+        return groupInfo;
     }
 }

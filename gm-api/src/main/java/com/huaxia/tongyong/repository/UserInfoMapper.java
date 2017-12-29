@@ -1,6 +1,7 @@
 package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.UserInfo;
+import com.huaxia.tongyong.vo.UserInfoVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -58,6 +59,17 @@ public interface UserInfoMapper{
      * @return
      */
     public List<UserInfo> selectUserInfoByNoAndName(
+            @Param("employeeNo")String employeeNo,
+            @Param("userName")String userName
+    );
+
+    /**
+     * 查询用户列表信息
+     * @param employeeNo
+     * @param userName
+     * @return
+     */
+    public List<UserInfoVo> selectUserInfoVo(
             @Param("employeeNo")String employeeNo,
             @Param("userName")String userName
     );

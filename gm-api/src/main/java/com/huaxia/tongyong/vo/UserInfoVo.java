@@ -1,5 +1,9 @@
 package com.huaxia.tongyong.vo;
 
+import com.huaxia.tongyong.enums.LevelEnum;
+import com.huaxia.tongyong.enums.UserStatusEnum;
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @Description: 用户信息
  * @author: gongdaoshun
@@ -20,7 +24,12 @@ public class UserInfoVo {
     private String mobileNo;
 
     /**级别id**/
-    private Long levelId;
+    private Integer levelId;
+
+    /**
+     * 级别描述
+     */
+    private String levelName;
 
     /**班组id**/
     private Long groupId;
@@ -30,4 +39,31 @@ public class UserInfoVo {
 
     /**用户状态：1，启用 0，未启用**/
     private Integer userStatus;
+
+    /**
+     * 用户状态描述
+     */
+    private String userStatusName;
+
+    public void setUserStatus(Integer userStatus){
+        this.userStatus = userStatus;
+        this.userStatusName = UserStatusEnum.valuesOf(userStatus).getName();
+    }
+
+    public void setUserStatusName(String userStatusName){
+        if(StringUtils.isBlank(this.userStatusName)){
+            this.userStatusName = userStatusName;
+        }
+    }
+
+    public void setLevelId(Integer levelId){
+        this.levelId = levelId;
+        this.levelName = LevelEnum.valuesOf(levelId).getName();
+    }
+
+    public void setLevelName(String levelName){
+        if(StringUtils.isBlank(levelName)){
+            this.levelName = levelName;
+        }
+    }
 }

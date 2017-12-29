@@ -69,8 +69,8 @@ public class UserBizImpl implements UserBiz{
     @Override
     public List<UserInfoVo> getUserInfoList(UserQueryParam userQueryParam) {
         PageHelper.startPage(userQueryParam.getPageNum(),userQueryParam.getPageSize());
-
-
-        return null;
+        // 查询对应的用户信息
+        List<UserInfoVo> userInfoVos = userInfoMapper.selectUserInfoVo(userQueryParam.getEmployeeNo(),userQueryParam.getUserName());
+        return userInfoVos;
     }
 }
