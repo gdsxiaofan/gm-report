@@ -45,6 +45,7 @@ public class ReportBizImpl implements ReportBiz {
     public PageInfo<ReportInfoVo> selectReportInfoVoList(ReportQueryParams reportQueryParams) {
         //1.设置分页
         PageHelper.startPage(reportQueryParams.getPageNum(),reportQueryParams.getPageSize());
+        PageHelper.orderBy("id desc");
         List<ReportInfoVo> reportInfoVoList = reportInfoMapper.getReportInfoVoList(reportQueryParams.getReportStatus());
 
         //2.当前的查询数据为空，则直接返回null
