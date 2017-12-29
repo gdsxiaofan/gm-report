@@ -5,7 +5,14 @@
       <mt-button icon="back" slot="left" @click="$router.push({path:'/'});">返回</mt-button>
       <mt-button size="small" slot="right" @click="">编辑</mt-button>
     </mt-header>
-
+    <mt-button type="default"
+               @click="doMsg(1)"
+               style="margin: 1rem;margin-left: 3rem;width: 5rem">保存
+    </mt-button>
+    <mt-button type="primary"
+               @click="doMsg(2)"
+               style="margin: 1rem;margin-right: 3rem;float: right;width: 5rem">提交
+    </mt-button>
     <div ref="wrapper" :style="{ height: wrapperHeight + 'px',overflow: 'scroll' }">
     <loadmore
       :bottom-method="loadBottom"
@@ -35,7 +42,7 @@
         queryForPage: {
           total: 0,
           pageNum: 1,
-          pageSize: 5
+          pageSize: 10
 
         },
         wrapperHeight: 0,
