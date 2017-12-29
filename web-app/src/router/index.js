@@ -13,6 +13,8 @@ const Main = resolve => require(['../view/report/main'], resolve)
 const reportList = resolve => require(['../view/report/reportList'], resolve)
 // 日报info
 const reportInfo = resolve => require(['../view/report/reportInfo'], resolve)
+// 日报交接
+const reportTransfer = resolve => require(['../view/report/reportTransfer'], resolve)
 // 用户登录
 const Login = resolve => require(['../view/report/login'], resolve)
 
@@ -32,6 +34,7 @@ const router = new Router({
         {path: '/reportList', component: reportList},
         {path: '/reportInfo', component: reportInfo},
         {path: '/personal', component: Personal},
+        {path: '/reportTransfer', component: reportTransfer},
         ]
     }
   ]
