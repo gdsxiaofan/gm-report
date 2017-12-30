@@ -6,7 +6,7 @@ import config from '../../config'
 //日报列表接口
 export function getReportList(reportQueryParams) {
   return fetch({
-    url: `vi/report/list`,
+    url: `v1/report/list`,
     method: 'post',
     data:reportQueryParams
   })
@@ -67,5 +67,13 @@ export function deleteFault(reportId) {
     url: `v1/fault/delete`,
     method: 'delete',
     params:{reportId}
+  })
+}
+//移交日报信息
+export function transferReport(userId,reportIds) {
+  return fetch({
+    url: `v1/report/transfer`,
+    method: 'post',
+    params:{userId,reportIds}
   })
 }

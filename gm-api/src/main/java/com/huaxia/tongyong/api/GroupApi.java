@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,13 +34,13 @@ public class GroupApi extends BaseApi{
      * @param groupParam
      * @return
      */
-    @RequestMapping(value ="/list",method  =RequestMethod.GET)
+    @RequestMapping(value ="/list",method  =RequestMethod.POST)
     public JsonResult<PageInfo<GroupInfoVo>> getGroupList(
             @RequestBody GroupParam groupParam
             ){
         List<GroupInfoVo> groupInfoVos = groupBiz.getGroupInfoVoList(groupParam);
         if(CollectionUtils.isEmpty(groupInfoVos)){
-            return new JsonResult<>(0,"no_data",null);
+            return new JsonResult<>(0,"no_data",new PageInfo<>(new ArrayList<>()));
         }
         PageInfo<GroupInfoVo> pageInfo = new PageInfo<>(groupInfoVos);
 

@@ -30,6 +30,14 @@ export function getDictionaryInfoByType(type) {
     params:{type}
   })
 }
+//获取用户组
+export function getGroups(group) {
+  return fetch({
+    url: `/v1/group/list`,
+    method: 'post',
+    data:group
+  })
+}
 //获取用户相关信息（菜单，个人信息等）
 export function getUserInfo() {
   return fetch({
