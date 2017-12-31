@@ -38,6 +38,14 @@ export function getGroups(group) {
     data:group
   })
 }
+//下载
+export function down(startTime,endTime) {
+  return fetch({
+    url: `/v1/report/download`,
+    method: 'get',
+    params:{startTime,endTime}
+  })
+}
 //获取用户相关信息（菜单，个人信息等）
 export function getUserInfo() {
   return fetch({

@@ -38,6 +38,12 @@ module.exports = {
         pathRewrite: {'/car': ''},
         changeOrigin: true
       },
+      '/v1': {
+        target: 'http://localhost:8090',
+        // target: 'http://192.168.66.81:8080',
+        pathRewrite: {'/v1': '/v1'},
+        changeOrigin: true
+      },
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

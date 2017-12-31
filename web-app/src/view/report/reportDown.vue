@@ -18,10 +18,11 @@
                 :value="queryForPage.startTime"></mt-field>
       <mt-field :key="5"  label="停线时间" placeholder="" @click.native="$refs.end.open()"
                 :value="queryForPage.endTime"></mt-field>
-
+      <a  target="_blank" :href="'/v1/report/download?startTime='+queryForPage.startTime+'&endTime='+queryForPage.endTime">
       <mt-button type="primary" size="large"
                  style="margin-top: 1rem;;">   下载
       </mt-button>
+      </a>
     </template>
     <mt-datetime-picker
       ref="begin"
@@ -45,16 +46,16 @@
     formatData
   } from '../../utils/common'
   import {
-    getGroups
+    down
   } from '../../global/api'
-
+//todo
   export default {
     data() {
       return {
         current: 0,
         queryForPage:{
-          startTime:'',
-          endTime:''
+          startTime: formatData.call(new Date(), 'yyyy-MM-dd'),
+          endTime:formatData.call(new Date(), 'yyyy-MM-dd')
       }
       }
     },
