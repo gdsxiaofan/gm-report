@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ import java.net.URLEncoder;
 @RequestMapping("/v1/report")
 @Api(value="ReportController",description = "日报相关接口定义")
 @Slf4j
+@Controller
 public class ReportApi {
 
     @Autowired

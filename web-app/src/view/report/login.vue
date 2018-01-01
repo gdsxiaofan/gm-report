@@ -16,7 +16,7 @@
       <!--<mt-field label="密码：" placeholder="请输入密码" v-model="loginForm.password"></mt-field>-->
       <section>
         <div>
-          <img src="../../assets/img/5.png">
+          <img style="width: 100%;height: auto " src="../../assets/img/5.png">
         </div>
       </section>
       <section>
