@@ -84,4 +84,14 @@ public class UserBizImpl implements UserBiz{
         List<UserInfoVo> userInfoVos = userInfoMapper.selectUserInfoVo(userQueryParam.getEmployeeNo(),userQueryParam.getUserName());
         return userInfoVos;
     }
+
+    /**
+     * 获取群组用户信息
+     * @param groupId
+     * @return
+     */
+    @Override
+    public List<UserInfoVo> getGroupUserInfo(Long groupId) {
+        return null;
+    }
 }

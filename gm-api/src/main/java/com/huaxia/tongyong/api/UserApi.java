@@ -97,4 +97,13 @@ public class UserApi extends BaseApi{
 
         return returnJson;
     }
+
+    @ApiOperation(value="根据当前群组获取当前群组的用户信息",notes = "获取群组用户信息",httpMethod = "GET",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping("/group/user")
+    public JsonResult<List<UserInfoVo>> queryUserByGroupId(
+            @RequestParam("groupId")Long groupId
+    ){
+        List<UserInfoVo> userInfoVos = userBiz.getGroupUserInfo(groupId);
+        return new JsonResult<>(1,"success",userInfoVos);
+    }
 }

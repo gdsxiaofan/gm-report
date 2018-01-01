@@ -41,4 +41,11 @@ public interface UserBiz {
      * @return
      */
     public List<UserInfoVo> getUserInfoList(UserQueryParam userQueryParam);
+
+    /**
+     * 获取群组下的所有用户信息
+     * @param groupId
+     * @return
+     */
+    public List<UserInfoVo> getGroupUserInfo(Long groupId);
 }

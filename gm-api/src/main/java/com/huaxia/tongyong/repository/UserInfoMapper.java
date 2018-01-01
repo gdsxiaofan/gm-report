@@ -74,4 +74,12 @@ public interface UserInfoMapper{
             @Param("userName")String userName
     );
 
+    /**
+     * 根据群组id获取用户信息
+     * @param groupId
+     * @return
+     */
+    public List<UserInfoVo> getUserInfoByGroupId(
+            @Param("groupId") Long groupId);
+
 }

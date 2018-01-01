@@ -78,6 +78,20 @@
 				ui.name = #{userName}
 			</if>
 	</select>
+	<select id="getUserInfoByGroupId" resultType="com.huaxia.tongyong.vo.UserInfoVo">
+		  SELECT
+			ui.id as id,
+			ui.`name` AS name,
+			ui.employee_no AS employeeNo,
+			ui.mobile_no AS mobileMo,
+			ui.level_id AS levelId,
+			ui.group_id AS groupId
+		FROM
+			t_user_info ui
+		WHERE
+		ui.delete_status =1
+		and ui.group_id =#{groupId}
+	</select>
 
 	<!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
