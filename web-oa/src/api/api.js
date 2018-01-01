@@ -6,12 +6,12 @@ import {fetch,qs} from '../lib/utils/fetch'
 let base = '';
 
 //修改密码
-export function updatePwd(oldPwd, newPwd) {
+export function updatePwd(oldPassword, newPassword) {
   return fetch({
-    url: `/v1/user/updatePwd`,
+    url: `/v1/user/update/password`,
     method: 'put',
-    data: qs.stringify({oldPwd, newPwd}),
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    data: {oldPassword, newPassword},
+    // headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   })
 }
 

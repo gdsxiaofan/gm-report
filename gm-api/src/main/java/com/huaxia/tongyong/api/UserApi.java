@@ -4,21 +4,23 @@
 package com.huaxia.tongyong.api;
 
 import com.github.pagehelper.PageInfo;
+import com.huaxia.tongyong.model.UserInfo;
 import com.huaxia.tongyong.param.UserParam;
 import com.huaxia.tongyong.param.UserQueryParam;
 import com.huaxia.tongyong.service.UserBiz;
-import com.huaxia.tongyong.vo.GroupInfoVo;
+import com.huaxia.tongyong.util.Constant;
+import com.huaxia.tongyong.util.jwt.JwtUtil;
 import com.huaxia.tongyong.vo.JsonResult;
 import com.huaxia.tongyong.vo.UserInfoVo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -42,12 +44,16 @@ public class UserApi extends BaseApi{
      * @param userParam
      * @return
      */
-    @RequestMapping(value = "/update/password",method = RequestMethod.POST)
+    @RequestMapping(value = "/update/password",method = RequestMethod.PUT)
     public JsonResult updateUser(
         @RequestBody UserParam userParam
     ){
         boolean flag = userBiz.updateUserForPassword(userParam);
-        return getJsonResult(flag);
+        if (flag) {
+            return new JsonResult<>(1, "修改成功");
+        } else {
+            return new JsonResult<>(0, "旧密码不正确");
+        }
     }
 
     /**
@@ -75,5 +81,20 @@ public class UserApi extends BaseApi{
     public JsonResult addUserInfo(@RequestBody  UserParam userParam){
         boolean flag = userBiz.addUserInfo(userParam);
         return getJsonResult(flag);
+    }
+
+    @ApiOperation(value = "获取当前用户", notes = "获取用户权限相关信息", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping("/query")
+    public JsonResult<UserInfo> getUserPermissionVo(
+            HttpServletResponse response
+    ) {
+        Integer userId = JwtUtil.parseJwt2Id(response.getHeader(Constant.AUTHORIZATION));
+        JsonResult<UserInfo> returnJson = new JsonResult<>();
+
+        UserInfo userPermissionVo = userBiz.getUserInfo(Long.valueOf(userId));
+
+        returnJson.setData(userPermissionVo);
+
+        return returnJson;
     }
 }

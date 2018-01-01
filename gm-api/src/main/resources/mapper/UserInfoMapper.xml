@@ -70,7 +70,7 @@
 			t_user_info ui
 		left JOIN t_group_info gi ON ui.group_id = gi.id
 		WHERE
-			delete_status =1
+		ui.delete_status =1
 			<if test="employeeNo!=null and employeeNo!=''">
 				ui.employee_no = #{employeeNo}
 			</if>

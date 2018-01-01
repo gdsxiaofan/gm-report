@@ -2,6 +2,7 @@ package com.huaxia.tongyong.vo;
 
 import com.huaxia.tongyong.enums.LevelEnum;
 import com.huaxia.tongyong.enums.UserStatusEnum;
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -10,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
  * @Date: 2017/12/14 18:46
  * @className: UserInfoVo
  */
+@Data
 public class UserInfoVo {
     /****/
     private Long id;
@@ -35,7 +37,7 @@ public class UserInfoVo {
     private Long groupId;
 
     /**班组名称**/
-    private Long groupName;
+    private String groupName;
 
     /**用户状态：1，启用 0，未启用**/
     private Integer userStatus;

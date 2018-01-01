@@ -3,15 +3,15 @@
     <Card>
       <p slot="title">条件查询</p>
       <Row>
-        <Col :span="2" style="margin-top:0.2%">
-        角色：
-        </Col>
-        <Col :span="3">
-        <Select v-model="queryCondition.roleId" filterable not-found-text>
-          <Option :value="0" :key="0">全部</Option>
-          <Option v-for="item in RoleList" :value="item.id" :key="item.id">{{ item.roleName }}</Option>
-        </Select>
-        </Col>
+        <!--<Col :span="2" style="margin-top:0.2%">-->
+        <!--角色：-->
+        <!--</Col>-->
+        <!--<Col :span="3">-->
+        <!--<Select v-model="queryCondition.roleId" filterable not-found-text>-->
+          <!--<Option :value="0" :key="0">全部</Option>-->
+          <!--<Option v-for="item in RoleList" :value="item.id" :key="item.id">{{ item.roleName }}</Option>-->
+        <!--</Select>-->
+        <!--</Col>-->
         <Col :span="2" :offset="1" style="margin-top:0.2%">
         工号：
         </Col>
@@ -60,13 +60,13 @@
         <Form-item label="姓名：" prop="employeeName">
           <Input type="text" v-model="userInfo.employeeName" placeholder=""/>
         </Form-item>
-        <Form-item label="排班：" >
-          <Select v-model="userInfo.shiftsNo" style="width:200px">
-            <Option :value="0">无排班</Option>
-            <Option :value="1">早班</Option>
-            <Option :value="2">晚班</Option>
-          </Select>
-        </Form-item>
+        <!--<Form-item label="排班：" >-->
+          <!--<Select v-model="userInfo.shiftsNo" style="width:200px">-->
+            <!--<Option :value="0">无排班</Option>-->
+            <!--<Option :value="1">早班</Option>-->
+            <!--<Option :value="2">晚班</Option>-->
+          <!--</Select>-->
+        <!--</Form-item>-->
         <Form-item label="手机号码：" prop="employeeMobile">
           <Input type="text" v-model="userInfo.employeeMobile" placeholder=""/>
         </Form-item>
@@ -293,13 +293,7 @@
     },
     created() {
 //获取rolelist
-      getRoleList({pageSize: 0, pageNum: 1}).then(res => {
-        this.RoleList = res.data.data.list
-        this.$nextTick(() => {
-          this.queryCondition.roleId = this.$route.query.id ? Number(this.$route.query.id) : 0
-        })
-        this.getlist()
-      })
+      this.getlist()
     }
   }
 </script>

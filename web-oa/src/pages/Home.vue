@@ -6,7 +6,7 @@
               @on-select="menuSelect" accordion>
           <div class="layout-logo-left">
             <!--<Icon type="paper-airplane" :size="logoSize" v-show="logoIsDisplay"></Icon>-->
-            <h3>总装车间TPM管理系统</h3>
+            <h3>GM日报管理系统</h3>
           </div>
           <template v-for="(item,index) in menuMain" v-if="item.deleteStatus===1">
             <Submenu :name="item.id" v-if="item.orderTop==1">
@@ -146,108 +146,28 @@
             'deleteStatus': 1
           }, {
             'id': 107,
-            'name': '群组管理',
+            'name': '班组管理',
             'href': '',
             'icon': '',
             'orderTop': 1,
             'parentId': 0,
             'deleteStatus': 1
-          }, {
-            'id': 110,
-            'name': '角色管理',
-            'href': '/role',
-            'icon': '',
-            'orderTop': 2,
-            'parentId': 106,
-            'deleteStatus': 1
-          }, {
-            'id': 111,
-            'name': '排班管理',
-            'href': '/plan',
-            'icon': '',
-            'orderTop': 2,
-            'parentId': 106,
-            'deleteStatus': 1
-          }, {
+          },  {
             'id': 112,
             'name': '用户管理',
             'href': '/userRole',
             'icon': '',
             'orderTop': 2,
-            'parentId': 108,
+            'parentId': 106,
             'deleteStatus': 1
           }, {
             'id': 113,
-            'name': '巡检工单',
-            'href': '/lookOrder',
+            'name': '班组信息管理',
+            'href': '/plan',
             'icon': '',
             'orderTop': 2,
             'parentId': 107,
             'deleteStatus': 1
-          }, {
-            'id': 114,
-            'name': '维修工单',
-            'href': '/fixOrder',
-            'icon': '',
-            'orderTop': 2,
-            'parentId': 107,
-            'deleteStatus': 1
-          }, {
-            'id': 115,
-            'name': '审核工单',
-            'href': '/verifyOrder',
-            'icon': '',
-            'orderTop': 2,
-            'parentId': 107,
-            'deleteStatus': 1
-          }, {
-            'id': 116,
-            'name': '配置工单',
-            'href': '/configOrder',
-            'icon': '',
-            'orderTop': 2,
-            'parentId': 107,
-            'deleteStatus': 0
-          }, {
-            'id': 117,
-            'name': '所有工单',
-            'href': '/allOrder',
-            'icon': '',
-            'orderTop': 2,
-            'parentId': 107,
-            'deleteStatus': 1
-          }, {
-            'id': 118,
-            'name': '员工信息管理',
-            'href': '/employeeInfo',
-            'icon': '',
-            'orderTop': 2,
-            'parentId': 108,
-            'deleteStatus': 0
-          }, {
-            'id': 119,
-            'name': '新增员工',
-            'href': '/employeeAdd',
-            'icon': '',
-            'orderTop': 2,
-            'parentId': 108,
-            'deleteStatus': 0
-          }, {
-            'id': 120,
-            'name': '设备信息管理',
-            'href': '/deviceInfo',
-            'icon': '',
-            'orderTop': 2,
-            'parentId': 109,
-            'deleteStatus': 1
-          }, {
-            'id': 121,
-            'name': '服务管理',
-            'href': '/service',
-            'icon': '',
-            'orderTop': 2,
-            'parentId': 109,
-            'deleteStatus': 0
           }],
         userName: '',
         userRole: ''
@@ -357,7 +277,7 @@
     },
     mounted () {
       getUserInfo().then(res => {
-        this.userName = res.data.data.userName
+        this.userName = res.data.data.name
         this.userRole = res.data.data.roleName
         // this.menu = res.data.data.memuVoList
         // this.$nextTick(()=>{

@@ -67,6 +67,14 @@ public class GroupBizImpl implements GroupBiz {
         return count.intValue()==1?true:false;
     }
 
+    @Override
+    public boolean delGroupInfo(Long id) {
+        GroupInfo groupInfo = new GroupInfo();
+        groupInfo.setId(id);
+        groupInfo.setDeleteStatus(0);
+        return groupInfoMapper.updateByPrimaryKeySelective(groupInfo)>0;
+    }
+
     /**
      * 转换集团信息
      * @param groupParam

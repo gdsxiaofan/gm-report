@@ -33,4 +33,6 @@ public interface GroupBiz {
      * @return
      */
     public boolean updateGroupInfo(GroupParam groupParam);
+
+    boolean delGroupInfo(Long id);
 }

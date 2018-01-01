@@ -1,5 +1,6 @@
 package com.huaxia.tongyong.service;
 
+import com.huaxia.tongyong.model.UserInfo;
 import com.huaxia.tongyong.param.UserParam;
 import com.huaxia.tongyong.param.UserQueryParam;
 import com.huaxia.tongyong.vo.UserInfoVo;
@@ -27,6 +28,12 @@ public interface UserBiz {
      * @return
      */
     public boolean addUserInfo(UserParam userParam);
+    /**
+     * 获取用户信息
+     * @param id
+     * @return
+     */
+    public UserInfo getUserInfo(Long id);
 
     /**
      * 查询用户列表信息

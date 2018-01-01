@@ -122,7 +122,7 @@
                 },
                 on: {
                   click: () => {
-                    this.$router.push({path: 'userRole?id=' + params.row.id})
+                    this.$router.push({path: 'groupRole?id=' + params.row.id})
                   }
                 }
               }, '查看用户'),

@@ -65,13 +65,23 @@ public class GroupApi extends BaseApi{
      * @param groupParam
      * @return
      */
-    @RequestMapping(value="/update",method = RequestMethod.POST)
+    @RequestMapping(value="/update",method = RequestMethod.PUT)
     public JsonResult updateGroupInfo(@RequestBody GroupParam groupParam){
 
         boolean flag = groupBiz.updateGroupInfo(groupParam);
         return getJsonResult(flag);
     }
 
+    /**
+     * 删除班组信息
+     * @param groupParam
+     * @return
+     */
+    @RequestMapping(value="/del",method = RequestMethod.DELETE)
+    public JsonResult updateGroupInfo(Long id){
 
+        boolean flag = groupBiz.delGroupInfo(id);
+        return getJsonResult(flag);
+    }
 
 }

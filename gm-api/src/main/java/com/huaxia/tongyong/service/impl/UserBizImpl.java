@@ -43,7 +43,7 @@ public class UserBizImpl implements UserBiz{
         }
         UserInfo userInfo = userInfoMapper.selectByPrimaryKey(userId);
         if(!userInfo.getPassword().equals(MD5Util.encode(userParam.getOldPassword()))){
-            throw new RuntimeException("输入的旧密码不正确");
+            return false;
         }
         userInfo.setPassword(MD5Util.encode(userParam.getNewPassword()));
 
@@ -64,6 +64,17 @@ public class UserBizImpl implements UserBiz{
 
         userInfoMapper.insertSelective(userInfo);
         return true;
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public UserInfo getUserInfo(Long id) {
+        return userInfoMapper.selectByPrimaryKey(id);
     }
 
     @Override
