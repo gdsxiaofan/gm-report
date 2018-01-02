@@ -14,6 +14,19 @@ spring:
       time-zone: GMT+8
       date-format: yyyy-MM-dd HH:mm:ss
 server:
+  undertow:
+    acceptors: 2
+    selectors: 2
+    maxThreads: 200
+    minThreads: 8
+    accessLog:
+      append: true
+      extended: true
+      fileName: /opt/MicroService/logs/access_yyyy_MM_dd.log
+      logCookies: true
+      logDateFormat: yyyy-MM-dd HH:mm:ss.SSS
+      logServer: true
+      retainDays: 90
   port: 8090
 mybatis:
   mapperLocations: classpath:mapper/*.xml
