@@ -38,6 +38,14 @@ export function getGroups(group) {
     data:group
   })
 }
+//获取用户组
+export function getUsersByGroupId(groupId) {
+  return fetch({
+    url: `/v1/user/group/user`,
+    method: 'get',
+    params:{groupId}
+  })
+}
 //下载
 export function down(startTime,endTime) {
   return fetch({

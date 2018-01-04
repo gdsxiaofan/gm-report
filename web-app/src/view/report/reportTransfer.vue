@@ -37,7 +37,7 @@
       </div>
     </template>
     <template v-if="current===2">
-      <mt-cell v-for="i of groupList" :key="i.id" @click.native="getGroupInfoList(i.groupName)">
+      <mt-cell v-for="i of groupList" :key="i.id" @click.native="getGroupInfoList(i.id, i.groupName)">
         <div slot="title">
           {{i.groupName}}
         </div>
@@ -63,7 +63,8 @@
     transferReport
   } from '../../global/report'
   import {
-    getGroups
+    getGroups,
+    getUsersByGroupId
   } from '../../global/api'
 
   export default {
@@ -123,8 +124,11 @@
           this.$router.push({path:'/'})
         })
       },
-      getGroupInfoList(groupName) {
+      getGroupInfoList(groupId,groupName) {
         //todo
+        getUsersByGroupId(groupId).then(res => {
+          this.groupInfoOptions = res.data.data.list
+        })
         this.current = 3
         this.groupName = groupName
       },
