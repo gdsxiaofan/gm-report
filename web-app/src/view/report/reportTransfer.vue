@@ -125,9 +125,10 @@
         })
       },
       getGroupInfoList(groupId,groupName) {
-        //todo
         getUsersByGroupId(groupId).then(res => {
-          this.groupInfoOptions = res.data.data.list
+          this.groupInfoOptions = res.data.data.map(x=>{
+            return {label: x.name, value: x.id}
+          })
         })
         this.current = 3
         this.groupName = groupName

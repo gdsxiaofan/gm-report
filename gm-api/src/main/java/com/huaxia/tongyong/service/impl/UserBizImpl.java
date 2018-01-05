@@ -92,6 +92,6 @@ public class UserBizImpl implements UserBiz{
      */
     @Override
     public List<UserInfoVo> getGroupUserInfo(Long groupId) {
-        return null;
+        return userInfoMapper.getUserInfoByGroupId(groupId);
     }
 }

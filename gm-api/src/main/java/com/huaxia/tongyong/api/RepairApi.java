@@ -1,10 +1,8 @@
 package com.huaxia.tongyong.api;
 
-import com.huaxia.tongyong.model.ReportRepair;
 import com.huaxia.tongyong.param.RepairParam;
 import com.huaxia.tongyong.service.RepairBiz;
 import com.huaxia.tongyong.vo.JsonResult;
-import com.huaxia.tongyong.vo.ReportFaultVo;
 import com.huaxia.tongyong.vo.ReportRepairVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -74,7 +72,7 @@ public class RepairApi {
     @ApiOperation("根据条件下载对应的日报数据")
     @RequestMapping(value = "/download",method = RequestMethod.GET)
     public void downloadRepairReport(
-            @RequestParam("deviceName")String deviceName,
+            @RequestParam("deviceId")String deviceId,
             @RequestParam("startTime")String startTime,
             @RequestParam("endTime")String endTime,
             HttpServletResponse response
