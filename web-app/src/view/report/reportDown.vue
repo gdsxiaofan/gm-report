@@ -24,7 +24,7 @@
                 :value="queryForPage.endTime"></mt-field>
       <a target="_blank"
          style="text-decoration:none"
-         :href="'/v1/'+(current===3?'report':current===1?'repair':'fault')+'/download?startTime='+queryForPage.startTime+'&endTime='+queryForPage.endTime">
+         :href="'/v1/'+(current===3?'report':current===1?'repair':'fault')+'/download?startTime='+queryForPage.startTime+'&endTime='+queryForPage.endTime+'&deviceId='+queryForPage.deviceId+'&areaId='+queryForPage.areaId">
         <mt-button type="primary" size="large"
                    style="margin-top: 1rem;;"> 下载
         </mt-button>
