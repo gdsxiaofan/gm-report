@@ -4,6 +4,7 @@
       <!--<mt-button icon="back" slot="left" @click="$router.go(-1);">返回</mt-button>-->
     </mt-header>
     <mt-cell   title="日报信息" is-link to="reportList">
+      <mt-badge type="error">10</mt-badge>
       <!--<img slot="icon" src="../../assets/img/1.jpg" width="24" height="24">-->
     </mt-cell>
     <mt-cell   title="日报交接"   is-link to="reportTransfer"></mt-cell>
