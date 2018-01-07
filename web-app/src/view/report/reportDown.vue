@@ -22,7 +22,8 @@
                 :value="queryForPage.startTime"></mt-field>
       <mt-field :key="5" label="停线时间" placeholder="" @click.native="$refs.end.open()"
                 :value="queryForPage.endTime"></mt-field>
-      <a target="_blank"
+      <a
+         download
          style="text-decoration:none"
          :href="'/v1/'+(current===3?'report':current===1?'repair':'fault')+'/download?startTime='+queryForPage.startTime+'&endTime='+queryForPage.endTime+'&deviceId='+queryForPage.deviceId+'&areaId='+queryForPage.areaId">
         <mt-button type="primary" size="large"
