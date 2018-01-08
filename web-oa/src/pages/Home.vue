@@ -152,6 +152,22 @@
             'orderTop': 1,
             'parentId': 0,
             'deleteStatus': 1
+          },{
+            'id': 108,
+            'name': '设备管理',
+            'href': '',
+            'icon': '',
+            'orderTop': 1,
+            'parentId': 0,
+            'deleteStatus': 1
+          },{
+            'id': 109,
+            'name': '考勤管理',
+            'href': '',
+            'icon': '',
+            'orderTop': 1,
+            'parentId': 0,
+            'deleteStatus': 1
           },  {
             'id': 112,
             'name': '用户管理',
@@ -167,6 +183,22 @@
             'icon': '',
             'orderTop': 2,
             'parentId': 107,
+            'deleteStatus': 1
+          },{
+            'id': 114,
+            'name': '设备信息管理',
+            'href': '/device',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 108,
+            'deleteStatus': 1
+          },{
+            'id': 115,
+            'name': '考勤信息管理',
+            'href': '/attendance',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 109,
             'deleteStatus': 1
           }],
         userName: '',
