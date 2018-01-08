@@ -7,14 +7,12 @@
       </mt-button>
     </mt-header>
     <mt-field v-if="!report.id" label="类别" placeholder="" @click.native="showPop(0)" :value="reportTypeName"></mt-field>
-
+    <mt-field :disabled="!abled" :key="1" label="设备名称" placeholder="" :readonly="true" @click.native="showPop(1)"
+              :value="report.deviceName"></mt-field>
     <template v-if="report.reportType===1">
-      <mt-field :disabled="!abled" :key="1" label="设备名称" placeholder="" :readonly="true" @click.native="showPop(1)"
-                :value="report.deviceName"></mt-field>
       <mt-field :key="2" :disabled="!abled" label="设备故障" placeholder="" v-model="report.deviceFault"></mt-field>
       <mt-field :key="2" :disabled="!abled" label="处理方法" placeholder="" v-model="report.dealMethod"></mt-field>
-      <!--<mt-field :key="3" :disabled="!abled" label="区域" placeholder="" @click.native="$refs.picker.open()"-->
-                <!--:value="report.stopTime"></mt-field>-->
+      <mt-field :key="3" :disabled="!abled" label="区域" placeholder=""  v-model="report.areaName"></mt-field>
       <mt-field :key="4" :disabled="!abled" label="停线时间" placeholder="" @click.native="$refs.picker.open()"
                 :value="report.stopTime"></mt-field>
     </template>
@@ -87,6 +85,7 @@
           deviceId: 0,
           deviceFault: '',
           dealMethod: '',
+          areaName:'',
           repairComment: '',
           replaceParts: '',
           repairStatus: 1,
