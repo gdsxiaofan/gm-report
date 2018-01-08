@@ -14,7 +14,9 @@ import store from './store'
 // 移动端高清屏适配方案
 import './rem.js'
 
-
+import Es6Promise from 'es6-promise'
+require('es6-promise').polyfill()
+Es6Promise.polyfill()
 Vue.use(MintUI)
 Vue.config.productionTip = false
 
