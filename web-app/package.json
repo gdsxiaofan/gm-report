@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^0.17.0",
     "babel-polyfill": "^6.23.0",
+    "es6-promise": "^4.1.1",
     "mint-ui": "^2.2.13",
     "qs": "^6.5.1",
     "vue": "^2.4.2",

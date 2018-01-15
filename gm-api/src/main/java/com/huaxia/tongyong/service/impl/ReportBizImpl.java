@@ -81,6 +81,12 @@ public class ReportBizImpl implements ReportBiz {
             reportTransferLog.setAfterUserName(userIno.getName());
             reportTransferLog.setReportId(reportInfo.getId());
             reportTransferLogMapper.insertSelective(reportTransferLog);
+
+
+            //更新的当前日报的负责人
+            reportInfo.setChargeUserId(userIno.getId());
+            reportInfo.setChargeUserName(userIno.getName());
+            reportInfoMapper.updateByPrimaryKeySelective(reportInfo);
         });
 
         return true;
