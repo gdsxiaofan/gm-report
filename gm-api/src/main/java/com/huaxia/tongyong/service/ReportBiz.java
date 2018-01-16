@@ -4,6 +4,9 @@ import com.github.pagehelper.PageInfo;
 import com.huaxia.tongyong.param.ReportQueryParams;
 import com.huaxia.tongyong.vo.ReportInfoVo;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @Description:
  * @author: gongdaoshun
@@ -26,4 +29,17 @@ public interface ReportBiz {
      * @return
      */
     public boolean transferReport(Long userId,String idStr);
+
+
+    /**
+     * 导出移交记录的excel表报
+     * @param response
+     * @param request
+     * @param startTime
+     * @param endTime
+     */
+    public void exportExcelForTransfer(HttpServletResponse response,
+                                       HttpServletRequest request,
+                                       String startTime,
+                                       String endTime);
 }
