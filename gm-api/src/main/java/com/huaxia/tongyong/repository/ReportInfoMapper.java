@@ -56,4 +56,7 @@ public interface ReportInfoMapper{
      * @return
      */
     public List<ReportInfo> selectReportInfoList(@Param("idList")List<String> idList);
+
+    public ReportInfo selectByPrimaryKey(Long id);
+
 }
