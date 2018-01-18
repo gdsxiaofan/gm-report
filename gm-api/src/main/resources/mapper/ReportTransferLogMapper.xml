@@ -34,7 +34,7 @@
 		 FROM t_report_transfer_log
 		 WHERE id = #{id}
 	</select>
-    <select id="selectReportTransferLogByDate" resultType="com.huaxia.tongyong.model.ReportTransferLog">
+    <select id="selectReportTransferLogByDate" resultMap="BaseResultMap">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM t_report_transfer_log

@@ -12,11 +12,23 @@ import com.huaxia.tongyong.service.FaultBiz;
 import com.huaxia.tongyong.util.date.DateUtil;
 import com.huaxia.tongyong.util.json.JSONHelper;
 import com.huaxia.tongyong.vo.ReportFaultVo;
+import com.huaxia.tongyong.vo.ReportInfoVo;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.dozer.DozerBeanMapper;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +39,7 @@ import java.util.List;
  * @className: FaultBizImpl
  */
 @Service
+@Slf4j
 public class FaultBizImpl implements FaultBiz{
 
     @Autowired
@@ -86,10 +99,74 @@ public class FaultBizImpl implements FaultBiz{
         return count;
     }
 
+    /**
+     * 下载故障日报表
+     * @param reportStatus
+     * @param startTime
+     * @param endTime
+     * @param request
+     * @param response
+     */
     @Override
-    public List<ReportFaultVo> getReportFaultVoList(Integer reportStatus, Long areaId, String startTime, String endTime) {
-        return null;
+    public void getReportFaultVoList(Integer reportStatus, String startTime, String endTime, HttpServletRequest request, HttpServletResponse response) {
+        //1.查询对应故障日报数据
+        List<ReportFaultVo> reportFaultVos = reportFaultMapper.selectReportFaultVoListForExcel(reportStatus,startTime,endTime);
+        //2.组装报表表头字段
+        Workbook wb = new HSSFWorkbook();
+
+        //设置合并的单元格
+        CellRangeAddress tableNameRange = new CellRangeAddress(0,0,0,5);
+        Sheet sheet =wb.createSheet("设备历史故障记录表");
+        sheet.addMergedRegion(tableNameRange);
+
+        //创建表格的表名
+        Row tableNameRow =sheet.createRow(0);
+        Cell tableNameCell = tableNameRow.createCell(0);
+        tableNameCell.setCellValue(new HSSFRichTextString("设备历史故障记录表"));
+
+        //创建表格的抬头
+        Row titleRow = sheet.createRow(1);
+        Cell serinalNo = titleRow.createCell(0);
+        serinalNo.setCellValue("序号");
+        Cell deviceName = titleRow.createCell(1);
+        deviceName.setCellValue("设备名称");
+        Cell deviceFault = titleRow.createCell(2);
+        deviceFault.setCellValue("设备故障");
+        Cell dealMethod = titleRow.createCell(3);
+        dealMethod.setCellValue("处理方法");
+        Cell areaName = titleRow.createCell(4);
+        areaName.setCellValue("区域");
+        Cell stopTime = titleRow.createCell(5);
+        stopTime.setCellValue("停线时间");
+
+        int rowIndex =2;
+        for(ReportFaultVo reportFaultVo:reportFaultVos){
+            Row row = sheet.createRow(rowIndex);
+            Cell serinalNoCell = row.createCell(0);
+            serinalNoCell.setCellValue(reportFaultVo.getReportId());
+            Cell deviceNameCell = row.createCell(1);
+            deviceNameCell.setCellValue(reportFaultVo.getDeviceName());
+            Cell deviceFaultCell = row.createCell(2);
+            deviceFaultCell.setCellValue(reportFaultVo.getDeviceFault());
+            Cell dealMethodCell = row.createCell(3);
+            dealMethodCell.setCellValue(reportFaultVo.getDealMethod());
+            Cell areaNameCell = row.createCell(4);
+            areaNameCell.setCellValue(reportFaultVo.getAreaName());
+            Cell stopTimeCell = row.createCell(5);
+            stopTimeCell.setCellValue(reportFaultVo.getStopTime());
+            rowIndex++;
+        }
+        try{
+            //下载修复验证excel报表
+            OutputStream os = response.getOutputStream();
+            wb.write(os);
+            os.flush();
+            os.close();
+        }catch (Exception e){
+            log.error("导出设备历史故障记录表失败：",e);
+        }
     }
+
 
     /**
      * 转换参数数据

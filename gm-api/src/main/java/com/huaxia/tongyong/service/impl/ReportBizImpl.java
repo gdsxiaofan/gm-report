@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,6 +95,7 @@ public class ReportBizImpl implements ReportBiz {
             reportTransferLog.setAfterUserId(userIno.getId());
             reportTransferLog.setAfterUserName(userIno.getName());
             reportTransferLog.setReportId(reportInfo.getId());
+            reportTransferLog.setCreateTime(new Date());
             reportTransferLogMapper.insertSelective(reportTransferLog);
 
 
@@ -120,7 +122,13 @@ public class ReportBizImpl implements ReportBiz {
 
         //2.开始导出对应的报表数据
         Workbook wb = new HSSFWorkbook();
+
+        //设置合并的单元格
+        CellRangeAddress tableNameRange = new CellRangeAddress(0,0,0,3);
+        CellRangeAddress dateRange = new CellRangeAddress(1,1,0,3);
         Sheet sheet =wb.createSheet("日报移交报表");
+        sheet.addMergedRegion(tableNameRange);
+        sheet.addMergedRegion(dateRange);
 
         //创建表格的表名
         Row tableNameRow =sheet.createRow(0);
@@ -143,19 +151,19 @@ public class ReportBizImpl implements ReportBiz {
         transferTime.setCellValue("交接具体时间");
 
         //根据报表内容导出报表数据
-        for(int i=0;i<reportTransferLogs.size();i++){
-            Row row = sheet.createRow(i+3);
-            ReportTransferLog reportTransferLog = reportTransferLogs.get(i+1);
+        int rowIndex =3;
+        for(ReportTransferLog reportTransferLog :reportTransferLogs){
+            Row row = sheet.createRow(rowIndex);
             ReportInfo reportInfo = reportInfoMapper.selectByPrimaryKey(reportTransferLog.getReportId());
             row.createCell(0).setCellValue(reportInfo.getReportName());
             row.createCell(1).setCellValue(reportTransferLog.getBeforeUserName());
             row.createCell(2).setCellValue(reportTransferLog.getAfterUserName());
             row.createCell(3).setCellValue(DateUtil.dateToString(reportTransferLog.getCreateTime(),DateUtil.LONGFMT1));
+            rowIndex++;
         }
         try{
             //下载excel
             OutputStream os = response.getOutputStream();
-            response.reset();
             wb.write(os);
             os.flush();
             os.close();

@@ -44,6 +44,8 @@ public class ReportRepairVo {
      */
     private String repairStatusName;
 
+    private String repairUserName;
+
     /**修复后首车号**/
     private String repairCarNo;
 

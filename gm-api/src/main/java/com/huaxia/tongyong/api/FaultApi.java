@@ -1,8 +1,10 @@
 package com.huaxia.tongyong.api;
 
+import com.huaxia.tongyong.enums.ReportStatusEnum;
 import com.huaxia.tongyong.model.ReportFault;
 import com.huaxia.tongyong.param.FaultParam;
 import com.huaxia.tongyong.service.FaultBiz;
+import com.huaxia.tongyong.util.date.DateUtil;
 import com.huaxia.tongyong.vo.JsonResult;
 import com.huaxia.tongyong.vo.ReportFaultVo;
 import io.swagger.annotations.Api;
@@ -13,7 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
+import java.util.Date;
 
 /**
  * @Description: 故障日报相关接口
@@ -112,11 +117,34 @@ public class FaultApi {
     @ApiOperation("下载对应的故障日报信息")
     @RequestMapping(value = "/download",method = RequestMethod.GET)
     public void downloadFaultReport(
-            @RequestParam("areaId")Long areaId,
             @RequestParam("startTime")String startTime,
             @RequestParam("endTime")String endTime,
-            HttpServletResponse response
+            HttpServletResponse response,
+            HttpServletRequest request
     ){
+        try {
+            String userAgent = request.getHeader("User-Agent");
 
+            String fileName= "设备历史故障记录表"+ DateUtil.dateToString(new Date(),DateUtil.SHORTFMT1)+".xls";
+
+
+            //针对IE或者以IE为内核的浏览器：
+            if (userAgent.contains("MSIE") || userAgent.contains("Trident")) {
+                fileName = URLEncoder.encode(fileName, "UTF-8");
+
+            } else {
+                //非IE浏览器的处理：
+                fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+            }
+
+            // 设置response内容的类型
+            response.setContentType("application/octet-stream;charset=utf-8");
+            response.setHeader("Content-disposition", String.format("attachment; filename=\"%s\"", fileName));
+            response.setCharacterEncoding("UTF-8");
+            faultBiz.getReportFaultVoList(ReportStatusEnum.SUBMIT.getCode(),startTime,endTime,request,response);
+
+        } catch (Exception e) {
+            log.error("下载设备历史故障记录表失败", e);
+        }
     }
 }

@@ -53,4 +53,16 @@ public interface ReportFaultMapper{
     public Integer updateForDelete(
             @Param("reportId")Long reportId
     );
+
+    /**
+     * 根据日报状态，时间来查询需要导出故障日报记录数据
+     * @param reportStatus
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public List<ReportFaultVo> selectReportFaultVoListForExcel(
+            @Param("reportStatus")Integer reportStatus,
+            @Param("startTime") String startTime,
+            @Param("endTime")String endTime);
 }

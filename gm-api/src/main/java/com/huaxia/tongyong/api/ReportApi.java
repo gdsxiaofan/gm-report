@@ -84,7 +84,7 @@ public class ReportApi {
         try {
             String userAgent = request.getHeader("User-Agent");
 
-            String fileName= "总车间维修工段交接报表"+ DateUtil.dateToString(new Date(),DateUtil.SHORTFMT1)+".xls";
+            String fileName= "总车间维修工段交接报表"+ DateUtil.dateToString(new Date(),DateUtil.SHORTFMT1);
 
 
             //针对IE或者以IE为内核的浏览器：
