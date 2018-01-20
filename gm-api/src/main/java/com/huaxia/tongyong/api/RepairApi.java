@@ -2,6 +2,7 @@ package com.huaxia.tongyong.api;
 
 import com.huaxia.tongyong.param.RepairParam;
 import com.huaxia.tongyong.service.RepairBiz;
+import com.huaxia.tongyong.util.date.DateUtil;
 import com.huaxia.tongyong.vo.JsonResult;
 import com.huaxia.tongyong.vo.ReportRepairVo;
 import io.swagger.annotations.Api;
@@ -10,7 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
+import java.util.Date;
 
 /**
  * @Description:
@@ -72,11 +76,35 @@ public class RepairApi {
     @ApiOperation("根据条件下载对应的日报数据")
     @RequestMapping(value = "/download",method = RequestMethod.GET)
     public void downloadRepairReport(
-            @RequestParam("deviceId")String deviceId,
+            @RequestParam("deviceId")Integer deviceId,
             @RequestParam("startTime")String startTime,
             @RequestParam("endTime")String endTime,
-            HttpServletResponse response
+            HttpServletResponse response,
+            HttpServletRequest request
     ){
+        try {
+            String userAgent = request.getHeader("User-Agent");
 
+            String fileName= "总装维修设备历史故障记录表"+ DateUtil.dateToString(new Date(),DateUtil.SHORTFMT1)+".xls";
+
+
+            //针对IE或者以IE为内核的浏览器：
+            if (userAgent.contains("MSIE") || userAgent.contains("Trident")) {
+                fileName = URLEncoder.encode(fileName, "UTF-8");
+
+            } else {
+                //非IE浏览器的处理：
+                fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+            }
+
+            // 设置response内容的类型
+            response.setContentType("application/octet-stream;charset=utf-8");
+            response.setHeader("Content-disposition", String.format("attachment; filename=\"%s\"", fileName));
+            response.setCharacterEncoding("UTF-8");
+            repairBiz.exportExcel(deviceId,startTime,endTime,response,request);
+
+        } catch (Exception e) {
+            log.error("下载总装维修设备历史故障记录表失败", e);
+        }
     }
 }

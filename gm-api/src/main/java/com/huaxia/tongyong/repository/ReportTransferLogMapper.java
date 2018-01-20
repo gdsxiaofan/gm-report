@@ -2,7 +2,10 @@ package com.huaxia.tongyong.repository;
 
 import com.huaxia.tongyong.model.ReportTransferLog;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -19,4 +22,9 @@ public interface ReportTransferLogMapper{
      * @return
      */
     public Integer insertSelective(ReportTransferLog reportTransferLog);
+
+    public List<ReportTransferLog> selectReportTransferLogByDate(
+            @Param("startTime")String startTime,
+            @Param("endTime")String endTime
+    );
 }

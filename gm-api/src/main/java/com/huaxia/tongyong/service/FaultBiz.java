@@ -3,6 +3,8 @@ package com.huaxia.tongyong.service;
 import com.huaxia.tongyong.param.FaultParam;
 import com.huaxia.tongyong.vo.ReportFaultVo;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -49,16 +51,15 @@ public interface FaultBiz {
 
     /**
      * 根据区域、开始时间、结束时间查询对应的数据，并以excel的形式导出
-     * @param areaId
-     * @param areaId
      * @param startTime
      * @param endTime
      * @return
      */
-    public List<ReportFaultVo> getReportFaultVoList(
+    public void getReportFaultVoList(
             Integer reportStatus,
-            Long areaId,
             String startTime,
-            String endTime
+            String endTime,
+            HttpServletRequest request,
+            HttpServletResponse response
     );
 }

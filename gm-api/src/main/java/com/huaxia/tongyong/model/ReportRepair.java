@@ -48,6 +48,7 @@ public class ReportRepair{
 	/**有效状态：1，有效 0，无效**/
 	private Integer deleteStatus;
 
+	private String repairUserName;
 
 
 	public void setId(Long id){

@@ -34,8 +34,16 @@
 		 FROM t_report_transfer_log
 		 WHERE id = #{id}
 	</select>
+    <select id="selectReportTransferLogByDate" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_report_transfer_log
+		WHERE 1 =1
+		and create_time &gt; #{startTime}
+		and create_time &lt; #{endTime}
+	</select>
 
-	<!--删除：根据主键ID删除-->
+    <!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		 DELETE FROM t_report_transfer_log
 		 WHERE id = #{id}

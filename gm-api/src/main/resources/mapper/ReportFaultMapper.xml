@@ -65,8 +65,34 @@
 			</if>
 		</where>
 	</select>
+    <select id="selectReportFaultVoListForExcel" resultType="com.huaxia.tongyong.vo.ReportFaultVo">
+		SELECT
+			rf.id AS id,
+			ri.id as reportId,
+			rf.device_name as deviceName,
+			rf.device_id as deviceId,
+			rf.device_fault as deviceFault,
+			rf.deal_method as dealMethod,
+			rf.area_id as areaId,
+			rf.area_name as areaName,
+			rf.stop_time as stopTime
+		FROM
+		t_report_fault rf
+		JOIN t_report_info ri ON rf.report_id = ri.id
+		<where>
+			<if test="startTime!=null and startTime!=''">
+				and rf.create_time &gt; #{startTime}
+			</if>
+			<if test="endTime!=null and endTime!=''">
+				and rf.create_time &lt; #{endTime}
+			</if>
+			<if test="reportStatus!=null">
+				and ri.report_status = #{reportStatus}
+			</if>
+		</where>
+	</select>
 
-	<!--删除：根据主键ID删除-->
+    <!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		DELETE FROM t_report_fault
 		WHERE id = #{id}

@@ -3,6 +3,8 @@ package com.huaxia.tongyong.service;
 import com.huaxia.tongyong.param.RepairParam;
 import com.huaxia.tongyong.vo.ReportRepairVo;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -56,4 +58,14 @@ public interface RepairBiz {
     public void deleteRepair(
             Long reportId
     );
+
+    /**
+     * 导出excel表格数据
+     * @param deviceId
+     * @param startTime
+     * @param endTime
+     * @param response
+     * @param request
+     */
+    public void exportExcel(Integer deviceId, String startTime, String endTime, HttpServletResponse response, HttpServletRequest request);
 }

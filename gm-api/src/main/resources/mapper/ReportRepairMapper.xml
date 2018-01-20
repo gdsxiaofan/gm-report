@@ -30,12 +30,13 @@
 		<!--有效状态：1，有效 0，无效-->
 		<result property="deleteStatus" column="delete_status" />
 		<result property="deviceId" column="device_id" />
+		<result property="repairUserName" column="repair_user_name"/>
 	</resultMap>
 
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-	id,	report_id,	device_name,	repair_comment,	replace_parts,	validate_method,	calibrated_volume,	repair_status,	repair_car_no,	create_time,	update_time,	delete_status,device_id
+	id,	report_id,	device_name,	repair_comment,	replace_parts,	validate_method,	calibrated_volume,	repair_status,	repair_car_no,	create_time,	update_time,	delete_status,device_id,repair_user_name
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
@@ -55,6 +56,7 @@
 			replace_parts replaceParts,
 			validate_method validateMethod,
 			calibrated_volume calibratedVolume,
+			repair_user_name repairUserName,
 			repair_status repairStatus,
 			repair_car_no repairCarNo
 		FROM
@@ -79,7 +81,8 @@
 		validate_method validateMethod,
 		calibrated_volume calibratedVolume,
 		repair_status repairStatus,
-		repair_car_no repairCarNo
+		repair_car_no repairCarNo,
+		repair_user_name repairUserName
 		FROM
 		t_report_repair rr
 		JOIN t_report_info ri ON rr.report_id = ri.id
@@ -156,6 +159,9 @@
 			<if test="deleteStatus != null">
 				 delete_status,
 			</if>
+			<if test="repairUserName !=null">
+				repair_user_name,
+			</if>
 
 		 </trim>
 		 <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -198,6 +204,9 @@
 			<if test="deleteStatus!=null">
 				 #{deleteStatus},
 			</if>
+			 <if test="repairUserName !=null">
+				 #{repairUserName},
+			 </if>
 		 </trim>
 	</insert>
 
@@ -241,7 +250,9 @@
 			<if test="deleteStatus != null">
 				 delete_status = #{deleteStatus},
 			</if>
-
+			 <if test="repairUserName !=null">
+				 repair_user_name =#{repairUserName}
+			 </if>
  		 </set>
 		 WHERE id = #{id}
 	</update>

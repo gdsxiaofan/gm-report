@@ -10,12 +10,26 @@ import com.huaxia.tongyong.repository.ReportInfoMapper;
 import com.huaxia.tongyong.repository.ReportTransferLogMapper;
 import com.huaxia.tongyong.repository.UserInfoMapper;
 import com.huaxia.tongyong.service.ReportBiz;
+import com.huaxia.tongyong.util.date.DateUtil;
 import com.huaxia.tongyong.vo.ReportInfoVo;
 import io.jsonwebtoken.lang.Assert;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +39,7 @@ import java.util.List;
  * @className: ReportBizImpl
  */
 @Service
+@Slf4j
 public class ReportBizImpl implements ReportBiz {
 
     @Autowired
@@ -80,6 +95,7 @@ public class ReportBizImpl implements ReportBiz {
             reportTransferLog.setAfterUserId(userIno.getId());
             reportTransferLog.setAfterUserName(userIno.getName());
             reportTransferLog.setReportId(reportInfo.getId());
+            reportTransferLog.setCreateTime(new Date());
             reportTransferLogMapper.insertSelective(reportTransferLog);
 
 
@@ -90,5 +106,71 @@ public class ReportBizImpl implements ReportBiz {
         });
 
         return true;
+    }
+
+    /**
+     * 导出移交记录excel报表
+     * @param response
+     * @param request
+     * @param startTime
+     * @param endTime
+     */
+    @Override
+    public void exportExcelForTransfer(HttpServletResponse response, HttpServletRequest request, String startTime, String endTime) {
+        //1.根据参数查询对应的移交记录
+        List<ReportTransferLog> reportTransferLogs = reportTransferLogMapper.selectReportTransferLogByDate(startTime,endTime);
+
+        //2.开始导出对应的报表数据
+        Workbook wb = new HSSFWorkbook();
+
+        //设置合并的单元格
+        CellRangeAddress tableNameRange = new CellRangeAddress(0,0,0,3);
+        CellRangeAddress dateRange = new CellRangeAddress(1,1,0,3);
+        Sheet sheet =wb.createSheet("日报移交报表");
+        sheet.addMergedRegion(tableNameRange);
+        sheet.addMergedRegion(dateRange);
+
+        //创建表格的表名
+        Row tableNameRow =sheet.createRow(0);
+        Cell tableNameCell = tableNameRow.createCell(0);
+        tableNameCell.setCellValue(new HSSFRichTextString("总车间维修工段交接报表"));
+        //创建表格的时间行
+        Row dateRow = sheet.createRow(1);
+        Cell dateCell = dateRow.createCell(0);
+        String dateNow = DateUtil.dateToString(new Date(),DateUtil.LONGFMT1);
+        dateCell.setCellValue(new HSSFRichTextString(dateNow));
+        //创建表格的抬头
+        Row titleRow = sheet.createRow(2);
+        Cell transferName = titleRow.createCell(0);
+        transferName.setCellValue("交接内容");
+        Cell fromUser = titleRow.createCell(1);
+        fromUser.setCellValue("交班人");
+        Cell toUser = titleRow.createCell(2);
+        toUser.setCellValue("接班人");
+        Cell transferTime = titleRow.createCell(3);
+        transferTime.setCellValue("交接具体时间");
+
+        //根据报表内容导出报表数据
+        int rowIndex =3;
+        for(ReportTransferLog reportTransferLog :reportTransferLogs){
+            Row row = sheet.createRow(rowIndex);
+            ReportInfo reportInfo = reportInfoMapper.selectByPrimaryKey(reportTransferLog.getReportId());
+            row.createCell(0).setCellValue(reportInfo.getReportName());
+            row.createCell(1).setCellValue(reportTransferLog.getBeforeUserName());
+            row.createCell(2).setCellValue(reportTransferLog.getAfterUserName());
+            row.createCell(3).setCellValue(DateUtil.dateToString(reportTransferLog.getCreateTime(),DateUtil.LONGFMT1));
+            rowIndex++;
+        }
+        try{
+            //下载excel
+            OutputStream os = response.getOutputStream();
+            wb.write(os);
+            os.flush();
+            os.close();
+
+        }catch (Exception e){
+            log.error("导出交接报表失败：",e);
+        }
+
     }
 }
