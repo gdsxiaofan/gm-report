@@ -28,10 +28,11 @@
     },
     methods:{
       save() { //保存所选地区
-        this.$emit('save', this.value);
+        let value=this.value
+        this.$emit('save', value);
       },
       onValuesChange(picker, values){
-        this.value=values[0]
+        this.value=values
       },
       hidePicker(show){
         if(!show) {

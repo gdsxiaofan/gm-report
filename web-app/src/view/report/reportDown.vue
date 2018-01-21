@@ -15,9 +15,9 @@
     </template>
     <template v-if="current!==0">
       <mt-field v-if="current===1" label="设备名称" placeholder="" @click.native="showPop(1)"
-                :readonly="true" :value="queryForPage.deviceId"></mt-field>
-      <mt-field v-if="current===2" label="区域" placeholder="" @click.native="showPop(0)"
-                :readonly="true" :value="queryForPage.areaId"></mt-field>
+                :readonly="true" :value="queryForPage.deviceName"></mt-field>
+      <!--<mt-field v-if="current===2" label="区域" placeholder="" @click.native="showPop(0)"-->
+                <!--:readonly="true" :value="queryForPage.areaId"></mt-field>-->
       <mt-field :key="4" label="开始时间时间" placeholder="" @click.native="$refs.begin.open()"
                 :value="queryForPage.startTime"></mt-field>
       <mt-field :key="5" label="停线时间" placeholder="" @click.native="$refs.end.open()"
@@ -58,9 +58,6 @@
   import {
     formatData
   } from '../../utils/common'
-  import {
-    down
-  } from '../../global/api'
   //todo
   export default {
     data () {
@@ -72,6 +69,7 @@
           startTime: formatData.call(new Date(), 'yyyy-MM-dd'),
           endTime: formatData.call(new Date(), 'yyyy-MM-dd'),
           deviceId:1,
+          deviceName:"",
           areaId:1
         }
       }
@@ -138,12 +136,14 @@
     methods: {
       onValuesChange (value) {
         this.show = false
+        value=value[0]
         switch (this.popType) {
           case 0:
             this.queryForPage.areaId = value.value
             break
           case 1:
             this.queryForPage.deviceId = value.value
+            this.queryForPage.deviceName = value.key
             break
         }
       },
@@ -177,6 +177,8 @@
       popSelect:popSelect
     },
     created () {
+      this.queryForPage.deviceName=this.$store.getters.dictionary[0].key
+      this.queryForPage.deviceId=this.$store.getters.dictionary[0].value
     },
     mounted () {
     },

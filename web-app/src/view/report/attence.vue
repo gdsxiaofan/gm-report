@@ -3,7 +3,7 @@
 
     <mt-header title="考勤功能">
       <mt-button icon="back" slot="left" @click="$router.push({path:'/'})">返回</mt-button>
-      <mt-button size="small" slot="right" @click="">筛选</mt-button>
+      <mt-button size="small" slot="right" @click="pickerVisible=true">筛选</mt-button>
     </mt-header>
     <div ref="wrapper" :style="{ height: wrapperHeight + 'px',overflow: 'scroll' }">
       <loadmore
@@ -19,61 +19,118 @@
         </mt-cell>
       </loadmore>
     </div>
+
+
+    <popSelect :slots="slots"
+               :show="pickerVisible"
+               @hide-picker="pickerVisible=arguments[0]"
+               @save="handleConfirm"></popSelect>
   </div>
 </template>
 <script>
   import NavBar from './navBar'
-  import { Loadmore } from 'mint-ui'
+  import {Loadmore} from 'mint-ui'
+  import popSelect from './compent/popSelect'
   import {
     getReportList,
   } from '../../global/report'
-//todo  考勤相关
+  import {
+    formatData
+  } from '../../utils/common'
+  //todo  考勤相关
   export default {
-    data () {
+    data() {
       return {
         queryForPage: {
           total: 0,
           pageNum: 1,
-          pageSize: 10
-
+          pageSize: 10,
+          date: formatData.call(new Date(), "yyyy-MM")
         },
         wrapperHeight: 0,
         list: [],
-        allLoaded: false
+        allLoaded: false,
+        pickerVisible: false
       }
     },
-    watch: {
-
+    computed: {
+      slots() {
+        let year = this.queryForPage.date.split("-")[0]
+        let month = this.queryForPage.date.split("-")[1]
+        let yearOptions = []
+        for(let i=new Date().getFullYear() - 5;i<new Date().getFullYear() + 5;i++){
+          yearOptions.push(i+"")
+        }
+        let monthOptions = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+        let yearIndex, monthIndex
+        yearOptions.filter((x, i) => {
+          if (x === year) {
+            yearIndex = i
+          }
+        })
+        monthOptions.filter((x, i) => {
+          if (x === month) {
+            monthIndex = i
+          }
+        })
+        return [
+          {
+            flex: 1,
+            values: yearOptions,
+            className: 'slot1',
+            textAlign: 'right',
+            defaultIndex: yearIndex
+          }, {
+            divider: true,
+            content: '-',
+            className: 'slot2'
+          }, {
+            flex: 1,
+            values: monthOptions,
+            className: 'slot3',
+            textAlign: 'left',
+            defaultIndex: monthIndex
+          }
+        ]
+      }
     },
+    watch: {},
     methods: {
-      getlist () {
+      getlist() {
         this.allLoaded = true// 若数据已全部获取完毕
         return getReportList(this.queryForPage).then(res => {
           this.list = this.list.concat(res.data.data.list)
-          if(res.data.data.pages>this.queryForPage.pageNum){
+          if (res.data.data.pages > this.queryForPage.pageNum) {
             this.allLoaded = false
           }
-          this.queryForPage.pageNum+=1
+          this.queryForPage.pageNum += 1
           return Promise.resolve(res)
         })
       },
-      loadBottom () {
+      loadBottom() {
         // this.allLoaded = true// 若数据已全部获取完毕
         // 加载更多数据
         this.getlist().then(res => {
           this.$refs.loadmore.onBottomLoaded()
         })
-
+      },
+      openPicker() {
+        this.$refs.picker.open();
+      },
+      handleConfirm(date) {
+        this.queryForPage.date = date[0] + "-" + date[1]
+        this.pickerVisible = false
       }
     },
     components: {
       navBar: NavBar,
-      loadmore: Loadmore
+      loadmore: Loadmore,
+      popSelect: popSelect
     },
-    created () {
+    created() {
       this.getlist()
     },
-    mounted () {
+    mounted() {
       this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top
     }
   }

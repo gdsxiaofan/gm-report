@@ -191,7 +191,7 @@
       },
       onValuesChange (value) {
         this.show = false
-        console.log(value)
+        value=value[0]
         switch (this.popType) {
           case 0:
             this.report.reportType = value.value
