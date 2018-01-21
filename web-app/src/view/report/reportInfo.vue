@@ -6,7 +6,7 @@
         编辑
       </mt-button>
     </mt-header>
-    <mt-field v-if="!report.id" label="类别" placeholder="" @click.native="showPop(0)" :value="reportTypeName"></mt-field>
+    <mt-field :readonly="true" v-if="!report.id" label="类别" placeholder="" @click.native="showPop(0)" :value="reportTypeName"></mt-field>
     <mt-field :disabled="!abled" :key="1" label="设备名称" placeholder="" :readonly="true" @click.native="showPop(1)"
               :value="report.deviceName"></mt-field>
     <template v-if="report.reportType===1">
