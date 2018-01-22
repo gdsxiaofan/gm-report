@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huaxia.tongyong.repository.AttendanceRecordMapper">
+
+	<!--实体映射-->
+	<resultMap id="BaseResultMap" type="com.huaxia.tongyong.model.AttendanceRecord">
+		<!---->
+		<id property="id" column="id" />
+		<!--工号-->
+		<result property="employeeNo" column="employee_no" />
+		<!--用户姓名-->
+		<result property="userName" column="user_name" />
+		<!--上班时间-->
+		<result property="workStartTime" column="work_start_time" />
+		<!--下班时间-->
+		<result property="workEndTime" column="work_end_time" />
+		<!--工作时长-->
+		<result property="workHours" column="work_hours" />
+		<!--属性一-->
+		<result property="propertyOne" column="property_one" />
+		<!--属性二-->
+		<result property="propertyTwo" column="property_two" />
+		<!--创建时间-->
+		<result property="createTime" column="create_time" />
+		<!--更新时间-->
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+	id,	employee_no,	user_name,	work_start_time,	work_end_time,	work_hours,	property_one,	property_two,	create_time,	update_time
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.model.AttendanceRecord" parameterType="java.lang.Integer">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM t_attendance_record
+		 WHERE id = #{id}
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		 DELETE FROM t_attendance_record
+		 WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.huaxia.tongyong.model.AttendanceRecord">
+		 INSERT INTO t_attendance_record
+ 		(id,employee_no,user_name,work_start_time,work_end_time,work_hours,property_one,property_two,create_time,update_time) 
+		 VALUES 
+ 		(#{id},#{employeeNo},#{userName},#{workStartTime},#{workEndTime},#{workHours},#{propertyOne},#{propertyTwo},#{createTime},#{updateTime}) 
+	</insert>
+
+	<!-- 添加 （匹配有值的字段）-->
+	<insert id="insertSelective" parameterType="com.huaxia.tongyong.model.AttendanceRecord">
+		 INSERT INTO t_attendance_record
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+				 id,
+			</if>
+			<if test="employeeNo != null">
+				 employee_no,
+			</if>
+			<if test="userName != null">
+				 user_name,
+			</if>
+			<if test="workStartTime != null">
+				 work_start_time,
+			</if>
+			<if test="workEndTime != null">
+				 work_end_time,
+			</if>
+			<if test="workHours != null">
+				 work_hours,
+			</if>
+			<if test="propertyOne != null">
+				 property_one,
+			</if>
+			<if test="propertyTwo != null">
+				 property_two,
+			</if>
+			<if test="createTime != null">
+				 create_time,
+			</if>
+			<if test="updateTime != null">
+				 update_time,
+			</if>
+
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id!=null">
+				 #{id},
+			</if>
+			<if test="employeeNo!=null">
+				 #{employeeNo},
+			</if>
+			<if test="userName!=null">
+				 #{userName},
+			</if>
+			<if test="workStartTime!=null">
+				 #{workStartTime},
+			</if>
+			<if test="workEndTime!=null">
+				 #{workEndTime},
+			</if>
+			<if test="workHours!=null">
+				 #{workHours},
+			</if>
+			<if test="propertyOne!=null">
+				 #{propertyOne},
+			</if>
+			<if test="propertyTwo!=null">
+				 #{propertyTwo},
+			</if>
+			<if test="createTime!=null">
+				 #{createTime},
+			</if>
+			<if test="updateTime!=null">
+				 #{updateTime},
+			</if>
+		 </trim>
+	</insert>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.huaxia.tongyong.model.AttendanceRecord">
+		 UPDATE t_attendance_record
+ 		 <set> 
+			<if test="employeeNo != null">
+				 employee_no = #{employeeNo},
+			</if>
+			<if test="userName != null">
+				 user_name = #{userName},
+			</if>
+			<if test="workStartTime != null">
+				 work_start_time = #{workStartTime},
+			</if>
+			<if test="workEndTime != null">
+				 work_end_time = #{workEndTime},
+			</if>
+			<if test="workHours != null">
+				 work_hours = #{workHours},
+			</if>
+			<if test="propertyOne != null">
+				 property_one = #{propertyOne},
+			</if>
+			<if test="propertyTwo != null">
+				 property_two = #{propertyTwo},
+			</if>
+			<if test="createTime != null">
+				 create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				 update_time = #{updateTime},
+			</if>
+
+ 		 </set>
+		 WHERE id = #{id}
+	</update>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKey" parameterType="com.huaxia.tongyong.model.AttendanceRecord">
+		 UPDATE t_attendance_record
+		 SET 
+			 employee_no = #{employeeNo},
+			 user_name = #{userName},
+			 work_start_time = #{workStartTime},
+			 work_end_time = #{workEndTime},
+			 work_hours = #{workHours},
+			 property_one = #{propertyOne},
+			 property_two = #{propertyTwo},
+			 create_time = #{createTime},
+			 update_time = #{updateTime}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>

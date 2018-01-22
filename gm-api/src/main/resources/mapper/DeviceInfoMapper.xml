@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huaxia.tongyong.repository.DeviceInfoMapper">
+
+	<!--实体映射-->
+	<resultMap id="BaseResultMap" type="com.huaxia.tongyong.model.DeviceInfo">
+		<!---->
+		<id property="id" column="id" />
+		<!--设备名称-->
+		<result property="deviceName" column="device_name" />
+		<!--属性一-->
+		<result property="propertyOne" column="property_one" />
+		<!--属性二-->
+		<result property="propertyTwo" column="property_two" />
+		<!--属性三-->
+		<result property="propertyThree" column="property_three" />
+		<!--属性四-->
+		<result property="propertyFour" column="property_four" />
+		<!--创建时间-->
+		<result property="createTime" column="create_time" />
+		<!--更新时间-->
+		<result property="updateTime" column="update_time" />
+		<!--有效状态-->
+		<result property="deleteStatus" column="delete_status" />
+	</resultMap>
+
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+	id,	device_name,	property_one,	property_two,	property_three,	property_four,	create_time,	update_time,	delete_status
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.model.DeviceInfo" parameterType="java.lang.Integer">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM t_device_info
+		 WHERE id = #{id}
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		 DELETE FROM t_device_info
+		 WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.huaxia.tongyong.model.DeviceInfo">
+		 INSERT INTO t_device_info
+ 		(id,device_name,property_one,property_two,property_three,property_four,create_time,update_time,delete_status) 
+		 VALUES 
+ 		(#{id},#{deviceName},#{propertyOne},#{propertyTwo},#{propertyThree},#{propertyFour},#{createTime},#{updateTime},#{deleteStatus}) 
+	</insert>
+
+	<!-- 添加 （匹配有值的字段）-->
+	<insert id="insertSelective" parameterType="com.huaxia.tongyong.model.DeviceInfo">
+		 INSERT INTO t_device_info
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+				 id,
+			</if>
+			<if test="deviceName != null">
+				 device_name,
+			</if>
+			<if test="propertyOne != null">
+				 property_one,
+			</if>
+			<if test="propertyTwo != null">
+				 property_two,
+			</if>
+			<if test="propertyThree != null">
+				 property_three,
+			</if>
+			<if test="propertyFour != null">
+				 property_four,
+			</if>
+			<if test="createTime != null">
+				 create_time,
+			</if>
+			<if test="updateTime != null">
+				 update_time,
+			</if>
+			<if test="deleteStatus != null">
+				 delete_status,
+			</if>
+
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id!=null">
+				 #{id},
+			</if>
+			<if test="deviceName!=null">
+				 #{deviceName},
+			</if>
+			<if test="propertyOne!=null">
+				 #{propertyOne},
+			</if>
+			<if test="propertyTwo!=null">
+				 #{propertyTwo},
+			</if>
+			<if test="propertyThree!=null">
+				 #{propertyThree},
+			</if>
+			<if test="propertyFour!=null">
+				 #{propertyFour},
+			</if>
+			<if test="createTime!=null">
+				 #{createTime},
+			</if>
+			<if test="updateTime!=null">
+				 #{updateTime},
+			</if>
+			<if test="deleteStatus!=null">
+				 #{deleteStatus},
+			</if>
+		 </trim>
+	</insert>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.huaxia.tongyong.model.DeviceInfo">
+		 UPDATE t_device_info
+ 		 <set> 
+			<if test="deviceName != null">
+				 device_name = #{deviceName},
+			</if>
+			<if test="propertyOne != null">
+				 property_one = #{propertyOne},
+			</if>
+			<if test="propertyTwo != null">
+				 property_two = #{propertyTwo},
+			</if>
+			<if test="propertyThree != null">
+				 property_three = #{propertyThree},
+			</if>
+			<if test="propertyFour != null">
+				 property_four = #{propertyFour},
+			</if>
+			<if test="createTime != null">
+				 create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				 update_time = #{updateTime},
+			</if>
+			<if test="deleteStatus != null">
+				 delete_status = #{deleteStatus},
+			</if>
+
+ 		 </set>
+		 WHERE id = #{id}
+	</update>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKey" parameterType="com.huaxia.tongyong.model.DeviceInfo">
+		 UPDATE t_device_info
+		 SET 
+			 device_name = #{deviceName},
+			 property_one = #{propertyOne},
+			 property_two = #{propertyTwo},
+			 property_three = #{propertyThree},
+			 property_four = #{propertyFour},
+			 create_time = #{createTime},
+			 update_time = #{updateTime},
+			 delete_status = #{deleteStatus}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>
