@@ -5,6 +5,7 @@ package com.huaxia.tongyong.api;
 
 import com.github.pagehelper.PageInfo;
 import com.huaxia.tongyong.model.UserInfo;
+import com.huaxia.tongyong.param.SelectOption;
 import com.huaxia.tongyong.param.UserParam;
 import com.huaxia.tongyong.param.UserQueryParam;
 import com.huaxia.tongyong.service.UserBiz;
@@ -16,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -106,4 +108,6 @@ public class UserApi extends BaseApi{
         List<UserInfoVo> userInfoVos = userBiz.getGroupUserInfo(groupId);
         return new JsonResult<>(1,"success",userInfoVos);
     }
+
+
 }

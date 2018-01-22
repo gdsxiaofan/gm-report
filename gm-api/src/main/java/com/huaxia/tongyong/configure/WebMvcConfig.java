@@ -27,7 +27,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
                         "/v2/api-docs",
                         "/configuration/*",
                         "/v1/image/sosOutImg/*",
-                        "/v1/image/upPic"
+                        "/v1/image/upPic",
+                        "/**/download/**"
                 );
         super.addInterceptors(registry);
     }
