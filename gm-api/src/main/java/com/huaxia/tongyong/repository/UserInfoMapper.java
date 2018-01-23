@@ -4,7 +4,6 @@ import com.huaxia.tongyong.model.UserInfo;
 import com.huaxia.tongyong.vo.UserInfoVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -82,4 +81,5 @@ public interface UserInfoMapper{
     public List<UserInfoVo> getUserInfoByGroupId(
             @Param("groupId") Long groupId);
 
+    int selectByEmployeeNo(@Param("employeeNo")String employeeNo);
 }

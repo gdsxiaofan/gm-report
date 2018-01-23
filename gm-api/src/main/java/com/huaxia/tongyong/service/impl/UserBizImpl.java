@@ -9,6 +9,7 @@ import com.huaxia.tongyong.service.UserBiz;
 import com.huaxia.tongyong.util.MD5Util;
 import com.huaxia.tongyong.util.json.JSONHelper;
 import com.huaxia.tongyong.vo.UserInfoVo;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,11 +54,11 @@ public class UserBizImpl implements UserBiz{
 
     @Override
     public boolean addUserInfo(UserParam userParam) {
-        UserInfo userInfo = new UserInfo();
+        UserInfo userInfo = UserInfo.builder().build();
         userInfo.setPassword(MD5Util.encode("123456"));
         userInfo.setEmployeeNo(userParam.getEmployeeNo());
-        userInfo.setMobileNo(userParam.getMobile());
-        userInfo.setName(userParam.getUserName());
+        userInfo.setMobileNo(userParam.getMobileNo());
+        userInfo.setName(userParam.getName());
         userInfo.setGroupId(userParam.getGroupId().longValue());
         userInfo.setLevelId(userParam.getLevelId().longValue());
         userInfo.setCreateTime(new Date());
@@ -93,5 +94,56 @@ public class UserBizImpl implements UserBiz{
     @Override
     public List<UserInfoVo> getGroupUserInfo(Long groupId) {
         return userInfoMapper.getUserInfoByGroupId(groupId);
+    }
+
+    /**
+     * 用户工号重复验证
+     *
+     * @param employeeNo
+     * @return
+     */
+    @Override
+    public boolean checkEmployeeNo(String employeeNo) {
+        return userInfoMapper.selectByEmployeeNo(employeeNo)==0;
+    }
+
+    @Override
+    public void updateUser(UserParam userParam) {
+        UserInfo userInfo = UserInfo.builder().build();
+        if(StringUtils.isNotBlank(userParam.getNewPassword())){
+            userInfo.setPassword(MD5Util.encode(userParam.getNewPassword()));
+        }
+        userInfo.setId(userParam.getId());
+        userInfo.setEmployeeNo(userParam.getEmployeeNo());
+        userInfo.setMobileNo(userParam.getMobileNo());
+        userInfo.setName(userParam.getName());
+        userInfo.setGroupId(userParam.getGroupId().longValue());
+        userInfo.setLevelId(userParam.getLevelId().longValue());
+        userInfo.setUpdateTime(new Date());
+        userInfoMapper.updateUser(userInfo);
+    }
+
+    @Override
+    public void delUser(Integer id) {
+        UserInfo userInfo = UserInfo.builder()
+                .id((long)id)
+                .updateTime(new Date())
+                .deleteStatus(0).build();
+        userInfoMapper.updateUser(userInfo);
+    }
+
+    /**
+     * 冻结
+     *
+     * @param id
+     * @param isActive
+     */
+    @Override
+    public void isActiveUser(Integer id, Integer isActive) {
+        UserInfo userInfo = UserInfo.builder()
+                .id((long)id)
+                .updateTime(new Date())
+                .userStatus(isActive).build();
+        userInfoMapper.updateUser(userInfo);
     }
 }

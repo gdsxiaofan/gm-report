@@ -1,7 +1,6 @@
 package com.huaxia.tongyong.enums;
 
 import lombok.Getter;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 /**
  * @Description:
@@ -11,7 +10,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
  */
 public enum UserStatusEnum {
     USING(1,"启用"),
-    SUSPEND(2,"暂停");
+    SUSPEND(0,"暂停");
 
     @Getter
     int code;
@@ -26,7 +25,7 @@ public enum UserStatusEnum {
     public static UserStatusEnum valuesOf(int code){
         for(UserStatusEnum userStatusEnum:UserStatusEnum.values()){
             if(userStatusEnum.getCode()==code){
-                return null;
+                return userStatusEnum;
             }
         }
         return null;

@@ -15,8 +15,8 @@ public class UserParam {
 
     public Long id;
     public String employeeNo;
-    public String userName;
-    public String mobile;
+    public String name;
+    public String mobileNo;
     public Integer levelId;
     public Integer groupId;
 }

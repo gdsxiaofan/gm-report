@@ -31,3 +31,11 @@ export function getUserInfo() {
     method: 'get'
   })
 }
+//获取用户相关信息（菜单，个人信息等）
+export function getLevels() {
+  return fetch({
+    url: `/v1/common/selected/get`,
+    method: 'get',
+    params:{optionType:0}
+  })
+}

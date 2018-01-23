@@ -59,7 +59,6 @@
     updategroup,
     delgroup,
     addgroup,
-    isActivegroup
   } from '../../api/role/group'
 
   export default {

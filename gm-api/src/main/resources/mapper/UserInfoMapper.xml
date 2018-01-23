@@ -62,10 +62,11 @@
 			ui.id as id,
 			ui.`name` AS name,
 			ui.employee_no AS employeeNo,
-			ui.mobile_no AS mobileMo,
+			ui.mobile_no AS mobileNo,
 			ui.level_id AS levelId,
 			ui.group_id AS groupId,
-			gi.group_name AS groupName
+			gi.group_name AS groupName,
+		    ui.user_status AS userStatus
 		FROM
 			t_user_info ui
 		left JOIN t_group_info gi ON ui.group_id = gi.id
@@ -91,6 +92,15 @@
 		WHERE
 		ui.delete_status =1
 		and ui.group_id =#{groupId}
+	</select>
+	<select id="selectByEmployeeNo" resultType="java.lang.Integer">
+		SELECT
+			count(0)
+		FROM
+			t_user_info ui
+		WHERE
+			ui.delete_status =1
+			and ui.employee_no =#{employeeNo}
 	</select>
 
 	<!--删除：根据主键ID删除-->
@@ -193,7 +203,7 @@
 			<if test="employeeNo != null">
 				 employee_no = #{employeeNo},
 			</if>
-			<if test="password != null">
+			<if test="password != null and password != ''">
 				 password = #{password},
 			</if>
 			<if test="mobileNo != null">

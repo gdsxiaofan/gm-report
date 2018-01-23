@@ -46,19 +46,19 @@
            :title="userModal.title"
     >
       <Form ref="user" :model="userInfo" :rules="userRules" :label-width="80">
-        <Form-item label="工号：" prop="employeeNo">
+        <Form-item label="工号：" v-if="!userModal.title==='修改用户'" prop="employeeNo">
           <Input type="text" v-model="userInfo.employeeNo" placeholder="工号">
           <Icon type="ios-person-outline" slot="prepend"></Icon>
           </Input>
         </Form-item>
-        <FormItem label="密码：" :prop="userModal.title==='修改用户'?'':'employeePassword'">
+        <FormItem v-if="userModal.title==='修改用户'" label="密码：" >
           <Input type="password" v-model="userInfo.employeePassword"
                  :placeholder="userModal.title==='修改用户'?'不填则不修改':'密码'">
           <Icon type="ios-locked-outline" slot="prepend"></Icon>
           </Input>
         </FormItem>
-        <Form-item label="姓名：" prop="employeeName">
-          <Input type="text" v-model="userInfo.employeeName" placeholder=""/>
+        <Form-item label="姓名：" prop="name">
+          <Input type="text" v-model="userInfo.name" placeholder=""/>
         </Form-item>
         <!--<Form-item label="排班：" >-->
           <!--<Select v-model="userInfo.shiftsNo" style="width:200px">-->
@@ -67,12 +67,17 @@
             <!--<Option :value="2">晚班</Option>-->
           <!--</Select>-->
         <!--</Form-item>-->
-        <Form-item label="手机号码：" prop="employeeMobile">
-          <Input type="text" v-model="userInfo.employeeMobile" placeholder=""/>
+        <Form-item label="手机号码：" prop="mobileNo">
+          <Input type="text" v-model="userInfo.mobileNo" placeholder=""/>
         </Form-item>
-        <Form-item label="角色" prop="roleId">
-          <Select v-model="userInfo.roleId" style="width:200px">
-            <Option v-for="item in RoleList" :value="item.id" :key="item.id">{{ item.roleName }}</Option>
+        <Form-item label="级别" prop="levelId">
+          <Select v-model="userInfo.levelId" style="width:200px" filterable>
+            <Option v-for="item in levels" :value="item.optionCode" :key="item.optionCode">{{ item.opitonName }}</Option>
+          </Select>
+        </Form-item>
+        <Form-item label="班组" prop="groupId">
+          <Select v-model="userInfo.groupId" style="width:200px" filterable>
+            <Option v-for="item in groups" :value="item.id" :key="item.id">{{ item.groupName }}</Option>
           </Select>
         </Form-item>
       </Form>
@@ -90,10 +95,15 @@
     updateUser,
     delUser,
     addUser,
-    isActiveUser
+    isActiveUser,
+    checkEmployeeNo
   } from '../../api/role/showUser'
-  import {getRoleList} from '../../api/role/role'
-
+  import {
+    getgroupList,
+  } from '../../api/role/group'
+  import {
+  getLevels
+  } from '../../api/api'
   export default {
     data() {
       return {
@@ -101,27 +111,45 @@
           id: '',
           roleId: '',
           roleName: '',
-          employeeMobile: '',
+          mobileNo: '',
           employeeNo: '',
           shiftsNo:0,
-          employeeName: '',
-          employeePassword: ''
+          name: '',
+          employeePassword: '',
+          levelId:"",
+          groupId:""
         },
         userRules: {
           employeeNo: [
-            {required: true, message: '请填写工号', trigger: 'blur'}
+            {required: true, message: '请填写工号', trigger: 'blur'},
+            {
+              validator: (rule, value, callback) => {
+                checkEmployeeNo(value).then(res => {
+                  if (res.data.data === false) {
+                    callback(new Error('工号不可重复'))
+                  } else {
+                    callback()
+                  }
+                }).catch(e => {
+                  callback(new Error('系统异常'))
+                })
+              }, trigger: 'blur'
+            }
           ],
-          employeeName: [
+          name: [
             {required: true, message: '请填写姓名', trigger: 'blur'}
           ],
-          employeeMobile: [
+          mobileNo: [
             {required: true, message: '请填写手机号', trigger: 'blur'}
           ],
           employeePassword: [
             {required: true, message: '请填写密码', trigger: 'blur'}
           ],
-          roleId: [
-            {type: 'number', required: true, message: '请选择角色', trigger: 'change'},
+          levelId: [
+            {type: 'number', required: true, message: '请选择级别', trigger: 'change'},
+          ],
+          groupId: [
+            {type: 'number', required: true, message: '请选择班组', trigger: 'change'},
           ]
         },
         userModal: {
@@ -149,19 +177,19 @@
           },
           {
             title: '姓名',
-            key: 'employeeName'
+            key: 'name'
           },
           {
             title: '手机号码',
-            key: 'employeeMobile'
+            key: 'mobileNo'
           },
           {
-            title: '角色',
-            key: 'roleName'
+            title: '级别',
+            key: 'levelName'
           },
           {
-            title: '排班',
-            key: 'shiftsNoName'
+            title: '班组',
+            key: 'groupName'
           },
           {
             title: '操作',
@@ -177,11 +205,11 @@
                 on: {
                   click: () => {
                     this.$Modal.confirm({
-                      title: params.row.isActive ? '是否停用' : '是否启用',
-                      content: '<p>' + params.row.employeeName + '</p>',
+                      title: params.row.userStatus===1 ? '是否停用' : '是否启用',
+                      content: '<p>' + params.row.name + '</p>',
                       loading: true,
                       onOk: () => {
-                        isActiveUser(params.row.id, !params.row.isActive).then(res => {
+                        isActiveUser(params.row.id, params.row.userStatus===1?0:1).then(res => {
                           this.$Message.success(res.data.message);
                           this.$Modal.remove()
                           this.getlist()
@@ -191,7 +219,7 @@
                     });
                   }
                 }
-              }, params.row.isActive ? '停用' : '启用'),
+              }, params.row.userStatus===1 ? '停用' : '启用'),
               h('Button', {
                   props: {
                     type: 'info'
@@ -204,11 +232,12 @@
                       this.$refs['user'].resetFields()
                       this.userInfo.id = params.row.id
                       this.userInfo.roleName = params.row.roleName
-                      this.userInfo.employeeName = params.row.employeeName
+                      this.userInfo.name = params.row.name
                       this.userInfo.employeeNo = params.row.employeeNo
-                      this.userInfo.employeeMobile = params.row.employeeMobile
+                      this.userInfo.mobileNo = params.row.mobileNo
                       this.userInfo.shiftsNo = params.row.shiftsNo
-                      this.userInfo.roleId = params.row.roleId
+                      this.userInfo.groupId = params.row.groupId
+                      this.userInfo.levelId = params.row.levelId
                       this.userModal.isShow = true
                       this.userModal.title = '修改用户'
                     }
@@ -227,7 +256,7 @@
                   click: () => {
                     this.$Modal.confirm({
                       title: '是否删除',
-                      content: '<p>' + params.row.employeeName + '</p>',
+                      content: '<p>' + params.row.name + '</p>',
                       loading: true,
                       onOk: () => {
                         delUser(params.row.id).then(res => {
@@ -245,7 +274,9 @@
           }
         ],
         list: [],
-        RoleList: []
+        RoleList: [],
+        groups:[],
+        levels:[]
       }
     },
     methods: {
@@ -273,6 +304,7 @@
           if (valid) {
             this.userModal.isLoading = true
             if (this.userModal.title === '修改用户') {
+              this.userInfo.newPassword=this.userInfo.employeePassword
               updateUser(this.userInfo).then(res => {
                 this.userModal.isLoading = false
                 this.userModal.isShow = false
@@ -293,6 +325,12 @@
     },
     created() {
 //获取rolelist
+      getgroupList({pageSize: 0}).then(res=>{
+        this.groups=res.data.data.list
+      })
+      getLevels().then(res=>{
+        this.levels=res.data.data
+      })
       this.getlist()
     }
   }

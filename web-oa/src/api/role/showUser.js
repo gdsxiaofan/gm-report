@@ -38,3 +38,10 @@ export function isActiveUser(id,isActive) {
     params: {id,isActive}
   });
 }
+export function checkEmployeeNo(employeeNo) {
+  return fetch({
+    url: 'v1/user/checkEmployeeNo',
+    method: 'get',
+    params: {employeeNo}
+  });
+}

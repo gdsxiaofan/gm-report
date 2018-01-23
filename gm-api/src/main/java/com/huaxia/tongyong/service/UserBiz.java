@@ -48,4 +48,22 @@ public interface UserBiz {
      * @return
      */
     public List<UserInfoVo> getGroupUserInfo(Long groupId);
+
+    /**
+     * 用户工号重复验证
+     * @param employeeNo
+     * @return
+     */
+    boolean checkEmployeeNo(String employeeNo);
+
+    void updateUser(UserParam userParam);
+
+    void delUser(Integer id);
+
+    /**
+     *  冻结
+     * @param id
+     * @param isActive
+     */
+    void isActiveUser(Integer id, Integer isActive);
 }
