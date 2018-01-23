@@ -44,11 +44,11 @@ public class EntityUtil {
     // 对应模块名称（根据自己模块做相应调整!!!务必修改^_^）
     // private final String moduleName = "paycenter_db"; //
     // 对应模块名称（根据自己模块做相应调整!!!务必修改^_^）
-    private final String bean_path = "e:/entity_bean";
+    private final String bean_path = "/Users/gongdaoshun/common/entity_bean";
 
-    private final String mapper_path = "e:/entity_mapper";
+    private final String mapper_path = "/Users/gongdaoshun/common/entity_mapper";
 
-    private final String xml_path = "e:/entity_mapper/xml";
+    private final String xml_path = "/Users/gongdaoshun/common/entity_mapper/xml";
 
     private final String bean_package = "com.huaxia.tongyong.model";
 
@@ -667,7 +667,9 @@ public class EntityUtil {
 //            tables.add("t_report_repair");
 //            tables.add("t_report_transfer_log");
 //            tables.add("t_user_info");
-            tables.add("t_dictionary_info");
+//            tables.add("t_dictionary_info");
+            tables.add("t_attendance_record");
+            tables.add("t_device_info");
             new EntityUtil().generate(tables);
             // 自动打开生成文件的目录
             Runtime.getRuntime().exec("cmd /c start explorer E:\\");
