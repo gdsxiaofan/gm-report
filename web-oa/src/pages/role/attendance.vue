@@ -3,20 +3,11 @@
     <Card>
       <p slot="title">条件查询</p>
       <Row>
-        <!--<Col :span="2" style="margin-top:0.2%">-->
-        <!--角色：-->
-        <!--</Col>-->
-        <!--<Col :span="3">-->
-        <!--<Select v-model="queryCondition.roleId" filterable not-found-text>-->
-        <!--<Option :value="0" :key="0">全部</Option>-->
-        <!--<Option v-for="item in RoleList" :value="item.id" :key="item.id">{{ item.roleName }}</Option>-->
-        <!--</Select>-->
-        <!--</Col>-->
         <Col :span="2" :offset="1" style="margin-top:0.2%">
-        班组名：
+        设备名称：
         </Col>
         <Col :span="4">
-        <Input type="text" v-model="queryCondition.employeeNo" placeholder="请输入..."></Input>
+        <Input type="text" v-model="queryCondition.deviceName" placeholder="请输入..."></Input>
         </Col>
         <Col :span="2" offset="8">
         <Button type="primary" shape="circle" icon="ios-search" @click="getlist">查询</Button>
@@ -24,7 +15,7 @@
         <Col :span="2" offset="1">
         <Button type="success" shape="circle" icon="ios-personadd"
                 @click="add">
-          新建班组
+          新建设备
         </Button>
         </Col>
       </Row>
@@ -83,7 +74,7 @@
         queryCondition: {
           pageSize: 10,
           pageNum: 1,
-          groupName: '',
+          deviceName: '',
           total: 0
         },
         columns: [

@@ -18,7 +18,10 @@ public class JwtUtil {
 
     private static String SECRET = "MY SECRET";
 
-    private static final Long OUTTIME = 60 * 60 * 1000L;
+    /**
+     * token失效时间改为1周，若用户一周未登录app需要重新登录
+     */
+    private static final Long OUTTIME = 7 * 24 *60 * 60 * 1000L;
 
     /**
      * @param id  用户主键id

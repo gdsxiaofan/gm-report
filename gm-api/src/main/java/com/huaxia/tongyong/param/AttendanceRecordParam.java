@@ -21,13 +21,13 @@ public class AttendanceRecordParam {
     private String userName;
 
     /**上班时间**/
-    private java.util.Date workStartTime;
+    private String workStartTime;
 
     /**下班时间**/
-    private java.util.Date workEndTime;
+    private String workEndTime;
 
     /**工作时长**/
-    private Integer workHours;
+    private String workHours;
 
     /**属性一**/
     private String propertyOne;

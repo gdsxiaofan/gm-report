@@ -34,11 +34,24 @@
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
-	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.model.AttendanceRecord" parameterType="java.lang.Integer">
+	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.vo.AttendanceRecordVo" parameterType="java.lang.Integer">
 		 SELECT
 		 <include refid="Base_Column_List" />
 		 FROM t_attendance_record
 		 WHERE id = #{id}
+	</select>
+	<select id="getAttendanceRecordList" resultType="com.huaxia.tongyong.vo.AttendanceRecordVo">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_attendance_record
+	  	<where>
+			<if test="employeeNo !=null and employeeNo!=''">
+				employee_no =#{employeeNo}
+			</if>
+			<if test="userName !=null and userName!=''">
+				user_name LIKE cancat('%',#{userName},'%')
+			</if>
+		</where>
 	</select>
 
 	<!--删除：根据主键ID删除-->

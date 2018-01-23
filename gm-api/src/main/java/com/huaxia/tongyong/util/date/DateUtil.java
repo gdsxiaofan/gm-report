@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -50,5 +51,19 @@ public class DateUtil {
             log.error("时间转换出错：",e);
         }
         return null;
+    }
+
+    /**
+     * 获取某年某月最后一天
+     * @param reportYear
+     * @param reportMonth
+     * @return
+     */
+    public static String getLastDayByMonth(int reportYear, int reportMonth) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, reportYear);
+        cal.set(Calendar.MONTH, reportMonth - 1);
+        int maxDate = cal.getActualMaximum(Calendar.DATE);
+        return String.valueOf(maxDate);
     }
 }
