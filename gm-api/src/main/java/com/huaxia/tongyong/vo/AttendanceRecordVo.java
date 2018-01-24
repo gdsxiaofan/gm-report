@@ -1,6 +1,9 @@
 package com.huaxia.tongyong.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * TODO: 请添加描述
@@ -48,5 +51,9 @@ public class AttendanceRecordVo {
      * 属性二
      **/
     private String propertyTwo;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date workDate;
+
+
 }
 

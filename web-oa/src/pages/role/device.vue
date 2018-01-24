@@ -13,7 +13,7 @@
         <!--</Select>-->
         <!--</Col>-->
         <Col :span="2" :offset="1" style="margin-top:0.2%">
-        班组名：
+        设备名：
         </Col>
         <Col :span="4">
         <Input type="text" v-model="queryCondition.employeeNo" placeholder="请输入..."></Input>
@@ -24,7 +24,7 @@
         <Col :span="2" offset="1">
         <Button type="success" shape="circle" icon="ios-personadd"
                 @click="add">
-          新建班组
+          新建设备
         </Button>
         </Col>
       </Row>
@@ -36,18 +36,18 @@
               show-elevator></Page>
       </div>
     </div>
-    <Modal v-model="groupModal.isShow"
-           :title="groupModal.title"
+    <Modal v-model="deviceModal.isShow"
+           :title="deviceModal.title"
     >
-      <Form ref="group" :model="groupInfo" :rules="groupRules" :label-width="80">
-        <Form-item label="班组名：" prop="groupName">
-          <Input type="text" v-model="groupInfo.groupName" placeholder="">
+      <Form ref="device" :model="deviceInfo" :rules="deviceRules" :label-width="80">
+        <Form-item label="设备名：" prop="deviceName">
+          <Input type="text" v-model="deviceInfo.deviceName" placeholder="">
           </Input>
         </Form-item>
       </Form>
       <div slot="footer">
-        <Button type="ghost" @click="groupModal.isShow=false" style="margin-left: 8px">取消</Button>
-        <Button type="primary" @click="dogroup" :loading="groupModal.isLoading">提交</Button>
+        <Button type="ghost" @click="deviceModal.isShow=false" style="margin-left: 8px">取消</Button>
+        <Button type="primary" @click="dodevice" :loading="deviceModal.isLoading">提交</Button>
       </div>
     </Modal>
   </div>
@@ -55,26 +55,26 @@
 
 <script>
   import {
-    getgroupList,
-    updategroup,
-    delgroup,
-    addgroup,
-    isActivegroup
-  } from '../../api/role/group'
+    getdeviceList,
+    updatedevice,
+    deldevice,
+    adddevice,
+    isActivedevice
+  } from '../../api/role/device'
 
   export default {
     data() {
       return {
-        groupInfo: {
+        deviceInfo: {
           id: '',
-          groupName: '',
+          deviceName: '',
         },
-        groupRules: {
-          groupName: [
-            {required: true, message: '请填写班组', trigger: 'blur'}
+        deviceRules: {
+          deviceName: [
+            {required: true, message: '请填写设备', trigger: 'blur'}
           ]
         },
-        groupModal: {
+        deviceModal: {
           isShow: false,
           isLoading: false,
           title: ''
@@ -83,7 +83,7 @@
         queryCondition: {
           pageSize: 10,
           pageNum: 1,
-          groupName: '',
+          deviceName: '',
           total: 0
         },
         columns: [
@@ -92,8 +92,8 @@
             key: 'id'
           },
           {
-            title: '班组名',
-            key: 'groupName'
+            title: '设备名',
+            key: 'deviceName'
           },
           {
             title: '操作',
@@ -108,11 +108,11 @@
                   },
                   on: {
                     click: () => {
-                      this.$refs['group'].resetFields()
-                      this.groupInfo.id = params.row.id
-                      this.groupInfo.groupName = params.row.groupName
-                      this.groupModal.isShow = true
-                      this.groupModal.title = '修改班组'
+                      this.$refs['device'].resetFields()
+                      this.deviceInfo.id = params.row.id
+                      this.deviceInfo.deviceName = params.row.deviceName
+                      this.deviceModal.isShow = true
+                      this.deviceModal.title = '修改设备'
                     }
                   }
                 },
@@ -132,7 +132,7 @@
                       content: '<p>' + params.row.employeeName + '</p>',
                       loading: true,
                       onOk: () => {
-                        delgroup(params.row.id).then(res => {
+                        deldevice(params.row.id).then(res => {
                           this.$Message.success(res.data.message);
                           this.$Modal.remove()
                           this.getlist()
@@ -152,9 +152,9 @@
     },
     methods: {
       add() {
-        this.$refs['group'].resetFields()
-        this.groupModal.title = '新增班组'
-        this.groupModal.isShow = true
+        this.$refs['device'].resetFields()
+        this.deviceModal.title = '新增设备'
+        this.deviceModal.isShow = true
 
       },
       getSelection(selection) {
@@ -162,7 +162,7 @@
       },
       getlist(pageNum) {
         this.queryCondition.pageNum = !isNaN(pageNum) ? pageNum : this.queryCondition.pageNum
-        getgroupList(this.queryCondition).then(res => {
+        getdeviceList(this.queryCondition).then(res => {
           this.queryCondition.pageNum = res.data.data.pageNum
           this.list = res.data.data.list
           this.queryCondition.total = res.data.data.total
@@ -170,22 +170,22 @@
 
         });
       },
-      dogroup() {
-        this.$refs['group'].validate((valid) => {
+      dodevice() {
+        this.$refs['device'].validate((valid) => {
           if (valid) {
-            this.groupModal.isLoading = true
-            if (this.groupModal.title === '修改班组') {
-              updategroup(this.groupInfo).then(res => {
-                this.groupModal.isLoading = false
-                this.groupModal.isShow = false
+            this.deviceModal.isLoading = true
+            if (this.deviceModal.title === '修改设备') {
+              updatedevice(this.deviceInfo).then(res => {
+                this.deviceModal.isLoading = false
+                this.deviceModal.isShow = false
                 this.$Message.success(res.data.message)
                 this.getlist()
               })
-            } else if (this.groupModal.title === '新增班组') {
-              this.groupInfo.id = null
-              addgroup(this.groupInfo).then(res => {
-                this.groupModal.isLoading = false
-                this.groupModal.isShow = false
+            } else if (this.deviceModal.title === '新增设备') {
+              this.deviceInfo.id = null
+              adddevice(this.deviceInfo).then(res => {
+                this.deviceModal.isLoading = false
+                this.deviceModal.isShow = false
                 this.$Message.success(res.data.message)
                 this.getlist()
               })
@@ -195,7 +195,7 @@
       }
     },
     mounted() {
-      this.$refs['group'].resetFields()
+      this.$refs['device'].resetFields()
       this.getlist()
     }
   }

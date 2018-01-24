@@ -14,7 +14,7 @@
         <mt-cell v-for="n in list"
                  @click.native="$router.push({path:'/reportInfo',query:{reportId:n.reportId,reportType:n.reportTypeCode}})"
                  :key="n.id">
-          <div slot="title">{{n.reportName }}<br><span style="font-size: 0.6rem">{{n.createTime}}</span></div>
+          <div slot="title">{{n.workDate }}<br><span style="font-size: 0.6rem">{{n.createTime}}</span></div>
           <div>{{n.reportTypeName}}</div>
         </mt-cell>
       </loadmore>
@@ -32,7 +32,7 @@
   import {Loadmore} from 'mint-ui'
   import popSelect from './compent/popSelect'
   import {
-    getReportList,
+    getAttendances,
   } from '../../global/report'
   import {
     formatData
@@ -45,7 +45,7 @@
           total: 0,
           pageNum: 1,
           pageSize: 10,
-          date: formatData.call(new Date(), "yyyy-MM")
+          month: formatData.call(new Date(), "yyyy-MM")
         },
         wrapperHeight: 0,
         list: [],
@@ -55,8 +55,8 @@
     },
     computed: {
       slots() {
-        let year = this.queryForPage.date.split("-")[0]
-        let month = this.queryForPage.date.split("-")[1]
+        let year = this.queryForPage.month.split("-")[0]
+        let month = this.queryForPage.month.split("-")[1]
         let yearOptions = []
         for(let i=new Date().getFullYear() - 5;i<new Date().getFullYear() + 5;i++){
           yearOptions.push(i+"")
@@ -98,7 +98,7 @@
     methods: {
       getlist() {
         this.allLoaded = true// 若数据已全部获取完毕
-        return getReportList(this.queryForPage).then(res => {
+        return getAttendances(this.queryForPage).then(res => {
           this.list = this.list.concat(res.data.data.list)
           if (res.data.data.pages > this.queryForPage.pageNum) {
             this.allLoaded = false
@@ -118,8 +118,10 @@
         this.$refs.picker.open();
       },
       handleConfirm(date) {
-        this.queryForPage.date = date[0] + "-" + date[1]
+        this.queryForPage.month = date[0] + "-" + date[1]
         this.pickerVisible = false
+        this.queryForPage.pageNum=1
+        this.getlist()
       }
     },
     components: {

@@ -7,7 +7,7 @@
         设备名称：
         </Col>
         <Col :span="4">
-        <Input type="text" v-model="queryCondition.deviceName" placeholder="请输入..."></Input>
+        <Input type="text" v-model="queryCondition.attendanceName" placeholder="请输入..."></Input>
         </Col>
         <Col :span="2" offset="8">
         <Button type="primary" shape="circle" icon="ios-search" @click="getlist">查询</Button>
@@ -27,18 +27,18 @@
               show-elevator></Page>
       </div>
     </div>
-    <Modal v-model="groupModal.isShow"
-           :title="groupModal.title"
+    <Modal v-model="attendanceModal.isShow"
+           :title="attendanceModal.title"
     >
-      <Form ref="group" :model="groupInfo" :rules="groupRules" :label-width="80">
-        <Form-item label="班组名：" prop="groupName">
-          <Input type="text" v-model="groupInfo.groupName" placeholder="">
+      <Form ref="attendance" :model="attendanceInfo" :rules="attendanceRules" :label-width="80">
+        <Form-item label="班组名：" prop="attendanceName">
+          <Input type="text" v-model="attendanceInfo.attendanceName" placeholder="">
           </Input>
         </Form-item>
       </Form>
       <div slot="footer">
-        <Button type="ghost" @click="groupModal.isShow=false" style="margin-left: 8px">取消</Button>
-        <Button type="primary" @click="dogroup" :loading="groupModal.isLoading">提交</Button>
+        <Button type="ghost" @click="attendanceModal.isShow=false" style="margin-left: 8px">取消</Button>
+        <Button type="primary" @click="doattendance" :loading="attendanceModal.isLoading">提交</Button>
       </div>
     </Modal>
   </div>
@@ -46,26 +46,26 @@
 
 <script>
   import {
-    getgroupList,
-    updategroup,
-    delgroup,
-    addgroup,
-    isActivegroup
-  } from '../../api/role/group'
+    getattendanceList,
+    updateattendance,
+    delattendance,
+    addattendance,
+    isActiveattendance
+  } from '../../api/role/attendance'
 
   export default {
     data() {
       return {
-        groupInfo: {
+        attendanceInfo: {
           id: '',
-          groupName: '',
+          attendanceName: '',
         },
-        groupRules: {
-          groupName: [
+        attendanceRules: {
+          attendanceName: [
             {required: true, message: '请填写班组', trigger: 'blur'}
           ]
         },
-        groupModal: {
+        attendanceModal: {
           isShow: false,
           isLoading: false,
           title: ''
@@ -74,7 +74,7 @@
         queryCondition: {
           pageSize: 10,
           pageNum: 1,
-          deviceName: '',
+          attendanceName: '',
           total: 0
         },
         columns: [
@@ -84,7 +84,7 @@
           },
           {
             title: '班组名',
-            key: 'groupName'
+            key: 'attendanceName'
           },
           {
             title: '操作',
@@ -99,11 +99,11 @@
                   },
                   on: {
                     click: () => {
-                      this.$refs['group'].resetFields()
-                      this.groupInfo.id = params.row.id
-                      this.groupInfo.groupName = params.row.groupName
-                      this.groupModal.isShow = true
-                      this.groupModal.title = '修改班组'
+                      this.$refs['attendance'].resetFields()
+                      this.attendanceInfo.id = params.row.id
+                      this.attendanceInfo.attendanceName = params.row.attendanceName
+                      this.attendanceModal.isShow = true
+                      this.attendanceModal.title = '修改班组'
                     }
                   }
                 },
@@ -123,7 +123,7 @@
                       content: '<p>' + params.row.employeeName + '</p>',
                       loading: true,
                       onOk: () => {
-                        delgroup(params.row.id).then(res => {
+                        delattendance(params.row.id).then(res => {
                           this.$Message.success(res.data.message);
                           this.$Modal.remove()
                           this.getlist()
@@ -143,9 +143,9 @@
     },
     methods: {
       add() {
-        this.$refs['group'].resetFields()
-        this.groupModal.title = '新增班组'
-        this.groupModal.isShow = true
+        this.$refs['attendance'].resetFields()
+        this.attendanceModal.title = '新增班组'
+        this.attendanceModal.isShow = true
 
       },
       getSelection(selection) {
@@ -153,7 +153,7 @@
       },
       getlist(pageNum) {
         this.queryCondition.pageNum = !isNaN(pageNum) ? pageNum : this.queryCondition.pageNum
-        getgroupList(this.queryCondition).then(res => {
+        getattendanceList(this.queryCondition).then(res => {
           this.queryCondition.pageNum = res.data.data.pageNum
           this.list = res.data.data.list
           this.queryCondition.total = res.data.data.total
@@ -161,22 +161,22 @@
 
         });
       },
-      dogroup() {
-        this.$refs['group'].validate((valid) => {
+      doattendance() {
+        this.$refs['attendance'].validate((valid) => {
           if (valid) {
-            this.groupModal.isLoading = true
-            if (this.groupModal.title === '修改班组') {
-              updategroup(this.groupInfo).then(res => {
-                this.groupModal.isLoading = false
-                this.groupModal.isShow = false
+            this.attendanceModal.isLoading = true
+            if (this.attendanceModal.title === '修改班组') {
+              updateattendance(this.attendanceInfo).then(res => {
+                this.attendanceModal.isLoading = false
+                this.attendanceModal.isShow = false
                 this.$Message.success(res.data.message)
                 this.getlist()
               })
-            } else if (this.groupModal.title === '新增班组') {
-              this.groupInfo.id = null
-              addgroup(this.groupInfo).then(res => {
-                this.groupModal.isLoading = false
-                this.groupModal.isShow = false
+            } else if (this.attendanceModal.title === '新增班组') {
+              this.attendanceInfo.id = null
+              addattendance(this.attendanceInfo).then(res => {
+                this.attendanceModal.isLoading = false
+                this.attendanceModal.isShow = false
                 this.$Message.success(res.data.message)
                 this.getlist()
               })
@@ -186,7 +186,7 @@
       }
     },
     mounted() {
-      this.$refs['group'].resetFields()
+      this.$refs['attendance'].resetFields()
       this.getlist()
     }
   }

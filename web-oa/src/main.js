@@ -1,7 +1,6 @@
 /*
  * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
  */
-import babelpolyfill from 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'

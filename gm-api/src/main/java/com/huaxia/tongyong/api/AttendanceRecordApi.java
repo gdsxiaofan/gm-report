@@ -21,7 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -115,7 +115,7 @@ public class AttendanceRecordApi {
             @RequestParam("pageNum")int pageNum,
             @RequestParam("pageSize")int pageSize
     ){
-        JsonResult jsonResult = new JsonResult();
+        JsonResult<PageInfo<AttendanceRecordVo>> jsonResult = new JsonResult<>();
         try{
             PageHelper.startPage(pageNum,pageSize);
             String userInfoStr = MDC.get("user");
@@ -123,13 +123,14 @@ public class AttendanceRecordApi {
                 throw new RuntimeException("当前用户未登录，请登录后在操作");
             }
             UserInfo userInfo = JSONHelper.jsonToObject(userInfoStr, UserInfo.class);
-            List<AttendanceRecordVo> attendanceRecordVos = attendanceRecordBiz.getAttendanceRecordVoList(null,userInfo.getName(),month);
+            List<AttendanceRecordVo> attendanceRecordVos = attendanceRecordBiz.getAttendanceRecordVoList(userInfo.getEmployeeNo(),userInfo.getName(),month);
             if(CollectionUtils.isNotEmpty(attendanceRecordVos)){
                 PageInfo<AttendanceRecordVo> attendanceRecordVoPageInfo = new PageInfo<>(attendanceRecordVos);
-                jsonResult.setData(jsonResult);
+                jsonResult.setData(attendanceRecordVoPageInfo);
             }
             else{
                 jsonResult.setCode(0);
+                jsonResult.setData(new PageInfo<>(new ArrayList<>()));
                 jsonResult.setMessage("api未查询到数据");
             }
         }catch(RuntimeException re){

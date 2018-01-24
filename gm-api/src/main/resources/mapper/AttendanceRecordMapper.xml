@@ -27,7 +27,28 @@
 		<result property="updateTime" column="update_time" />
 	</resultMap>
 
-
+	<!--实体映射-->
+	<resultMap id="VoMap" type="com.huaxia.tongyong.vo.AttendanceRecordVo">
+		<!---->
+		<id property="id" column="id" />
+		<!--工号-->
+		<result property="employeeNo" column="employee_no" />
+		<!--用户姓名-->
+		<result property="userName" column="user_name" />
+		<!--上班时间-->
+		<result property="workStartTime" column="work_start_time" />
+		<!--下班时间-->
+		<result property="workEndTime" column="work_end_time" />
+		<!--工作时长-->
+		<result property="workHours" column="work_hours" />
+		<!--属性一-->
+		<result property="propertyOne" column="property_one" />
+		<!--属性二-->
+		<result property="propertyTwo" column="property_two" />
+		<!--创建时间-->
+		<result property="workDate" column="work_start_time" />
+		<!--更新时间-->
+	</resultMap>
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
 	id,	employee_no,	user_name,	work_start_time,	work_end_time,	work_hours,	property_one,	property_two,	create_time,	update_time
@@ -40,7 +61,7 @@
 		 FROM t_attendance_record
 		 WHERE id = #{id}
 	</select>
-	<select id="getAttendanceRecordList" resultType="com.huaxia.tongyong.vo.AttendanceRecordVo">
+	<select id="getAttendanceRecordList" resultMap="VoMap">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM t_attendance_record
