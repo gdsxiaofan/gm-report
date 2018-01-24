@@ -1,20 +1,28 @@
 package com.huaxia.tongyong.api;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.huaxia.tongyong.model.AttendanceRecord;
+import com.huaxia.tongyong.model.UserInfo;
 import com.huaxia.tongyong.param.AttendanceRecordParam;
 import com.huaxia.tongyong.param.DeviceInfoParam;
 import com.huaxia.tongyong.service.AttendanceRecordBiz;
+import com.huaxia.tongyong.util.json.JSONHelper;
 import com.huaxia.tongyong.vo.AttendanceRecordVo;
 import com.huaxia.tongyong.vo.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
+import org.slf4j.MDC;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 考勤记录相关的接口
@@ -70,34 +78,69 @@ public class AttendanceRecordApi {
     ){
         JsonResult jsonResult = new JsonResult();
         try{
-
+            PageHelper.startPage(deviceInfoParam.getPageNum(),deviceInfoParam.getPageSize());
+            List<AttendanceRecordVo> attendanceRecordVos = attendanceRecordBiz.getAttendanceRecordVoList(deviceInfoParam.getEmployeeNo(),null,null);
+            if(CollectionUtils.isNotEmpty(attendanceRecordVos)){
+                PageInfo<AttendanceRecordVo> attendanceRecordVoPageInfo = new PageInfo<>(attendanceRecordVos);
+                jsonResult.setData(jsonResult);
+            }
+            else{
+                jsonResult.setCode(0);
+                jsonResult.setMessage("web未查询到数据");
+            }
         }catch(RuntimeException re){
-
+            log.error("web查询考勤记录失败：{}", re.getStackTrace());
+            jsonResult.setCode(0);
+            jsonResult.setMessage(re.getMessage());
         }
         catch(Exception e){
-
+            log.error("web查询考勤记录失败：{}", e.getStackTrace());
+            jsonResult.setCode(0);
+            jsonResult.setMessage("web查询考勤记录失败");
         }
         return jsonResult;
     }
 
     /**
      *
-     * @param deviceInfoParam
+     * @param month
+     * @param pageNum
+     * @param pageSize
      * @return
      */
     @ApiOperation(value="查询考勤记录",notes = "新增考勤记录数据",httpMethod = "POST",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping("/get/app")
     public JsonResult<PageInfo<AttendanceRecordVo>> selectAttendanceListForApp(
-            @RequestBody DeviceInfoParam deviceInfoParam
+            @ApiParam("month格式为：yyyy-MM") @RequestParam("month")String month,
+            @RequestParam("pageNum")int pageNum,
+            @RequestParam("pageSize")int pageSize
     ){
         JsonResult jsonResult = new JsonResult();
         try{
-
+            PageHelper.startPage(pageNum,pageSize);
+            String userInfoStr = MDC.get("user");
+            if(StringUtils.isBlank(userInfoStr)){
+                throw new RuntimeException("当前用户未登录，请登录后在操作");
+            }
+            UserInfo userInfo = JSONHelper.jsonToObject(userInfoStr, UserInfo.class);
+            List<AttendanceRecordVo> attendanceRecordVos = attendanceRecordBiz.getAttendanceRecordVoList(null,userInfo.getName(),month);
+            if(CollectionUtils.isNotEmpty(attendanceRecordVos)){
+                PageInfo<AttendanceRecordVo> attendanceRecordVoPageInfo = new PageInfo<>(attendanceRecordVos);
+                jsonResult.setData(jsonResult);
+            }
+            else{
+                jsonResult.setCode(0);
+                jsonResult.setMessage("api未查询到数据");
+            }
         }catch(RuntimeException re){
-
+            log.error("api查询考勤记录失败：{}", re.getStackTrace());
+            jsonResult.setCode(0);
+            jsonResult.setMessage(re.getMessage());
         }
         catch(Exception e){
-
+            log.error("api查询考勤记录失败：{}", e.getStackTrace());
+            jsonResult.setCode(0);
+            jsonResult.setMessage("api查询考勤记录失败");
         }
         return jsonResult;
     }

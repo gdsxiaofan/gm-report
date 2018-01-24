@@ -28,4 +28,6 @@ public class DeviceInfoParam extends BaseQueryParams{
 
     /**属性四**/
     private String propertyFour;
+
+    private String employeeNo;
 }

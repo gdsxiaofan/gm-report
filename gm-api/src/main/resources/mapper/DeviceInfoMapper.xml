@@ -32,11 +32,21 @@
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
-	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.model.DeviceInfo" parameterType="java.lang.Integer">
+	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.vo.DeviceInfoVo" parameterType="java.lang.Integer">
 		 SELECT
 		 <include refid="Base_Column_List" />
 		 FROM t_device_info
 		 WHERE id = #{id}
+	</select>
+	<select id="getDeviceInfoList" resultType="com.huaxia.tongyong.vo.DeviceInfoVo">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_device_info
+		<where>
+			<if test="deviceName!=null and deviceName!=''">
+				device
+			</if>
+		</where>
 	</select>
 
 	<!--删除：根据主键ID删除-->
