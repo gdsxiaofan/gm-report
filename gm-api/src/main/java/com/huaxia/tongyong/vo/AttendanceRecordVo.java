@@ -54,6 +54,9 @@ public class AttendanceRecordVo {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date workDate;
 
-
+    /**
+     * 周日
+     */
+    private String week;
 }
 
