@@ -44,7 +44,7 @@
 		FROM t_device_info
 		<where>
 			<if test="deviceName!=null and deviceName!=''">
-				device
+				device_name LIKE cancat('%',#{deviceName},'%')
 			</if>
 		</where>
 	</select>

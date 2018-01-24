@@ -43,4 +43,5 @@ public interface DeviceInfoMapper{
      */
     public List<DeviceInfoVo> getDeviceInfoList(
             @Param("deviceName")String devcieName);
+
 }

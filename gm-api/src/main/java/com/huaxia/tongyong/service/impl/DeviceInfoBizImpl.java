@@ -5,9 +5,11 @@ import com.huaxia.tongyong.param.DeviceInfoParam;
 import com.huaxia.tongyong.repository.DeviceInfoMapper;
 import com.huaxia.tongyong.service.DeviceInfoBiz;
 import com.huaxia.tongyong.vo.DeviceInfoVo;
+import io.jsonwebtoken.lang.Assert;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,17 +27,40 @@ public class DeviceInfoBizImpl implements DeviceInfoBiz{
 
     @Override
     public void addDeviceInfo(DeviceInfoParam deviceInfoParam) {
-
+        //1.转换设备新
+        DeviceInfo deviceInfo = transferDeviceInfoParam(deviceInfoParam);
+        //2.保存设备信息
+        deviceInfo.setCreateTime(new Date());
+        Integer count =deviceInfoMapper.insertSelective(deviceInfo);
+        if(count.intValue()==0){
+            throw new RuntimeException("保存设备信息失败");
+        }
     }
 
     @Override
     public void updateDeviceInfo(DeviceInfoParam deviceInfoParam) {
-
+        Assert.isTrue(deviceInfoParam.getId()!=null,"设备id不能为空");
+        //1.转换设备新
+        DeviceInfo deviceInfo = transferDeviceInfoParam(deviceInfoParam);
+        //2.保存设备信息
+        deviceInfo.setId(deviceInfoParam.getId());
+        Integer count =deviceInfoMapper.updateByPrimaryKeySelective(deviceInfo);
+        if(count.intValue()==0){
+            throw new RuntimeException("保存设备信息失败");
+        }
     }
 
     @Override
     public List<DeviceInfoVo> getDeviceList(String deviceName) {
-        return null;
+        List<DeviceInfoVo> deviceInfoVos = deviceInfoMapper.getDeviceInfoList(deviceName);
+        return deviceInfoVos;
+    }
+
+    @Override
+    public DeviceInfoVo getDeviceDetail(Integer id) {
+
+        DeviceInfoVo deviceInfoVo = deviceInfoMapper.selectByPrimaryKey(id);
+        return deviceInfoVo;
     }
 
     /**
@@ -51,7 +76,6 @@ public class DeviceInfoBizImpl implements DeviceInfoBiz{
         deviceInfo.setPropertyTwo(deviceInfoParam.getPropertyTwo());
         deviceInfo.setPropertyThree(deviceInfoParam.getPropertyThree());
         deviceInfo.setPropertyFour(deviceInfoParam.getPropertyFour());
-
 
         return deviceInfo;
     }

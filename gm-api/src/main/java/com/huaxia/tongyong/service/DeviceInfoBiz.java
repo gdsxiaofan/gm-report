@@ -1,6 +1,7 @@
 package com.huaxia.tongyong.service;
 
 import com.huaxia.tongyong.param.DeviceInfoParam;
+import com.huaxia.tongyong.repository.DeviceInfoMapper;
 import com.huaxia.tongyong.vo.DeviceInfoVo;
 
 import java.util.List;
@@ -14,9 +15,29 @@ import java.util.List;
  */
 public interface DeviceInfoBiz {
 
+    /**
+     * 新增设备信息
+     * @param deviceInfoParam
+     */
     public void addDeviceInfo(DeviceInfoParam deviceInfoParam);
 
+    /**
+     * 更新设备信息
+     * @param deviceInfoParam
+     */
     public void updateDeviceInfo(DeviceInfoParam deviceInfoParam);
 
+    /**
+     * 查询设备列表
+     * @param deviceName
+     * @return
+     */
     public List<DeviceInfoVo> getDeviceList(String deviceName);
+
+    /**
+     * 查询设备详细信息
+     * @param id
+     * @return
+     */
+    public DeviceInfoVo getDeviceDetail(Integer id);
 }
