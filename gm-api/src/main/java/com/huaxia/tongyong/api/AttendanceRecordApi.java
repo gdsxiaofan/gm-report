@@ -34,7 +34,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/attendance")
 @Slf4j
-@Api(value = "DictionaryApi" ,description = "考勤相关接口")
+@Api(value = "AttendanceRecordApi" ,description = "考勤相关接口")
 public class AttendanceRecordApi {
 
 
