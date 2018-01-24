@@ -49,7 +49,7 @@
 				employee_no =#{employeeNo}
 			</if>
 			<if test="userName !=null and userName!=''">
-				user_name LIKE cancat('%',#{userName},'%')
+				user_name LIKE '%'||#{userName}||'%'
 			</if>
 		</where>
 	</select>
