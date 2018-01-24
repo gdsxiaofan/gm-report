@@ -3,6 +3,7 @@ package com.huaxia.tongyong.vo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -51,12 +52,43 @@ public class AttendanceRecordVo {
      * 属性二
      **/
     private String propertyTwo;
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date workDate;
 
     /**
      * 周日
      */
     private String week;
+
+    public void setWorkDate(Date workDate) {
+        this.workDate = workDate;
+        //获取当前星期
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(workDate);
+        int week =calendar.get(Calendar.DAY_OF_WEEK);
+        this.week="星期"+getChinese(week);
+
+    }
+
+    private String getChinese(int week) {
+        switch (week){
+            case 1:
+                return "一";
+            case 2:
+                return "二";
+            case 3:
+                return "三";
+            case 4:
+                return "四";
+            case 5:
+                return "五";
+            case 6:
+                return "六";
+            case 7:
+                return "日";
+            default:
+                return "";
+        }
+    }
 }
 

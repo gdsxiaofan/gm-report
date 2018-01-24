@@ -1,23 +1,31 @@
 <template>
   <div style="">
 
-    <mt-header title="考勤功能">
-      <mt-button icon="back" slot="left" @click="$router.push({path:'/'})">返回</mt-button>
-      <mt-button size="small" slot="right" @click="pickerVisible=true">筛选</mt-button>
+    <mt-header :title="type===0?'考勤功能':'考勤详情'">
+      <mt-button icon="back" slot="left" @click="goback">返回</mt-button>
+      <mt-button v-show="type===0" size="small" slot="right" @click="pickerVisible=true">筛选</mt-button>
     </mt-header>
-    <div ref="wrapper" :style="{ height: wrapperHeight + 'px',overflow: 'scroll' }">
+    <div v-show="type===0" ref="wrapper" :style="{ height: wrapperHeight + 'px',overflow: 'scroll' }">
       <loadmore
         :bottom-method="loadBottom"
         :bottom-all-loaded="allLoaded"
         :auto-fill="false"
         ref="loadmore">
         <mt-cell v-for="n in list"
-                 @click.native="$router.push({path:'/reportInfo',query:{reportId:n.reportId,reportType:n.reportTypeCode}})"
+                 @click.native="getDetail(n.id)"
                  :key="n.id">
-          <div slot="title">{{n.workDate }}<br><span style="font-size: 0.6rem">{{n.createTime}}</span></div>
-          <div>{{n.reportTypeName}}</div>
+          <div slot="title">{{n.workDate }}<br><span style="font-size: 0.6rem">{{n.week}}</span></div>
+          <div>{{n.workHours}}小时  </div>
         </mt-cell>
       </loadmore>
+    </div>
+    <div v-show="type===1">
+      <mt-cell title="工号" :value="detail.employeeNo"></mt-cell>
+      <mt-cell title="姓名" :value="detail.userName"></mt-cell>
+      <mt-cell title="上班时间" :value="detail.workStartTime"></mt-cell>
+      <mt-cell title="下班时间" :value="detail.workEndTime"></mt-cell>
+      <mt-cell title="工时" :value="detail.workHours"></mt-cell>
+
     </div>
 
 
@@ -33,6 +41,7 @@
   import popSelect from './compent/popSelect'
   import {
     getAttendances,
+    getAttendanceDetail
   } from '../../global/report'
   import {
     formatData
@@ -50,7 +59,15 @@
         wrapperHeight: 0,
         list: [],
         allLoaded: false,
-        pickerVisible: false
+        pickerVisible: false,
+        type:0, //0 list 1  detail
+        detail:{
+          employeeNo:"",
+          userName:"",
+          workStartTime:"",
+          workEndTime:"",
+          workHours:""
+        }
       }
     },
     computed: {
@@ -96,6 +113,23 @@
     },
     watch: {},
     methods: {
+      goback(){
+        switch (this.type){
+          case 0 :
+            $router.push({path:'/'})
+            break;
+          case 1:
+            this.type=0
+            break
+
+        }
+      },
+      getDetail(id){
+         this.type=1
+        getAttendanceDetail(id).then(res=>{
+          this.detail =res.data.data
+        })
+      },
       getlist() {
         this.allLoaded = true// 若数据已全部获取完毕
         return getAttendances(this.queryForPage).then(res => {

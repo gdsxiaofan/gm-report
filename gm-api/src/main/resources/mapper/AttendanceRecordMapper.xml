@@ -55,7 +55,7 @@
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
-	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.vo.AttendanceRecordVo" parameterType="java.lang.Integer">
+	<select id="selectByPrimaryKey" resultMap="VoMap" parameterType="java.lang.Integer">
 		 SELECT
 		 <include refid="Base_Column_List" />
 		 FROM t_attendance_record

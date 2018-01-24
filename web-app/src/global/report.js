@@ -77,11 +77,19 @@ export function transferReport(userId,reportIds) {
     params:{userId,reportIds}
   })
 }
-//获取考勤信息
+//获取考勤列表
 export function getAttendances(condition) {
   return fetch({
     url: `v1/attendance/get/app`,
     method: 'post',
     params:condition
+  })
+}
+//获取考勤详情
+export function getAttendanceDetail(id) {
+  return fetch({
+    url: `v1/attendance/detail`,
+    method: 'get',
+    params:{id}
   })
 }
