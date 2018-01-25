@@ -72,6 +72,12 @@
 			<if test="userName !=null and userName!=''">
 			AND	user_name LIKE CONCAT('%',#{userName},'%')
 			</if>
+			<if test="startTime!='' and startTime!=null">
+				and work_start_time &gt; #{startTime}
+			</if>
+			<if test="endTime !='' and endTime!=null">
+				and work_start_time &lt; #{endTime}
+			</if>
 		</where>
 	</select>
 
