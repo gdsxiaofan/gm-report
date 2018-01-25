@@ -4,10 +4,10 @@
       <p slot="title">条件查询</p>
       <Row>
         <Col :span="2" :offset="1" style="margin-top:0.2%">
-        设备名称：
+        姓名：
         </Col>
         <Col :span="4">
-        <Input type="text" v-model="queryCondition.attendanceName" placeholder="请输入..."></Input>
+        <Input type="text" v-model="queryCondition.userName" placeholder="请输入..."></Input>
         </Col>
         <Col :span="2" offset="8">
         <Button type="primary" shape="circle" icon="ios-search" @click="getlist">查询</Button>
@@ -74,17 +74,29 @@
         queryCondition: {
           pageSize: 10,
           pageNum: 1,
-          attendanceName: '',
+          userName: '',
           total: 0
         },
         columns: [
           {
-            title: '编号',
-            key: 'id'
+            title: '工号',
+            key: 'employeeNo'
           },
           {
-            title: '班组名',
-            key: 'attendanceName'
+            title: '姓名',
+            key: 'userName'
+          },
+          {
+            title: '工作时长（时）',
+            key: 'workHours'
+          },
+          {
+            title: '上班时间',
+            key: 'workStartTime'
+          },
+          {
+            title: '下班时间',
+            key: 'workEndTime'
           },
           {
             title: '操作',

@@ -36,7 +36,7 @@
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
-	<select id="selectByPrimaryKey" resultType="com.huaxia.tongyong.model.UserInfo" parameterType="java.lang.Long">
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		 SELECT
 		 <include refid="Base_Column_List" />
 		 FROM t_user_info

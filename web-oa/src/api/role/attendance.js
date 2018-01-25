@@ -5,7 +5,7 @@ import {fetch,qs} from '../../lib/utils/fetch'
 
 export function getattendanceList(queryCondition) {
   return fetch({
-    url: 'v1/attendance/list',
+    url: 'v1/attendance/get/web',
     method: 'post',
     data: queryCondition
   });

@@ -70,7 +70,7 @@
 				employee_no =#{employeeNo}
 			</if>
 			<if test="userName !=null and userName!=''">
-				user_name LIKE '%'||#{userName}||'%'
+			AND	user_name LIKE CONCAT('%',#{userName},'%')
 			</if>
 		</where>
 	</select>

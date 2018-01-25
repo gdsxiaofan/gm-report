@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-public class AttendanceRecordParam {
+public class AttendanceRecordParam  extends BaseQueryParams{
     /****/
     private Integer id;
 

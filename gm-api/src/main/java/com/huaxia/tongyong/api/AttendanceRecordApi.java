@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.huaxia.tongyong.model.UserInfo;
 import com.huaxia.tongyong.param.AttendanceRecordParam;
-import com.huaxia.tongyong.param.DeviceInfoParam;
 import com.huaxia.tongyong.service.AttendanceRecordBiz;
 import com.huaxia.tongyong.util.json.JSONHelper;
 import com.huaxia.tongyong.vo.AttendanceRecordVo;
@@ -68,24 +67,26 @@ public class AttendanceRecordApi {
 
     /**
      *
-     * @param deviceInfoParam
+     * @param attendanceRecordParam
      * @return
      */
-    @ApiOperation(value="查询考勤记录",notes = "新增考勤记录数据",httpMethod = "POST",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value="查询考勤记录",notes = "查询考勤记录",httpMethod = "POST",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping("/get/web")
     public JsonResult<PageInfo<AttendanceRecordVo>> selectAttendanceListForWeb(
-            @RequestBody DeviceInfoParam deviceInfoParam
+            @RequestBody AttendanceRecordParam attendanceRecordParam
     ){
-        JsonResult jsonResult = new JsonResult();
+        JsonResult<PageInfo<AttendanceRecordVo>> jsonResult = new JsonResult<>();
         try{
-            PageHelper.startPage(deviceInfoParam.getPageNum(),deviceInfoParam.getPageSize());
-            List<AttendanceRecordVo> attendanceRecordVos = attendanceRecordBiz.getAttendanceRecordVoList(deviceInfoParam.getEmployeeNo(),null,null);
+            PageHelper.startPage(attendanceRecordParam.getPageNum(),attendanceRecordParam.getPageSize());
+            List<AttendanceRecordVo> attendanceRecordVos = attendanceRecordBiz.getAttendanceRecordVoList(null,attendanceRecordParam.getUserName(),null);
             if(CollectionUtils.isNotEmpty(attendanceRecordVos)){
                 PageInfo<AttendanceRecordVo> attendanceRecordVoPageInfo = new PageInfo<>(attendanceRecordVos);
-                jsonResult.setData(jsonResult);
+
+                jsonResult.setData(attendanceRecordVoPageInfo);
             }
             else{
                 jsonResult.setCode(0);
+                jsonResult.setData(new PageInfo<AttendanceRecordVo>(new ArrayList<>()));
                 jsonResult.setMessage("web未查询到数据");
             }
         }catch(RuntimeException re){
