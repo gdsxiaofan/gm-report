@@ -17,7 +17,7 @@ const Home = resolve => require(['./pages/Home.vue'], resolve)
 /*角色管理*/
 const Role = resolve => require(['./pages/role/Role.vue'], resolve)
 /*班组管理*/
-const Plan = resolve => require(['./pages/role/Plan.vue'], resolve)
+const Group = resolve => require(['./pages/role/Group.vue'], resolve)
 /*考勤管理*/
 const attendance = resolve => require(['./pages/role/attendance.vue'], resolve)
 /*设备管理*/
@@ -35,7 +35,7 @@ let routes = [
     iconCls: 'ios-home', //图标样式class
     children: [
       // {path: 'role', meta: {title: '角色管理'}, icon: 'ios-home', component: Role},
-      {path: 'plan', meta: {title: '班组管理'}, icon: 'ios-home', component: Plan},
+      {path: 'group', meta: {title: '班组管理'}, icon: 'ios-home', component: Group},
       {path: 'device', meta: {title: '设备管理'}, icon: 'ios-home', component: device},
       {path: 'attendance', meta: {title: '考勤管理'}, icon: 'ios-home', component: attendance},
       {path: 'userRole', meta: {title: '用户管理'}, icon: 'ios-home', component: ShowUser},

@@ -179,7 +179,7 @@
           }, {
             'id': 113,
             'name': '班组信息管理',
-            'href': '/plan',
+            'href': '/group',
             'icon': '',
             'orderTop': 2,
             'parentId': 107,
@@ -310,7 +310,7 @@
     mounted () {
       getUserInfo().then(res => {
         this.userName = res.data.data.name
-        this.userRole = res.data.data.roleName
+        this.userRole = res.data.data.levelName
         // this.menu = res.data.data.memuVoList
         // this.$nextTick(()=>{
         //   this.$refs.menu.updateOpened()

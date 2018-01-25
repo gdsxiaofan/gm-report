@@ -74,8 +74,8 @@ public class UserBizImpl implements UserBiz{
      * @return
      */
     @Override
-    public UserInfo getUserInfo(Long id) {
-        return userInfoMapper.selectByPrimaryKey(id);
+    public UserInfoVo getUserInfo(Long id) {
+        return userInfoMapper.selectUserInfoVoById(id);
     }
 
     @Override

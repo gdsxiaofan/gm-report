@@ -82,4 +82,6 @@ public interface UserInfoMapper{
             @Param("groupId") Long groupId);
 
     int selectByEmployeeNo(@Param("employeeNo")String employeeNo);
+
+    UserInfoVo selectUserInfoVoById(@Param("id")Long id);
 }

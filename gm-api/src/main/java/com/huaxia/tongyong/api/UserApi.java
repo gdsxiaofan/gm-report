@@ -4,7 +4,6 @@
 package com.huaxia.tongyong.api;
 
 import com.github.pagehelper.PageInfo;
-import com.huaxia.tongyong.model.UserInfo;
 import com.huaxia.tongyong.param.UserParam;
 import com.huaxia.tongyong.param.UserQueryParam;
 import com.huaxia.tongyong.service.UserBiz;
@@ -104,13 +103,13 @@ public class UserApi extends BaseApi {
 
     @ApiOperation(value = "获取当前用户", notes = "获取用户权限相关信息", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @GetMapping("/query")
-    public JsonResult<UserInfo> getUserPermissionVo(
+    public JsonResult<UserInfoVo> getUserPermissionVo(
             HttpServletResponse response
     ) {
         Integer userId = JwtUtil.parseJwt2Id(response.getHeader(Constant.AUTHORIZATION));
-        JsonResult<UserInfo> returnJson = new JsonResult<>();
+        JsonResult<UserInfoVo> returnJson = new JsonResult<>();
 
-        UserInfo userPermissionVo = userBiz.getUserInfo(Long.valueOf(userId));
+        UserInfoVo userPermissionVo = userBiz.getUserInfo(Long.valueOf(userId));
 
         returnJson.setData(userPermissionVo);
 

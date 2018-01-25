@@ -116,7 +116,7 @@
       goback(){
         switch (this.type){
           case 0 :
-            $router.push({path:'/'})
+            this.$router.push({path:'/'})
             break;
           case 1:
             this.type=0

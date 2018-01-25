@@ -16,7 +16,7 @@
         班组名：
         </Col>
         <Col :span="4">
-        <Input type="text" v-model="queryCondition.employeeNo" placeholder="请输入..."></Input>
+        <Input type="text" v-model="queryCondition.groupName" placeholder="请输入..."></Input>
         </Col>
         <Col :span="2" offset="8">
         <Button type="primary" shape="circle" icon="ios-search" @click="getlist">查询</Button>

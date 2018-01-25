@@ -181,17 +181,17 @@ public class AttendanceRecordApi {
     public JsonResult<AttendanceRecordVo> getAttendanceDetail(
             @Param("id")int id
     ){
-        JsonResult jsonResult = new JsonResult();
+        JsonResult<AttendanceRecordVo> jsonResult = new JsonResult<>();
         try{
             AttendanceRecordVo attendanceRecordVo =attendanceRecordBiz.getAttendanceRecordVo(id);
             jsonResult.setData(attendanceRecordVo);
         }catch(RuntimeException re){
-            log.error("获取考勤详情失败：{}", re.getStackTrace());
+            log.error("获取考勤详情失败：{}", re);
             jsonResult.setCode(0);
             jsonResult.setMessage(re.getMessage());
         }
         catch(Exception e){
-            log.error("更获取考勤详情失败：{}", e.getStackTrace());
+            log.error("更获取考勤详情失败：{}", e);
             jsonResult.setCode(0);
             jsonResult.setMessage("获取考勤详情失败");
         }

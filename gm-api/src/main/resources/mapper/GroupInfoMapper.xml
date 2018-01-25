@@ -46,7 +46,7 @@
 		FROM t_group_info
 		where delete_status =1
 		<if test="groupName !=null and groupName !=''">
-			AND group_name =like CONCAT('%',#{groupName},'%')
+			AND group_name like CONCAT('%',#{groupName},'%')
 		</if>
 	</select>
 
