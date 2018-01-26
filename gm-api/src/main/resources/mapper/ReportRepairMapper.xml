@@ -271,14 +271,14 @@
 			 repair_car_no = #{repairCarNo},
 			 create_time = #{createTime},
 			 update_time = #{updateTime},
-			 delete_status = #{deleteStatus}
+			 delete_status = #{deleteStatus}e
 		 WHERE id = #{id}
 	</update>
     <update id="updateForDelte">
 		update t_report_repair
 		set delete_status=0
 		and report_id =#{reportId}
-		and delte_status =1
+		and delete_status =1
 	</update>
 
 </mapper>
