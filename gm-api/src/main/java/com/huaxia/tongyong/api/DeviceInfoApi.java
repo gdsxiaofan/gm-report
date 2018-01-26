@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -83,6 +84,7 @@ public class DeviceInfoApi {
             }
             else{
                 jsonResult.setCode(0);
+                jsonResult.setData(new PageInfo<>(new ArrayList<>()));
                 jsonResult.setMessage("未查询到设备信息");
             }
 
@@ -100,13 +102,35 @@ public class DeviceInfoApi {
     }
 
     @ApiOperation(value="更新设备信息",notes = "更新设备信息",httpMethod = "POST",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @PostMapping(value="/update")
+    @PutMapping(value="/update")
     public JsonResult updateDeviceInfo(
             @RequestBody DeviceInfoParam deviceInfoParam
     ){
         JsonResult jsonResult = new JsonResult();
         try{
             deviceInfoBiz.updateDeviceInfo(deviceInfoParam);
+
+        }catch(RuntimeException re){
+            log.error("更新设备信息失败：{}", re.getStackTrace());
+            jsonResult.setCode(0);
+            jsonResult.setMessage(re.getMessage());
+        }
+        catch(Exception e){
+            log.error("更新设备信息失败：{}", e.getStackTrace());
+            jsonResult.setCode(0);
+            jsonResult.setMessage("更新设备信息失败");
+        }
+        return jsonResult;
+    }
+    @ApiOperation(value="删除设备信息",notes = "删除设备信息",httpMethod = "POST",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @DeleteMapping(value="/del")
+    public JsonResult delDeviceInfo(
+            Integer id
+    ){
+        JsonResult jsonResult = new JsonResult();
+        try{
+
+            deviceInfoBiz.delDeviceInfo(id);
 
         }catch(RuntimeException re){
             log.error("更新设备信息失败：{}", re.getStackTrace());

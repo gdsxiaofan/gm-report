@@ -64,6 +64,19 @@ public class DeviceInfoBizImpl implements DeviceInfoBiz{
     }
 
     /**
+     * 删除设备
+     *
+     * @param id
+     */
+    @Override
+    public void delDeviceInfo(Integer id) {
+        DeviceInfo deviceInfo = new DeviceInfo();
+        deviceInfo.setId(id);
+        deviceInfo.setDeleteStatus(0);
+        deviceInfoMapper.updateByPrimaryKeySelective(deviceInfo);
+    }
+
+    /**
      * 转换设备信息
      * @param deviceInfoParam
      * @return

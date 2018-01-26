@@ -38,13 +38,14 @@
 		 FROM t_device_info
 		 WHERE id = #{id}
 	</select>
-	<select id="getDeviceInfoList" resultType="com.huaxia.tongyong.vo.DeviceInfoVo">
+	<select id="getDeviceInfoList" resultMap="BaseResultMap">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM t_device_info
 		<where>
+			delete_status=1
 			<if test="deviceName!=null and deviceName!=''">
-				device_name LIKE '%'||#{deviceName}||'%'
+			 and	device_name LIKE concat('%',#{deviceName},'%')
 			</if>
 		</where>
 	</select>

@@ -5,9 +5,9 @@ import {fetch,qs} from '../../lib/utils/fetch'
 
 export function getdeviceList(queryCondition) {
   return fetch({
-    url: 'v1/device/list',
-    method: 'post',
-    data: queryCondition
+    url: 'v1/device/get',
+    method: 'get',
+    params: queryCondition
   });
 }
 export function adddevice(device) {
