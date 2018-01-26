@@ -51,7 +51,7 @@ public class AttendanceRecordApi {
         JsonResult jsonResult = new JsonResult();
         try{
             attendanceRecordBiz.addAttendance(attendanceRecordParam);
-
+            jsonResult.setMessage("新增考勤成功");
         }catch(RuntimeException re){
             log.error("录入考勤记录失败：{}", re.getStackTrace());
             jsonResult.setCode(0);
@@ -153,12 +153,12 @@ public class AttendanceRecordApi {
      * @return
      */
     @ApiOperation(value="更新考勤记录",notes = "更新考勤记录数据",httpMethod = "POST",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @PostMapping("/update")
+    @PutMapping("/update")
     public JsonResult updateAttendance(@RequestBody AttendanceRecordParam attendanceRecordParam){
         JsonResult jsonResult = new JsonResult();
         try{
             attendanceRecordBiz.updateAttendance(attendanceRecordParam);
-
+            jsonResult.setMessage("更新考勤成功");
         }catch(RuntimeException re){
             log.error("更新考勤记录失败：{}", re.getStackTrace());
             jsonResult.setCode(0);

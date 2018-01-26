@@ -125,9 +125,9 @@ public class AttendanceRecordBizImpl implements AttendanceRecordBiz{
         Date startWork = null;
         Date endWork = null;
         if(StringUtils.isNotBlank(attendanceRecordParam.getWorkStartTime())){
-                startWork =DateUtil.stringToDate(attendanceRecordParam.getWorkStartTime(),DateUtil.SHORTFMT1);
+                startWork =DateUtil.stringToDate(attendanceRecordParam.getWorkStartTime(),DateUtil.LONGFMT1);
             }if(StringUtils.isNotBlank(attendanceRecordParam.getWorkEndTime())){
-                endWork = DateUtil.stringToDate(attendanceRecordParam.getWorkEndTime(),DateUtil.SHORTFMT1);
+                endWork = DateUtil.stringToDate(attendanceRecordParam.getWorkEndTime(),DateUtil.LONGFMT1);
             }
         attendanceRecord.setWorkStartTime(startWork);
         attendanceRecord.setWorkEndTime(endWork);
