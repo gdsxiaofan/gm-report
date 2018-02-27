@@ -42,4 +42,11 @@ public interface ReportBiz {
                                        HttpServletRequest request,
                                        String startTime,
                                        String endTime);
+
+    /**
+     * 查询当前用户所有未读消息的数量
+     * @param userId
+     * @return
+     */
+    public Integer getNoReadCount(Long userId);
 }

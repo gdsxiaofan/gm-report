@@ -102,6 +102,7 @@ public class ReportBizImpl implements ReportBiz {
             //更新的当前日报的负责人
             reportInfo.setChargeUserId(userIno.getId());
             reportInfo.setChargeUserName(userIno.getName());
+            reportInfo.setReadStatus(0);
             reportInfoMapper.updateByPrimaryKeySelective(reportInfo);
         });
 
@@ -173,4 +174,11 @@ public class ReportBizImpl implements ReportBiz {
         }
 
     }
+
+    @Override
+    public Integer getNoReadCount(Long userId) {
+        return reportInfoMapper.selectCountForNoRead(userId);
+    }
+
+
 }

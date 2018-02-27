@@ -62,6 +62,8 @@ public class RepairBizImpl implements RepairBiz {
     public ReportRepairVo getReportRepairVo(Long reportId) {
         //1.校验参数
         Assert.notNull(reportId, "reportId不能为空");
+        //2.更新为已读
+        reportInfoMapper.updateForRead(reportId);
         return reportRepairMapper.selectReportRepairVoByReportIdOrId(reportId, null);
     }
 

@@ -42,6 +42,9 @@ public class ReportInfo{
 	/**有效状态：1，有效 0 无效**/
 	private Integer deleteStatus;
 
+	/**已读状态：1，已读 0 未读**/
+	private Integer readStatus;
+
 
 
 	public void setId(Long id){

@@ -59,4 +59,14 @@ public interface ReportInfoMapper{
 
     public ReportInfo selectByPrimaryKey(Long id);
 
+
+    public Integer selectCountForNoRead(
+            @Param("userId")Long userId
+    );
+
+
+    public Integer updateForRead(
+            @Param("reportId")Long reportId
+    );
+
 }

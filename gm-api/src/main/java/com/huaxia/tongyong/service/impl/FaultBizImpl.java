@@ -53,6 +53,8 @@ public class FaultBizImpl implements FaultBiz{
 
     @Override
     public ReportFaultVo getReportFaultVo(Long reportId, Long id) {
+        //1.更新为已读
+        reportInfoMapper.updateForRead(reportId);
         return reportFaultMapper.selectReportFaultVo(reportId,id);
     }
 

@@ -107,4 +107,17 @@ public class ReportApi {
         }
     }
 
+    /**
+     * 获取当前用户所有未读的信息
+     * @return
+     */
+    @ApiOperation("获取当前用户未读消息的数量")
+    @RequestMapping(value = "/unread/count",method = RequestMethod.GET)
+    public JsonResult<Integer> getNoReadCount(
+            @RequestParam("userId")Long userId
+    ){
+        Integer count = reportBiz.getNoReadCount(userId);
+        return new JsonResult<>(1,"success",count);
+    }
+
 }

@@ -26,12 +26,13 @@
 		<!--有效状态：1，有效 0 无效-->
 		<result property="deleteStatus" column="delete_status" />
 		<result property="reportName" column="report_name" />
+		<result property="readStatus" column="read_status" />
 	</resultMap>
 
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-	id,	report_type,	report_status,	create_user_name,	create_user_id,	charge_user_name,	charge_user_id,	create_time,	update_time,	delete_status,report_name
+	id,	report_type,	report_status,	create_user_name,	create_user_id,	charge_user_name,	charge_user_id,	create_time,	update_time,	delete_status,report_name,read_status
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
@@ -64,8 +65,17 @@
 			#{item}
 		</foreach>
 	</select>
+	<select id="selectCountForNoRead" resultType="java.lang.Integer">
+		SELECT
+			count( * )
+		FROM
+			t_report_info
+		WHERE
+			read_status =0
+			and charge_user_id=#{userId}
+	</select>
 
-    <!--删除：根据主键ID删除-->
+	<!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		 DELETE FROM t_report_info
 		 WHERE id = #{id}
@@ -188,6 +198,9 @@
 			<if test="reportName !=null">
 				report_name = #{reportName},
 			</if>
+			 <if test="readStatus!=null">
+				 read_status = #{readStatus}
+			 </if>
  		 </set>
 		 WHERE id = #{id}
 	</update>
@@ -212,6 +225,13 @@
 		SET
 		  delete_status =0
 		  where id =#{id} and delete_status =1
+	</update>
+
+	<update id="updateForRead">
+		UPDATE t_report_info
+		SET read_status = 1
+		WHERE
+			id =#{reportId}
 	</update>
 
 </mapper>
