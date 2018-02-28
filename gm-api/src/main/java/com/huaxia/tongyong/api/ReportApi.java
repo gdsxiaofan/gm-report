@@ -1,9 +1,11 @@
 package com.huaxia.tongyong.api;
 
 import com.github.pagehelper.PageInfo;
+import com.huaxia.tongyong.handler.JwtHandler;
 import com.huaxia.tongyong.param.ReportQueryParams;
 import com.huaxia.tongyong.service.ReportBiz;
 import com.huaxia.tongyong.util.date.DateUtil;
+import com.huaxia.tongyong.util.jwt.JwtUtil;
 import com.huaxia.tongyong.vo.JsonResult;
 import com.huaxia.tongyong.vo.ReportInfoVo;
 import io.swagger.annotations.Api;
@@ -17,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.Date;
 
@@ -113,10 +113,12 @@ public class ReportApi {
      */
     @ApiOperation("获取当前用户未读消息的数量")
     @RequestMapping(value = "/unread/count",method = RequestMethod.GET)
+    @ResponseBody
     public JsonResult<Integer> getNoReadCount(
-            @RequestParam("userId")Long userId
+            HttpServletRequest request
     ){
-        Integer count = reportBiz.getNoReadCount(userId);
+        String jwt = JwtHandler.getCookieJWT(request);
+        Integer count = reportBiz.getNoReadCount(Long.valueOf(JwtUtil.parseJwt2Id(jwt)));
         return new JsonResult<>(1,"success",count);
     }
 

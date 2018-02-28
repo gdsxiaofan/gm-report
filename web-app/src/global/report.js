@@ -3,6 +3,14 @@
  */
 import {fetch,qs} from '../utils/fetch'
 import config from '../../config'
+//获取当前用户未读消息的数量
+export function getNoReadCount(userId) {
+  return fetch({
+    url: `v1/report/unread/count`,
+    method: 'get',
+    params:{userId}
+  })
+}
 //日报列表接口
 export function getReportList(reportQueryParams) {
   return fetch({

@@ -14,9 +14,9 @@
 
       <!--<mt-field label="用户名：" placeholder="请输入用户名" v-model="loginForm.username"></mt-field>-->
       <!--<mt-field label="密码：" placeholder="请输入密码" v-model="loginForm.password"></mt-field>-->
-      <section>
+      <section style="line-height:0 ">
         <div>
-          <img style="width: 100%;height: auto " src="../../assets/img/5.png">
+          <img style="width: 100%;height: auto " src="../../assets/img/login.jpg">
         </div>
       </section>
       <section>
