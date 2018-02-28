@@ -47,7 +47,7 @@
 			id reportId,
 			report_name reportName,
 			report_type reportTypeCode,
-			DATE_FORMAT(create_time,'%Y-%m-%d %t') createTime
+			DATE_FORMAT(create_time,'%Y-%m-%d') createTime
 		FROM
 			t_report_info
 		WHERE
