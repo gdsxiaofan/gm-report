@@ -75,12 +75,19 @@ public class RepairBizImpl implements RepairBiz {
     @Override
     public void saveReportRepair(RepairParam repairParam) {
         //1.组装日报主体信息
+        UserInfo userInfo = JSONHelper.jsonToObject(MDC.get("user"),UserInfo.class);
         ReportInfo reportInfo = transferToReportInfo(repairParam);
         reportInfo.setReportType(ReportTypeEnum.REPAIR.getCode());
+        reportInfo.setCreateTime(new Date());
+        reportInfo.setChargeUserName(userInfo.getName());
+        reportInfo.setChargeUserId(userInfo.getId());
+        reportInfo.setCreateUserId(userInfo.getId());
+        reportInfo.setCreateUserName(userInfo.getName());
         reportInfoMapper.insertSelective(reportInfo);
         //2.组装故障日报信息
         ReportRepair reportRepair = dozerBeanMapper.map(repairParam,ReportRepair.class);
         reportRepair.setReportId(reportInfo.getId());
+        reportRepair.setCreateTime(new Date());
         reportRepairMapper.insertSelective(reportRepair);
     }
 
@@ -225,6 +232,7 @@ public class RepairBizImpl implements RepairBiz {
         reportInfo.setId(repairParam.getReportId());
 
         reportInfo.setReportStatus(repairParam.getReportStatus());
+        reportInfo.setReportName(repairParam.getDeviceName());
 
         return reportInfo;
     }
