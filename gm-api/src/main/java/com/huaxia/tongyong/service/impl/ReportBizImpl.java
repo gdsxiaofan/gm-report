@@ -11,6 +11,7 @@ import com.huaxia.tongyong.repository.ReportTransferLogMapper;
 import com.huaxia.tongyong.repository.UserInfoMapper;
 import com.huaxia.tongyong.service.ReportBiz;
 import com.huaxia.tongyong.util.date.DateUtil;
+import com.huaxia.tongyong.util.json.JSONHelper;
 import com.huaxia.tongyong.vo.ReportInfoVo;
 import io.jsonwebtoken.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +63,8 @@ public class ReportBizImpl implements ReportBiz {
         //1.设置分页
         PageHelper.startPage(reportQueryParams.getPageNum(),reportQueryParams.getPageSize());
         PageHelper.orderBy("id desc");
-        List<ReportInfoVo> reportInfoVoList = reportInfoMapper.getReportInfoVoList(reportQueryParams.getReportStatus());
+        UserInfo userInfo = JSONHelper.jsonToObject(MDC.get("user"),UserInfo.class);
+        List<ReportInfoVo> reportInfoVoList = reportInfoMapper.getReportInfoVoList(reportQueryParams.getReportStatus(),userInfo.getId().intValue());
 
         //2.当前的查询数据为空，则直接返回null
 //        if(CollectionUtils.isEmpty(reportInfoVoList)){

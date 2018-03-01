@@ -24,7 +24,8 @@ public interface ReportInfoMapper{
      * @return
      */
     public List<ReportInfoVo> getReportInfoVoList(
-            @Param("reportStatus")Integer reportStatus
+            @Param("reportStatus")Integer reportStatus,
+            @Param("chargeUserId")Integer chageUserId
     );
 
     /**

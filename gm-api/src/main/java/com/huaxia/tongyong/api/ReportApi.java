@@ -67,6 +67,7 @@ public class ReportApi {
             @ApiParam("reportIds，多条移交时，id以逗号隔开")@RequestParam("reportIds")String reportId
     ){
         //1.查询日报信息
+
         boolean flag = reportBiz.transferReport(userId,reportId);
 
         return new JsonResult();

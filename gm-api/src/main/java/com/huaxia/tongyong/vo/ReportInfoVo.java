@@ -33,6 +33,9 @@ public class ReportInfoVo {
      */
     Integer reportTypeCode;
 
+    /**已读状态：1，已读 0 未读**/
+    private Integer readStatus;
+
     private void setReportTypeCode(Integer reportTypeCode){
         this.reportTypeCode = reportTypeCode;
         this.reportTypeName = ReportTypeEnum.valuesOf(reportTypeCode).getName();

@@ -47,7 +47,8 @@
 			id reportId,
 			report_name reportName,
 			report_type reportTypeCode,
-			DATE_FORMAT(create_time,'%Y-%m-%d') createTime
+			DATE_FORMAT(create_time,'%Y-%m-%d') createTime,
+            read_status as readStatus
 		FROM
 			t_report_info
 		WHERE
@@ -55,6 +56,9 @@
 			<if test="reportStatus !=null">
 				and report_status = #{reportStatus}
 			</if>
+            <if test="chargeUserId !=null">
+                and charge_user_id =#{chargeUserId}
+            </if>
 	</select>
     <select id="selectReportInfoList" resultType="com.huaxia.tongyong.model.ReportInfo">
 		SELECT
