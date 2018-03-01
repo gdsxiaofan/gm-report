@@ -73,6 +73,7 @@
 		WHERE
 			read_status =0
 			and charge_user_id=#{userId}
+			and delete_status =1
 	</select>
 
 	<!--删除：根据主键ID删除-->
