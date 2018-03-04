@@ -8,12 +8,12 @@
 
     <template v-if="current===1">
       <mt-cell>
-        <div slot="title">
-          <mt-button type="default"
-                     @click="allCheck"
-                     style="margin: 1rem;margin-left: 3rem;width: 5rem">{{isAllCheck?'取消':'全选'}}
-          </mt-button>
-        </div>
+        <!--<div slot="title">-->
+          <!--<mt-button type="default"-->
+                     <!--@click="allCheck"-->
+                     <!--style="margin: 1rem;margin-left: 3rem;width: 5rem">{{isAllCheck?'取消':'全选'}}-->
+          <!--</mt-button>-->
+        <!--</div>-->
         <div>
           <mt-button type="primary"
                      @click="current=2"
@@ -27,11 +27,16 @@
           :bottom-all-loaded="allLoaded"
           :auto-fill="false"
           ref="loadmore">
-          <mt-checklist
-            title="复选框列表"
-            v-model="value"
-            :options="options">
-          </mt-checklist>
+          <!--<mt-checklist-->
+            <!--title="复选框列表"-->
+            <!--v-model="value"-->
+            <!--:options="options">-->
+          <!--</mt-checklist>-->
+          <mt-cell v-for="n in list"
+                   :key="n.id">
+            <div slot="title">{{n.reportName }}<br><span style="font-size: 0.6rem">{{n.createTime}}</span></div>
+            <div>{{n.reportTypeName}}</div>
+          </mt-cell>
         </loadmore>
 
       </div>
@@ -76,7 +81,7 @@
         queryForPage: {
           total: 0,
           pageNum: 1,
-          pageSize: 10
+          pageSize: 0
 
         },
         groupName: '',
@@ -116,7 +121,7 @@
           });
           return
         }
-        let ids = this.value.join(",")
+        let ids = this.list.map(x=>x.reportId).join(",")
         transferReport(this.userId, ids).then(res => {
           Toast({
             message: '操作成功',
