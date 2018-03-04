@@ -132,17 +132,17 @@ public class AttendanceRecordApi {
             else{
                 jsonResult.setCode(0);
                 jsonResult.setData(new PageInfo<>(new ArrayList<>()));
-                jsonResult.setMessage("api未查询到数据");
+                jsonResult.setMessage("还未录入工时");
             }
         }catch(RuntimeException re){
-            log.error("api查询考勤记录失败：{}", re.getStackTrace());
+            log.error("查询考勤记录失败：{}", re.getStackTrace());
             jsonResult.setCode(0);
             jsonResult.setMessage(re.getMessage());
         }
         catch(Exception e){
-            log.error("api查询考勤记录失败：{}", e.getStackTrace());
+            log.error("查询考勤记录失败：{}", e.getStackTrace());
             jsonResult.setCode(0);
-            jsonResult.setMessage("api查询考勤记录失败");
+            jsonResult.setMessage("查询考勤记录失败");
         }
         return jsonResult;
     }
