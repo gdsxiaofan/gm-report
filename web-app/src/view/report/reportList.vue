@@ -20,6 +20,7 @@
                :key="n.id">
         <div slot="title">{{n.reportName }}<br><span style="font-size: 0.6rem">{{n.createTime}}</span></div>
         <div>{{n.reportTypeName}}</div>
+        <mt-badge v-if="n.readStatus===0" type="error">&nbsp</mt-badge>
       </mt-cell>
     </loadmore>
     </div>
