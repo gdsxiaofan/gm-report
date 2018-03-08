@@ -73,10 +73,10 @@
 		WHERE
 		ui.delete_status =1
 			<if test="employeeNo!=null and employeeNo!=''">
-				ui.employee_no = #{employeeNo}
+			AND 	ui.employee_no LIKE concat("%",#{employeeNo},"%")
 			</if>
 			<if test="userName!=null and userName!=''">
-				ui.name = #{userName}
+			and	ui.name LIKE concat("%",#{userName},"%")
 			</if>
 	</select>
 	<select id="getUserInfoByGroupId" resultType="com.huaxia.tongyong.vo.UserInfoVo">

@@ -228,7 +228,7 @@
                   },
                   on: {
                     click: () => {
-                      this.$refs['user'].resetFields()
+                      // this.$refs['user'].resetFields()
                       this.userInfo.id = params.row.id
                       this.userInfo.name = params.row.name
                       this.userInfo.employeeNo = params.row.employeeNo
