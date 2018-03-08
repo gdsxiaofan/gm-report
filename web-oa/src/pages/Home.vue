@@ -168,7 +168,15 @@
             'orderTop': 1,
             'parentId': 0,
             'deleteStatus': 1
-          },  {
+          }, {
+            'id': 110,
+            'name': '文件下载',
+            'href': '',
+            'icon': '',
+            'orderTop': 1,
+            'parentId': 0,
+            'deleteStatus': 1
+          }, {
             'id': 112,
             'name': '用户管理',
             'href': '/userRole',
@@ -199,6 +207,14 @@
             'icon': '',
             'orderTop': 2,
             'parentId': 109,
+            'deleteStatus': 1
+          },{
+            'id': 116,
+            'name': '文件下载',
+            'href': '/fileLoad',
+            'icon': '',
+            'orderTop': 2,
+            'parentId': 110,
             'deleteStatus': 1
           }],
         userName: '',

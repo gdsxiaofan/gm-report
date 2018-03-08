@@ -24,6 +24,8 @@ const attendance = resolve => require(['./pages/role/attendance.vue'], resolve)
 const device = resolve => require(['./pages/role/device.vue'], resolve)
 /*用户角色管理*/
 const ShowUser = resolve => require(['./pages/role/ShowUser.vue'], resolve)
+/*文件下载*/
+const fileLoad = resolve => require(['./pages/role/fileLoad.vue'], resolve)
 
 let routes = [
   {
@@ -39,6 +41,7 @@ let routes = [
       {path: 'device', meta: {title: '设备管理'}, icon: 'ios-home', component: device},
       {path: 'attendance', meta: {title: '考勤管理'}, icon: 'ios-home', component: attendance},
       {path: 'userRole', meta: {title: '用户管理'}, icon: 'ios-home', component: ShowUser},
+      {path: 'fileLoad', meta: {title: '文件下载'}, icon: 'ios-home', component: fileLoad},
 
 
     ]

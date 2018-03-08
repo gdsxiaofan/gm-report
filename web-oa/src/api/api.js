@@ -39,3 +39,11 @@ export function getLevels() {
     params:{optionType:0}
   })
 }
+//获取用户相关信息（菜单，个人信息等）
+export function getDictionaryInfoByType(type) {
+  return fetch({
+    url: `/v1/dictionary/get`,
+    method: 'get',
+    params:{type}
+  })
+}
