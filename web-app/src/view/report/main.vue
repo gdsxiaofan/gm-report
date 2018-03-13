@@ -8,7 +8,7 @@
       <!--<img slot="icon" src="../../assets/img/1.jpg" width="24" height="24">-->
     </mt-cell>
     <mt-cell   title="日报交接"   is-link to="reportTransfer"></mt-cell>
-    <!--<mt-cell   title="文件下载"   is-link to="reportDown"></mt-cell>-->
+    <mt-cell   title="文件下载"   is-link to="reportDown"></mt-cell>
     <mt-cell   title="考勤管理"     is-link to="attence"></mt-cell>
     <nav-bar></nav-bar>
   </div>
