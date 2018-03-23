@@ -1,7 +1,6 @@
 package com.huaxia.tongyong.param;
 
 import lombok.Data;
-import org.dozer.Mapping;
 
 /**
  * @Description: 故障记录录入参数
@@ -45,6 +44,10 @@ public class FaultParam {
      * 停线时间
      */
     String stopTime;
+    /**
+     * 停线时长
+     */
+    Integer stopTimeSpan;
     /**
      * 处理人
      */

@@ -22,6 +22,8 @@
 		<result property="areaName" column="area_name" />
 		<!--停线时间-->
 		<result property="stopTime" column="stop_time" />
+		<!--停线时长-->
+		<result property="stopTimeSpan" column="stop_time_span" />
 		<!--创建时间-->
 		<result property="createTime" column="create_time" />
 		<!--更新时间-->
@@ -33,7 +35,7 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-		id,	report_id,	device_id,device_name,	device_fault,	deal_method,	area_id,	area_name,	stop_time,	create_time,	update_time,	delete_status
+		id,	report_id,	device_id,device_name,	device_fault,	deal_method,	area_id,	area_name,	stop_time,  stop_time_span,	create_time,	update_time,	delete_status
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
@@ -53,7 +55,8 @@
 			deal_method dealMethod,
 			area_id areaId,
 			area_name areaName,
-			stop_time stopTime
+			stop_time stopTime,
+			stop_time_span stopTimeSpan
 		FROM
 			t_report_fault
 		<where>
@@ -75,7 +78,8 @@
 			rf.deal_method as dealMethod,
 			rf.area_id as areaId,
 			rf.area_name as areaName,
-			rf.stop_time as stopTime
+			rf.stop_time as stopTime,
+			rf.stop_time_span as stopTimeSpan
 		FROM
 		t_report_fault rf
 		JOIN t_report_info ri ON rf.report_id = ri.id
@@ -101,9 +105,9 @@
 	<!-- 添加 -->
 	<insert id="insert" parameterType="com.huaxia.tongyong.model.ReportFault">
 		INSERT INTO t_report_fault
-		(id,report_id,device_name,device_fault,deal_method,area_id,area_name,stop_time,create_time,update_time,delete_status)
+		(id,report_id,device_name,device_fault,deal_method,area_id,area_name,stop_time,stop_time_span,create_time,update_time,delete_status)
 		VALUES
-		(#{id},#{reportId},#{deviceName},#{deviceFault},#{dealMethod},#{areaId},#{areaName},#{stopTime},#{createTime},#{updateTime},#{deleteStatus})
+		(#{id},#{reportId},#{deviceName},#{deviceFault},#{dealMethod},#{areaId},#{areaName},#{stopTime},#{stopTimeSpan},#{createTime},#{updateTime},#{deleteStatus})
 	</insert>
 
 	<!-- 添加 （匹配有值的字段）-->
@@ -136,6 +140,9 @@
 			</if>
 			<if test="stopTime != null">
 				stop_time,
+			</if>
+			<if test="stopTimeSpan != null">
+				stop_time_span,
 			</if>
 			<if test="createTime != null">
 				create_time,
@@ -175,6 +182,9 @@
 			</if>
 			<if test="stopTime!=null">
 				#{stopTime},
+			</if>
+			<if test="stopTimeSpan!=null">
+				#{stopTimeSpan},
 			</if>
 			<if test="createTime!=null">
 				#{createTime},
@@ -216,6 +226,9 @@
 			<if test="stopTime != null">
 				stop_time = #{stopTime},
 			</if>
+			<if test="stopTimeSpan != null">
+				stop_time_span = #{stopTimeSpan},
+			</if>
 			<if test="createTime != null">
 				create_time = #{createTime},
 			</if>
@@ -241,6 +254,7 @@
 		area_id = #{areaId},
 		area_name = #{areaName},
 		stop_time = #{stopTime},
+		stop_time_span = #{stopTimeSpan},
 		create_time = #{createTime},
 		update_time = #{updateTime},
 		delete_status = #{deleteStatus}

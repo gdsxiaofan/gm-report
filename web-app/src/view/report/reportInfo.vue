@@ -15,6 +15,7 @@
       <mt-field :key="3" :disabled="!abled" label="区域" placeholder=""  v-model="report.areaName"></mt-field>
       <mt-field :key="4" :disabled="!abled" label="停线时间" placeholder="" @click.native="$refs.picker.open()"
                 :value="report.stopTime"></mt-field>
+      <mt-field :key="11" :disabled="!abled" type="number" label="停线时长" placeholder=""  v-model="report.stopTimeSpan"></mt-field>
     </template>
 
 
@@ -44,11 +45,9 @@
 
     <mt-datetime-picker
       ref="picker"
-      type="datetime"
+      type="date"
       month-format="{value} 月"
       date-format="{value} 日"
-      hourFormat="{value} 时"
-      minuteFormat="{value} 分"
       @confirm="confirm">
     </mt-datetime-picker>
   </div>
@@ -80,7 +79,8 @@
         report: {
           id: '',
           reportType: 1,
-          stopTime: formatData.call(new Date(), 'yyyy-MM-dd hh:mm:ss'),
+          stopTime: formatData.call(new Date(), 'yyyy-MM-dd'),
+          stopTimeSpan:0,
           deviceName: '',
           deviceId: 0,
           deviceFault: '',
