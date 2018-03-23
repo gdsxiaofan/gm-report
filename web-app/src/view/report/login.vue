@@ -30,7 +30,7 @@
         </div>
       </section>
       <section>
-        <mt-button style="background: #26a2ff" @click="loginSubmit">登录</mt-button>
+        <mt-button nativeType="button" style="background: #26a2ff" @click="loginSubmit">登录</mt-button>
       </section>
       <!--<section class="test">-->
       <!--<p>测试：</p>-->

@@ -15,7 +15,7 @@
       <mt-field :key="3" :disabled="!abled" label="区域" placeholder=""  v-model="report.areaName"></mt-field>
       <mt-field :key="4" :disabled="!abled" label="停线时间" placeholder="" @click.native="$refs.picker.open()"
                 :value="report.stopTime"></mt-field>
-      <mt-field :key="11" :disabled="!abled" type="number" label="停线时长" placeholder=""  v-model="report.stopTimeSpan"></mt-field>
+      <mt-field :key="11" :disabled="!abled" type="number" label="停线时长" placeholder=""  v-model="report.stopTimeSpan">小时</mt-field>
     </template>
 
 
