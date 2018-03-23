@@ -38,7 +38,7 @@ public class ReportFault{
 	/**
 	 * 停线时长
 	 */
-	private Integer stopTimeSpan;
+	private String stopTimeSpan;
 
 	/**创建时间**/
 	private java.util.Date createTime;

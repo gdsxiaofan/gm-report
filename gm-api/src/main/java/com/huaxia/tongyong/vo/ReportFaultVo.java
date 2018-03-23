@@ -35,5 +35,5 @@ public class ReportFaultVo {
     /**停线时间**/
     private String stopTime;
     /**停线时长**/
-    private Integer stopTimeSpan;
+    private String stopTimeSpan;
 }

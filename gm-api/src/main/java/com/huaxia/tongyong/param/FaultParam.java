@@ -47,7 +47,7 @@ public class FaultParam {
     /**
      * 停线时长
      */
-    Integer stopTimeSpan;
+    String stopTimeSpan;
     /**
      * 处理人
      */
